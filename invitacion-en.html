@@ -221,15 +221,6 @@ footer a{color:var(--gold-lo);text-decoration:none}
       <div class="res" id="res"><div class="tbl"><small>Table</small><b>7</b></div><p><b>Raquel Cohen</b><br>Table 7 · Garden<br>Next to the dance floor</p></div>
     </div>
   </section>
-  <section id="fotos">
-    <p class="ey reveal">Every moment</p>
-    <h2 class="reveal">Share your photos</h2>
-    <div class="pcard reveal">
-      <div class="qr"><canvas id="qr" width="29" height="29"></canvas><i></i></div>
-      <p class="lead">Scan the code and upload your photos. Everyone can see them in the wedding album.</p>
-      <div class="photos"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-    </div>
-  </section>
   <section id="rsvp">
     <p class="ey reveal">RSVP</p>
     <h2 class="reveal">Will you join us?</h2>
@@ -278,10 +269,6 @@ var MAX=2,o=document.getElementById('ppl'),cu=document.getElementById('cupo');
 document.getElementById('plus').addEventListener('click',function(){if(+o.textContent<MAX){o.textContent=+o.textContent+1;}else{cu.style.color='#C4006B';setTimeout(function(){cu.style.color=''},900);}});
 document.getElementById('minus').addEventListener('click',function(){if(+o.textContent>1)o.textContent=+o.textContent-1;});
 document.getElementById('go').addEventListener('click',function(){var cd=document.querySelector('#rsvp .pcard');cd.style.minHeight=cd.offsetHeight+'px';cd.style.display='flex';cd.style.alignItems='center';cd.style.justifyContent='center';document.getElementById('form').style.display='none';document.getElementById('done').classList.add('on');});
-var c=document.getElementById('qr'),x=c.getContext('2d'),n=29,seed=7;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}
-x.fillStyle='#2F3129';for(var i=0;i<n;i++)for(var j=0;j<n;j++){if(r()>.52)x.fillRect(i,j,1,1);}
-function eye(a,b){x.fillStyle='#fff';x.fillRect(a-1,b-1,9,9);x.fillStyle='#2F3129';x.fillRect(a,b,7,7);x.fillStyle='#fff';x.fillRect(a+1,b+1,5,5);x.fillStyle='#C4006B';x.fillRect(a+2,b+2,3,3);}
-eye(0,0);eye(n-7,0);eye(0,n-7);
 if(location.search.indexOf('rec')>-1){document.querySelector('.demo').style.display='none';document.addEventListener('pointerdown',function(e){var d=document.createElement('div');d.className='tapdot';d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';document.body.appendChild(d);setTimeout(function(){d.remove()},700)},true);}
 })();
 </script>
