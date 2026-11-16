@@ -153,24 +153,39 @@ footer a{color:var(--gold-lo);text-decoration:none}
 .demo{position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:30;background:rgba(47,49,41,.82);color:#F8F6F1;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:999px;pointer-events:none;white-space:nowrap}
 .tapdot{position:fixed;z-index:9999;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(196,0,107,.2);border:2px solid rgba(196,0,107,.5);pointer-events:none;animation:tapd .55s ease-out forwards}
 @keyframes tapd{from{transform:scale(.4);opacity:1}to{transform:scale(1.4);opacity:0}}
+
+/* photo cover */
+#cover.photo{padding:0;display:block;background:#EFEBE4}
+#cover.photo .ph{position:absolute;inset:0;background:url(sobre-m.jpg) 50.2% 60.3%/cover no-repeat;transition:transform 1.6s cubic-bezier(.4,0,.2,1),filter 1.2s}
+@media (min-width:900px){#cover.photo .ph{background-image:url(sobre.jpg)}}
+#cover.photo .flash{position:absolute;inset:0;background:radial-gradient(circle at var(--sx,50%) var(--sy,60%),#FFFDF9 0%,rgba(255,253,249,.9) 30%,rgba(255,253,249,0) 70%);opacity:0;transition:opacity 1s .35s}
+#cover.photo .ptop{position:absolute;left:0;right:0;top:max(44px,4vh);text-align:center;display:flex;flex-direction:column;gap:8px;transition:opacity .5s}
+#cover.photo .ptop .n{font-family:'IS',Georgia,serif;font-style:italic;font-size:36px;margin:0;color:#6F5726;text-shadow:0 0 10px rgba(255,253,249,.9),0 0 22px rgba(255,253,249,.9)}
+#cover.photo .ptop .ey{text-shadow:0 0 10px rgba(255,253,249,.95)}
+#cover.photo .ptap{position:absolute;left:0;right:0;bottom:8vh;margin:0;text-align:center;font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:#4E5045;text-shadow:0 0 10px rgba(255,253,249,.95),0 0 18px rgba(255,253,249,.9);transition:opacity .4s}
+.pseal{position:absolute;border:0;padding:0;background:transparent;cursor:pointer;border-radius:50%;-webkit-tap-highlight-color:transparent}
+.pseal::after{content:"";position:absolute;inset:-6%;border-radius:50%;border:1.5px solid rgba(255,253,249,.9);box-shadow:0 0 18px rgba(184,145,58,.35);animation:ring 2.8s ease-out infinite}
+.pseal .h{position:absolute;inset:0;background:url(sello-foto.png) center/100% 100% no-repeat;transition:transform .8s cubic-bezier(.5,0,.2,1),opacity .8s}
+.pseal .ha{clip-path:polygon(0 0,57% 0,45% 50%,55% 100%,0 100%)}
+.pseal .hb{clip-path:polygon(57% 0,100% 0,100% 100%,55% 100%,45% 50%)}
+#cover.open .pseal{pointer-events:none}
+#cover.open .pseal::after{display:none}
+#cover.open .pseal .ha{transform:translate(-34%,26%) rotate(-24deg);opacity:0}
+#cover.open .pseal .hb{transform:translate(34%,30%) rotate(22deg);opacity:0}
+#cover.open .flash{opacity:1}
+#cover.open .ph{transform:scale(1.12);filter:blur(1.5px) brightness(1.08)}
+#cover.open .ptop,#cover.open .ptap{opacity:0}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.foil{animation:none}}
 </style>
 </head>
 <body>
 <div class="demo">Invitación de muestra</div>
-<div id="cover" class="grain">
-  <div class="corner tl"></div><div class="corner br"></div>
-  <div class="top"><p class="ey">Nuestra boda</p><p class="n foil">Itzjak &amp; Sara</p></div>
-  <div class="env" id="env">
-    <div class="back"></div>
-    <div class="liner"></div>
-    <div class="card"><div class="cmono"><img src="monograma-is.png" alt=""></div><p class="cn foil">Itzjak &amp; Sara</p><p class="cd8">13 · 03 · 2027</p></div>
-    <div class="pocket"><i class="l"></i><i class="r"></i><i class="b"></i></div><svg class="seam" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="1.5,98 50,47 98.5,98" fill="none" stroke="#B8913A" stroke-opacity=".6" stroke-width=".6" vector-effect="non-scaling-stroke"/></svg>
-    <div class="flap"><i class="fr"></i><i class="bk"></i><svg class="flapline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="3,0 50,93 97,0" fill="none" stroke="#B8913A" stroke-width=".6" vector-effect="non-scaling-stroke"/></svg></div>
-    <div class="gold-edge"></div>
-    <button class="seal" id="seal" aria-label="Abrir"><span class="w wa"><img src="sello-is.png" alt=""></span><span class="w wb"><img src="sello-is.png" alt=""></span></button>
-  </div>
-  <p class="tap">Toca el sello para abrir</p>
+<div id="cover" class="photo">
+  <div class="ph" id="ph"></div>
+  <div class="flash"></div>
+  <div class="ptop"><p class="ey">Nuestra boda</p><p class="n">Itzjak &amp; Sara</p></div>
+  <button class="pseal" id="seal" aria-label="Abrir"><span class="h ha"></span><span class="h hb"></span></button>
+  <p class="ptap">Toca el sello para abrir</p>
 </div>
 <button type="button" class="music" id="music" aria-label="Música"><i></i><i></i><i></i></button>
 <audio id="song" src="tihiye-letamid.mp3" loop preload="auto"></audio>
@@ -239,12 +254,13 @@ document.getElementById('d').textContent=d;document.getElementById('h').textCont
 tick();setInterval(tick,1000);
 document.body.style.overflow='hidden';
 var cover=document.getElementById('cover');
+function place(){var W=innerWidth,H=innerHeight,sc=Math.max(W/1536,H/1024),ox=(W-1536*sc)*.502,oy=(H-1024*sc)*.603,sx=ox+771*sc,sy=oy+617*sc,sz=300*sc,b=document.getElementById('seal');
+ b.style.left=(sx-sz/2)+'px';b.style.top=(sy-sz/2)+'px';b.style.width=sz+'px';b.style.height=sz+'px';cover.style.setProperty('--sx',sx+'px');cover.style.setProperty('--sy',sy+'px');}
+place();addEventListener('resize',place);
 document.getElementById('seal').addEventListener('click',function(){
   cover.classList.add('open');
-  setTimeout(function(){cover.classList.add('flapback')},850);
-  setTimeout(function(){cover.classList.add('rise')},1150);
-  setTimeout(function(){cover.classList.add('gone');document.body.style.overflow='';reveal();},2350);
-  setTimeout(function(){cover.style.display='none'},3500);
+  setTimeout(function(){cover.classList.add('gone');document.body.style.overflow='';reveal();},1500);
+  setTimeout(function(){cover.style.display='none'},2700);
   var mu=document.getElementById('music');mu.classList.add('on');
   var sg=document.getElementById('song');sg.volume=0;
   sg.play().then(function(){var v=0,iv=setInterval(function(){v=Math.min(1,v+.05);sg.volume=v;if(v>=1)clearInterval(iv);},90);}).catch(function(){mu.classList.add('off');});
