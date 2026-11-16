@@ -40,7 +40,7 @@ body{overflow-x:hidden;background:#EFE9DE}
 .card{position:absolute;left:7%;right:7%;top:9%;height:84%;z-index:2;background:var(--paper);border-radius:3px;box-shadow:0 10px 24px -14px rgba(60,50,30,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:transform 1.2s cubic-bezier(.3,.7,.2,1);padding:10px}
 .card::before{content:"";position:absolute;inset:7px;border:1px solid rgba(184,145,58,.55)}
 .card::after{content:"";position:absolute;inset:11px;border:.5px solid rgba(184,145,58,.35)}
-.card .cmono{width:64px;height:64px}.card .cmono img{width:100%;height:100%}
+.card .cmono{width:64px;height:64px;filter:drop-shadow(0 4px 6px rgba(80,60,30,.25))}.card .cmono img{width:100%;height:100%}
 .card .cn{font-family:'IS',Georgia,serif;font-style:italic;font-size:26px;line-height:1}
 .card .cd8{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage-ink)}
 .env .pocket{position:absolute;inset:0;z-index:3;pointer-events:none}
@@ -55,12 +55,14 @@ body{overflow-x:hidden;background:#EFE9DE}
 .env .flapline{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden}
 .env .seam{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 .env .gold-edge{display:none;position:absolute;left:0;right:0;top:0;height:58%;z-index:4;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(184,145,58,.55),transparent);clip-path:polygon(0 0,1.2% 0,50% 98%,98.8% 0,100% 0,50% 100%);transition:opacity .3s}
-.seal{position:absolute;left:50%;top:58%;width:104px;height:104px;margin:-52px 0 0 -52px;z-index:6;border:0;padding:0;cursor:pointer;border-radius:50%;background:transparent;animation:beat 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.seal{position:absolute;left:50%;top:58%;width:112px;height:112px;margin:-56px 0 0 -56px;z-index:6;border:0;padding:0;cursor:pointer;border-radius:50%;background:transparent;animation:beat 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
 .seal .w{position:absolute;inset:0;transition:transform .6s cubic-bezier(.5,0,.2,1),opacity .6s}
 .seal .w img{width:100%;height:100%;display:block}
 .seal .w.wa{clip-path:polygon(0 0,58% 0,44% 50%,56% 100%,0 100%)}
 .seal .w.wb{clip-path:polygon(58% 0,100% 0,100% 100%,56% 100%,44% 50%)}
 .seal b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IS',Georgia,serif;font-style:italic;font-weight:400;font-size:27px;color:#FFE2F0;text-shadow:0 -1px 0 rgba(90,0,45,.6),0 1px 0 rgba(255,200,230,.35);transition:opacity .3s}
+.seal::before{content:"";position:absolute;left:10%;right:10%;top:22%;bottom:-2%;border-radius:50%;background:rgba(80,60,30,.35);filter:blur(8px);transition:opacity .4s}
+#cover.open .seal::before{opacity:0}
 .seal::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1.5px solid rgba(184,145,58,.55);animation:ring 2.8s ease-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}8%{transform:scale(1.07)}16%{transform:scale(1)}}
 @keyframes ring{0%,6%{opacity:0;transform:scale(1)}10%{opacity:.9}45%,100%{opacity:0;transform:scale(1.55)}}
@@ -81,7 +83,7 @@ section{position:relative;padding:60px 30px;text-align:center;overflow:hidden}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:170px 30px 180px}
 .frame{position:absolute;inset:14px;border:1px solid rgba(184,145,58,.55);pointer-events:none}
 .frame::after{content:"";position:absolute;inset:5px;border:.5px solid rgba(184,145,58,.35)}
-.mono{width:132px;height:132px;margin-bottom:-2px}
+.mono{width:120px;height:120px;margin-bottom:4px;filter:drop-shadow(0 10px 14px rgba(80,60,30,.25))}
 .mono img{width:100%;height:100%;display:block}
 .lead{font-size:14.5px;color:var(--sage-ink);line-height:1.65;max-width:26em;margin:0 auto}
 .names{font-size:64px;line-height:.95;font-style:italic;margin:4px 0 0}
