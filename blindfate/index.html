@@ -116,6 +116,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .empty{font-size:13px;color:var(--sage);font-style:italic}
 
 /* phone */
+.phone{position:relative;margin-top:44px}
+.phone::before{content:"✦  Interactive preview · tap, type & play";position:absolute;top:-34px;left:0;right:0;text-align:center;font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--rosa-ink);white-space:nowrap}
+.play-note{font-family:var(--f-display);font-style:italic;font-size:19px;color:var(--gold-lo);margin:0}
 .phone{width:100%;max-width:390px;margin:0 auto;background:#211d18;border-radius:44px;padding:11px;box-shadow:0 40px 80px -30px rgba(47,49,41,.45),inset 0 0 0 1px #4a4136}
 .screen{position:relative;background:var(--ivory);border-radius:34px;height:760px;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
 .screen::-webkit-scrollbar{display:none}
@@ -309,7 +312,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <header class="top">
   <a class="brand" href="#top"><img src="vx.png" alt=""><span>Vita Experience × <b>BlindFate</b></span></a>
   <nav class="toc">
-    <a href="#gift">The Preview</a><a href="#single">Single?</a><a href="#wall">The Wall</a><a href="#anniversary">Anniversary</a><a href="#events">Events</a>
+    <a href="#gift">The Preview</a><a href="#wall">The Wall</a><a href="#anniversary">Anniversary</a><a href="#events">Events</a>
   </nav>
 </header>
 
@@ -326,8 +329,9 @@ button,input,select,textarea{font:inherit;color:inherit}
     <p class="eyebrow c">A partnership proposal</p>
     <h1 class="display">From blind date<br>to <span class="foil">Save the Date.</span></h1>
     <p class="lead">Rivkah brings two people together in a group chat. Vita Experience makes sure the whole world sees how the story ends, and every wedding brings the next couple to BlindFate.</p>
+    <p class="play-note">Every phone on this page is a live preview. Tap, type and play.</p>
     <a class="btn btn-pri" href="#gift">See how it works</a>
-    <div class="marks"><span>The engagement preview</span><span>Single at this wedding?</span><span>The BlindFate Wall</span><span>Match anniversary</span><span>Event seating</span></div>
+    <div class="marks"><span>The engagement preview</span><span>“Single?” RSVP</span><span>The BlindFate Wall</span><span>Match anniversary</span><span>Event seating</span></div>
   </div>
 </section>
 
@@ -424,54 +428,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 </div>
 </section>
 
-<!-- 02 SINGLE -->
-<section class="ch" id="single">
-<div class="wrap">
-  <div class="ch-head reveal">
-    <div class="ch-num">02</div>
-    <div>
-      <p class="eyebrow">Single at this wedding?</p>
-      <h2 class="display">The matchmaker<br><span class="foil">is in the room.</span></h2>
-      <p class="lead">At every BlindFate wedding, an elegant card on each table invites single guests to scan and apply. The happiest room of the year becomes Rivkah's best place to meet her next singles.</p>
-    </div>
-  </div>
-  <div class="grid2" style="grid-template-columns:minmax(0,1fr) minmax(0,320px);align-items:center">
-    <div class="tc-stage reveal">
-      <div class="tent small"><div class="tn">Table 7</div><h5>Welcome</h5><p>Leah &amp; David</p></div>
-      <div class="tent">
-        <div class="tn">Table 12</div>
-        <h5>Single?<br><span class="foil">Fate is at table 12.</span></h5>
-        <p>The couple you're celebrating was matched by Rivkah Fox. Scan to be next.</p>
-        <div class="qr" id="qrSingle"></div>
-        <div class="by">Matched by <i>BlindFate</i> · Vita Experience</div>
-      </div>
-    </div>
-    <div class="phone mini-phone reveal"><div class="screen">
-      <span class="notch"></span>
-      <div class="sf">
-        <span class="bf-badge"><i></i><em>BlindFate</em></span>
-        <h6>At Leah &amp; David's wedding and single?</h6>
-        <p>Tell Rivkah a little about you. She'll be in touch after the celebration.</p>
-        <form id="sForm" style="text-align:left;margin-top:14px">
-          <label class="lbl">Name</label><input class="inp" id="sN" placeholder="Your name" required>
-          <label class="lbl">I'm a</label>
-          <div class="chips" id="sG"><button type="button" class="on">Woman</button><button type="button">Man</button></div>
-          <label class="lbl">Age</label>
-          <div class="chips" id="sAge"><button type="button">21–25</button><button type="button" class="on">26–30</button><button type="button">31–35</button><button type="button">36+</button></div>
-          <button class="btn btn-pri full" style="margin-top:18px" type="submit">Match me</button>
-        </form>
-        <div class="thanks" id="sThx"></div>
-      </div>
-    </div></div>
-  </div>
-</div>
-</section>
-
 <!-- 03 WALL -->
 <section class="ch" id="wall">
 <div class="wrap">
   <div class="ch-head reveal">
-    <div class="ch-num">03</div>
+    <div class="ch-num">02</div>
     <div>
       <p class="eyebrow">The BlindFate Wall</p>
       <h2 class="display">Every couple,<br><span class="foil">one wall of fate.</span></h2>
@@ -491,7 +452,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <section class="ch" id="anniversary">
 <div class="wrap">
   <div class="ch-head reveal">
-    <div class="ch-num">04</div>
+    <div class="ch-num">03</div>
     <div>
       <p class="eyebrow">The match anniversary</p>
       <h2 class="display">One year since<br><span class="foil">Rivkah left the chat.</span></h2>
@@ -527,7 +488,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <section class="ch" id="events">
 <div class="wrap">
   <div class="ch-head reveal">
-    <div class="ch-num">05</div>
+    <div class="ch-num">04</div>
     <div>
       <p class="eyebrow">BlindFate events</p>
       <h2 class="display">Upload the matches.<br><span class="foil">The tables set themselves.</span></h2>
@@ -592,7 +553,7 @@ button,input,select,textarea{font:inherit;color:inherit}
   <div class="steps">
     <div class="step reveal"><div class="n">i.</div><h4>A couple says yes</h4><p>Rivkah sends Vita their names and the name of their group chat. Vita prepares their personal preview.</p></div>
     <div class="step reveal"><div class="n">ii.</div><h4>They make it theirs</h4><p>The couple books their invitation with the exclusive BlindFate rate, and adds the date whenever they're ready.</p></div>
-    <div class="step reveal"><div class="n">iii.</div><h4>Everyone wins</h4><p>Rivkah earns a referral fee for every couple who books, and every guest meets BlindFate through the badge, the RSVP, the table cards, the Wall and the anniversaries.</p></div>
+    <div class="step reveal"><div class="n">iii.</div><h4>Everyone wins</h4><p>Rivkah earns a referral fee for every couple who books, and every guest meets BlindFate through the badge, the “Single?” RSVP, the Wall and the anniversaries.</p></div>
   </div>
   <div class="steps" style="margin-top:20px">
     <div class="step reveal"><p class="eyebrow">For the couple</p><h4>The BlindFate rate</h4><p>An exclusive price on a luxury invitation that already tells their story, in English, Hebrew or Spanish.</p></div>
@@ -672,17 +633,6 @@ $('rsvp').addEventListener('submit',e=>{
   $('thx').innerHTML=s?`<b>Thank you, ${esc(n)}</b>Your reply is in, and Rivkah's team at BlindFate will be in touch. The next invitation might be yours.`:`<b>Thank you, ${esc(n)}</b>Your reply is in. We can't wait to celebrate with you.`;
   if(s){addLead(n,'RSVP · NEW SINGLE');toast('A new single was sent to BlindFate')}
   $('rN').value='';$('rS').checked=false;
-});
-
-/* ===== 02 single ===== */
-function chips(id){$(id).querySelectorAll('button').forEach(b=>b.onclick=()=>{$(id).querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on')})}
-chips('sG');chips('sAge');
-$('sForm').addEventListener('submit',e=>{
-  e.preventDefault();const n=$('sN').value.trim();if(!n)return;
-  $('sForm').style.display='none';$('sThx').style.display='block';
-  $('sThx').innerHTML=`<b>You're on Rivkah's list, ${esc(n)}</b>Enjoy the wedding. She'll reach out soon.<br><button class="btn btn-line sm" style="margin-top:12px" type="button" id="sAgain">Try again</button>`;
-  addLead(n,'TABLE CARD · NEW SINGLE');toast('Lead captured from a table card');
-  $('sAgain').onclick=()=>{$('sForm').style.display='block';$('sThx').style.display='none';$('sN').value=''};
 });
 
 /* ===== 03 wall ===== */
@@ -781,7 +731,7 @@ $('fF').addEventListener('submit',e=>{
 /* QR codes */
 window.addEventListener('load',()=>{
   const mk=(id,url)=>{try{new QRCode($(id),{text:url,width:120,height:120,colorDark:'#2F3129',colorLight:'#ffffff'})}catch(e){}};
-  mk('qrSingle','https://join.blindfate.org');mk('qrEvent','https://blindfate.vitaexperience.studio/blindfate/#events');
+  mk('qrEvent','https://blindfate.vitaexperience.studio/blindfate/#events');
 });
 </script>
 </body>
