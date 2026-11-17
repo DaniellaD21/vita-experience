@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F6F1">
+<meta name="robots" content="noindex">
+<title>Vita Experience × BlindFate</title>
+<meta property="og:title" content="Vita Experience × BlindFate">
+<meta property="og:description" content="From blind date to Save the Date.">
+<link rel="icon" href="vx.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<style>
+:root{
+  --ivory:#F8F6F1; --paper:#FFFDF9; --sand:#D8CFC2; --sand-2:#E9E3D8; --sand-3:#F1ECE3;
+  --sage:#A5AA98; --sage-ink:#5E6253; --ink:#2F3129;
+  --gold:#B8913A; --gold-hi:#E6CF94; --gold-lo:#8E6F33; --line:rgba(184,145,58,.38); --line-soft:rgba(184,145,58,.2);
+  --rosa:#E4007C; --rosa-ink:#C4006B; --rosa-deep:#A8005C;
+  --bf:linear-gradient(90deg,#F06AA6,#F7934C);
+  --foil:linear-gradient(100deg,#8E6F33 0%,#D9B45B 30%,#B8913A 50%,#E6CF94 68%,#9C7A3A 100%);
+  --f-display:'Instrument Serif',Didot,Georgia,serif;
+  --f-body:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ivory);overflow-x:hidden}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 45% at 50% -8%,rgba(216,207,194,.9),transparent 70%),radial-gradient(ellipse 50% 40% at 100% 100%,rgba(165,170,152,.22),transparent 70%),radial-gradient(ellipse 40% 35% at 0% 100%,rgba(228,0,124,.06),transparent 70%),var(--ivory)}
+.bg::after{content:"";position:absolute;inset:0;opacity:.08;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.frame{position:fixed;inset:12px;border:1px solid var(--line);pointer-events:none;z-index:50}
+.frame::after{content:"";position:absolute;inset:4px;border:1px solid var(--line-soft)}
+.frame i{position:absolute;width:8px;height:8px;border:1px solid var(--gold);background:var(--ivory);transform:rotate(45deg)}
+.frame i:nth-child(1){top:-5px;left:-5px}.frame i:nth-child(2){top:-5px;right:-5px}.frame i:nth-child(3){bottom:-5px;left:-5px}.frame i:nth-child(4){bottom:-5px;right:-5px}
+.roses{position:absolute;pointer-events:none;background:url("roses.png") no-repeat;background-size:auto 100%;opacity:.95}
+main{position:relative;z-index:2}
+.wrap{max-width:1140px;margin:0 auto;padding:0 34px}
+a{color:var(--rosa-ink)}
+button,input,select,textarea{font:inherit;color:inherit}
+
+/* top */
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:linear-gradient(var(--ivory) 70%,rgba(248,246,241,0))}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand img{height:26px}
+.brand span{font-size:10.5px;font-weight:500;letter-spacing:.34em;text-transform:uppercase}
+.brand b{font-weight:500;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.toc{display:flex;gap:22px}
+.toc a{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-ink);text-decoration:none;font-weight:500}
+.toc a:hover{color:var(--rosa-ink)}
+@media(max-width:900px){.toc{display:none}}
+
+/* type */
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.36em;text-transform:uppercase;color:var(--gold-lo);margin:0;display:flex;align-items:center;gap:14px}
+.eyebrow.c{justify-content:center}
+.eyebrow::before,.eyebrow.c::after{content:"";width:34px;height:1px;background:var(--line)}
+.display{font-family:var(--f-display);font-weight:400;letter-spacing:-.012em;line-height:1.02;margin:0;text-wrap:balance}
+.foil{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:foil 9s ease-in-out infinite;font-style:italic;padding-inline-end:.06em}
+@keyframes foil{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.lead{color:var(--sage-ink);font-size:clamp(15.5px,1.6vw,17.5px);max-width:34em;margin:0;text-wrap:pretty}
+.bfword{background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 32px;border:0;border-radius:1px;cursor:pointer;text-decoration:none;font-size:11.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;transition:transform .2s ease,box-shadow .3s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-pri{background:var(--rosa-ink);color:var(--ivory);box-shadow:inset 0 0 0 1px rgba(230,207,148,.55),inset 0 0 0 5px var(--rosa-ink),inset 0 0 0 6px rgba(230,207,148,.45),0 14px 30px -14px rgba(196,0,107,.55)}
+.btn-gold{background:var(--ink);color:var(--gold-hi);box-shadow:inset 0 0 0 1px rgba(230,207,148,.4),inset 0 0 0 5px var(--ink),inset 0 0 0 6px rgba(230,207,148,.3)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.sm{min-height:44px;padding:0 20px;font-size:10.5px}
+.btn.full{width:100%}
+
+/* hero */
+.hero{position:relative;overflow:hidden;min-height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 0 80px}
+.hero .roses.a{top:-80px;left:-40px;width:520px;height:330px;background-position:left top}
+.hero .roses.b{bottom:0;right:-40px;width:520px;height:330px;background-position:right bottom}
+.hero-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px}
+.pair-logos{display:flex;align-items:center;gap:22px}
+.pair-logos img{width:150px;filter:drop-shadow(0 10px 18px rgba(142,111,51,.18))}
+.pair-logos .x{font-family:var(--f-display);font-style:italic;font-size:40px;color:var(--gold)}
+.bfmark{display:flex;flex-direction:column;align-items:center;justify-content:center;width:150px;height:150px;border-radius:50%;border:1px solid var(--line);background:var(--paper)}
+.bfmark b{font-family:var(--f-display);font-size:34px;font-weight:400;font-style:italic;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.bfmark span{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage-ink);margin-top:6px}
+.hero h1{font-size:clamp(46px,7.4vw,96px)}
+.hero .lead{text-align:center}
+.marks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 30px;margin-top:10px;padding-top:22px;border-top:1px solid var(--line);max-width:760px}
+.marks span{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage-ink);display:flex;align-items:center;gap:10px}
+.marks span::before{content:"";width:6px;height:6px;background:var(--rosa);transform:rotate(45deg)}
+
+/* chapters */
+.ch{position:relative;padding:110px 0;border-top:1px solid var(--line-soft)}
+.ch-head{display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;margin-bottom:54px;align-items:start}
+.ch-num{font-family:var(--f-display);font-size:92px;line-height:.8;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ch-head h2{font-size:clamp(36px,5vw,62px);margin:14px 0 16px}
+@media(max-width:700px){.ch-head{grid-template-columns:1fr}.ch-num{font-size:64px}}
+.grid2{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:56px;align-items:start}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);padding:30px;position:relative}
+.card::after{content:"";position:absolute;inset:5px;border:1px solid var(--line-soft);pointer-events:none}
+.card h3{font-family:var(--f-display);font-weight:400;font-size:30px;margin:0 0 6px;line-height:1.1}
+.card .sub{font-size:13.5px;color:var(--sage-ink);margin:0 0 18px}
+.lbl{display:block;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-ink);margin:16px 0 6px;font-weight:500}
+.inp{width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--ivory);font-size:14px;border-radius:1px;outline:none}
+.inp:focus{border-color:var(--gold)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:flex;border:1px solid var(--line);margin-top:6px}
+.seg button{flex:1;border:0;background:transparent;padding:12px 8px;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;color:var(--sage-ink);font-weight:500}
+.seg button.on{background:var(--ink);color:var(--gold-hi)}
+.why{margin-top:22px;padding:18px 20px;background:var(--sand-3);border-left:2px solid var(--gold);font-size:13.5px;color:var(--sage-ink)}
+.why b{color:var(--ink);font-weight:600}
+.empty{font-size:13px;color:var(--sage);font-style:italic}
+
+/* phone */
+.phone{width:100%;max-width:390px;margin:0 auto;background:#211d18;border-radius:44px;padding:11px;box-shadow:0 40px 80px -30px rgba(47,49,41,.45),inset 0 0 0 1px #4a4136}
+.screen{position:relative;background:var(--ivory);border-radius:34px;height:760px;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#211d18;border-radius:20px;z-index:5}
+
+/* envelope */
+.env{position:absolute;inset:0;z-index:4;background:var(--sand-3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;cursor:pointer;transition:opacity .9s ease,transform .9s ease}
+.env.open{opacity:0;transform:scale(1.06);pointer-events:none}
+.env .flap{width:280px;height:190px;position:relative;background:linear-gradient(160deg,#FFFDF9,#EFE7DA);box-shadow:0 20px 40px -18px rgba(47,49,41,.35);border:1px solid var(--line-soft)}
+.env .flap::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom right,transparent 49.6%,var(--line-soft) 50%,transparent 50.4%),linear-gradient(to bottom left,transparent 49.6%,var(--line-soft) 50%,transparent 50.4%);background-size:50% 100%;background-repeat:no-repeat;background-position:left,right}
+.seal{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E0287F,#A8005C 70%);box-shadow:0 6px 14px rgba(168,0,92,.45),inset 0 0 0 4px rgba(255,255,255,.08),inset 0 -6px 10px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.seal img{width:46px;filter:brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(-10deg) brightness(1.02);opacity:.92}
+.env p{margin:0;font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--sage-ink)}
+.env .to{font-family:var(--f-display);font-style:italic;font-size:24px;letter-spacing:0;text-transform:none;color:var(--ink)}
+
+/* invitation */
+.iv-hero{position:relative;text-align:center;padding:64px 26px 40px;overflow:hidden}
+.iv-hero .roses{width:330px;height:200px;opacity:.75}
+.iv-hero .roses.a{top:-30px;left:-60px;background-position:left top}
+.iv-hero .roses.b{bottom:-40px;right:-70px;background-position:right bottom}
+.bf-badge{position:relative;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--line);background:var(--paper);font-size:9px;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+.bf-badge i{width:7px;height:7px;border-radius:50%;background:var(--bf);display:inline-block}
+.bf-badge em{font-style:normal;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.iv-pre{position:relative;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-lo);margin:30px 0 8px}
+.iv-names{position:relative;font-family:var(--f-display);font-size:58px;line-height:1;margin:0}
+.iv-names .amp{display:block;font-style:italic;font-size:40px;margin:4px 0;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.iv-date{position:relative;margin:30px auto 0;max-width:270px;padding:18px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.iv-date small{display:block;font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--sage-ink)}
+.iv-date b{display:block;font-family:var(--f-display);font-weight:400;font-size:27px;margin-top:6px;line-height:1.15}
+.iv-date b.pending{font-style:italic;color:var(--rosa-ink)}
+.countd{position:relative;display:none;justify-content:center;gap:20px;margin-top:16px}
+.countd div{text-align:center}.countd b{display:block;font-family:var(--f-display);font-size:32px;font-weight:400;line-height:1}
+.countd span{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-ink)}
+.iv-sec{padding:38px 26px;text-align:center;border-top:1px solid var(--line-soft)}
+.iv-sec h4{font-family:var(--f-display);font-weight:400;font-size:30px;margin:6px 0 10px}
+.iv-sec p{font-size:13.5px;color:var(--sage-ink);margin:0}
+.iv-sec .eyebrow{justify-content:center;font-size:9.5px}
+.iv-sec .eyebrow::before{display:none}
+.chat{margin:20px 0 6px;background:#EDE6DA;border:1px solid var(--line-soft);padding:16px 14px;text-align:left}
+.chat .gn{text-align:center;font-size:11.5px;font-weight:600;margin-bottom:12px}
+.chat .gn small{display:block;font-weight:400;font-size:9.5px;color:var(--sage-ink)}
+.bub{background:#fff;border-radius:12px 12px 2px 12px;padding:10px 12px;font-size:12.5px;line-height:1.5;margin-left:18%;box-shadow:0 2px 6px rgba(47,49,41,.06)}
+.bub i{display:block;text-align:right;font-size:9.5px;color:var(--sage);font-style:normal;margin-top:4px}
+.left-pill{display:block;width:max-content;margin:12px auto 0;font-size:9.5px;letter-spacing:.1em;color:var(--sage-ink);border:1px solid var(--line);padding:4px 12px;border-radius:99px;background:var(--paper)}
+.stats{display:flex;justify-content:center;gap:26px;margin-top:20px}
+.stats div{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-ink);line-height:1.5}
+.stats b{display:block;font-family:var(--f-display);font-weight:400;font-size:34px;letter-spacing:0;color:var(--gold-lo);line-height:1}
+.rsvp{text-align:left;margin-top:16px}
+.single{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:14px;border:1px solid var(--line);background:var(--paper);cursor:pointer;text-align:left}
+.single input{accent-color:var(--rosa-ink);width:17px;height:17px;margin-top:2px;flex:none}
+.single span{font-size:12.5px;line-height:1.5}
+.thanks{display:none;margin-top:16px;padding:18px;border:1px solid var(--line);background:var(--paper);font-size:13px;line-height:1.6;text-align:center}
+.thanks b{font-family:var(--f-display);font-weight:400;font-size:22px;display:block;margin-bottom:4px}
+.iv-bf{padding:40px 26px;text-align:center;background:var(--ink);color:var(--ivory);position:relative}
+.iv-bf .q{font-family:var(--f-display);font-size:28px;line-height:1.15;margin:8px 0 10px}
+.iv-bf p{font-size:12.5px;color:var(--sand);margin:0}
+.iv-bf a{display:inline-flex;margin-top:18px;min-height:44px;align-items:center;padding:0 22px;font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--bf)}
+.iv-made{padding:22px;text-align:center;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage-ink)}
+.iv-made img{width:56px;display:block;margin:0 auto 4px}
+.lead-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border:1px solid var(--line);background:var(--ivory);margin-bottom:6px;font-size:13.5px;animation:pop .5s ease}
+.lead-row em{font-style:normal;font-size:9px;letter-spacing:.22em;font-weight:600;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* table card */
+.tc-stage{display:flex;justify-content:center;align-items:flex-end;gap:30px;flex-wrap:wrap;padding:30px 0}
+.tent{width:300px;background:var(--paper);border:1px solid var(--line);padding:30px 26px;text-align:center;position:relative;box-shadow:0 30px 50px -28px rgba(47,49,41,.4);transform:perspective(900px) rotateX(6deg)}
+.tent::after{content:"";position:absolute;inset:6px;border:1px solid var(--line-soft);pointer-events:none}
+.tent .tn{font-family:var(--f-display);font-size:16px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lo)}
+.tent h5{font-family:var(--f-display);font-weight:400;font-size:36px;line-height:1.02;margin:12px 0 8px}
+.tent p{font-size:12px;color:var(--sage-ink);margin:0 0 14px}
+.tent .qr{display:flex;justify-content:center;padding:10px;background:#fff;width:max-content;margin:0 auto;border:1px solid var(--line-soft)}
+.tent .by{margin-top:12px;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage-ink)}
+.tent .by i{font-style:normal;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+.tent.small{width:240px;transform:perspective(900px) rotateX(6deg) scale(.92);opacity:.92}
+.tent.small h5{font-size:28px}
+.mini-phone{max-width:300px}
+.mini-phone .screen{height:560px}
+.sf{padding:70px 24px 30px;text-align:center}
+.sf h6{font-family:var(--f-display);font-weight:400;font-size:34px;line-height:1.05;margin:14px 0 8px}
+.sf p{font-size:12.5px;color:var(--sage-ink);margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.chips button{border:1px solid var(--line);background:var(--paper);padding:8px 12px;font-size:11.5px;cursor:pointer}
+.chips button.on{background:var(--ink);color:var(--gold-hi);border-color:var(--ink)}
+
+/* wall */
+.wall-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.counter{display:flex;gap:34px}
+.counter div{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-ink)}
+.counter b{display:block;font-family:var(--f-display);font-weight:400;font-size:54px;line-height:1;letter-spacing:0;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{border:1px solid var(--line);background:var(--paper);padding:9px 14px;font-size:12px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.filters button.on{background:var(--ink);color:var(--gold-hi);border-color:var(--ink)}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.wc{position:relative;background:var(--paper);border:1px solid var(--line);padding:26px 18px 20px;text-align:center;cursor:pointer;transition:transform .3s ease,box-shadow .3s ease;overflow:hidden}
+.wc::after{content:"";position:absolute;inset:5px;border:1px solid var(--line-soft);pointer-events:none}
+.wc:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(47,49,41,.35)}
+.wc .flag{font-size:20px}
+.wc .nm{font-family:var(--f-display);font-size:28px;line-height:1.05;margin:10px 0 4px}
+.wc .nm i{font-style:italic;color:var(--gold)}
+.wc .city{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-ink)}
+.wc .gc{margin-top:14px;font-size:12px;color:var(--ink);background:var(--sand-3);padding:8px 10px}
+.wc .gc small{display:block;font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-ink)}
+.wc .st{margin-top:12px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-ink)}
+.wc .st b{color:var(--rosa-ink);font-weight:600}
+.wc.new::before{content:"Just engaged";position:absolute;top:12px;right:-30px;transform:rotate(35deg);background:var(--rosa-ink);color:#fff;font-size:8px;letter-spacing:.2em;text-transform:uppercase;padding:4px 32px;z-index:2}
+.wc.add{display:flex;flex-direction:column;align-items:center;justify-content:center;border-style:dashed;color:var(--sage-ink);min-height:220px}
+.wc.add b{font-family:var(--f-display);font-weight:400;font-size:26px;color:var(--ink)}
+.demo-note{font-size:11px;color:var(--sage);margin-top:14px;font-style:italic}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(47,49,41,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.modal .box{background:var(--ivory);max-width:420px;width:100%;max-height:90vh;overflow:auto;position:relative;border:1px solid var(--line)}
+.modal .x{position:absolute;top:10px;right:12px;border:0;background:transparent;font-size:24px;cursor:pointer;color:var(--sage-ink);z-index:3}
+
+/* anniversary */
+.ann-stage{display:flex;justify-content:center}
+.story{width:300px;aspect-ratio:9/16;position:relative;overflow:hidden;background:var(--ink);color:var(--ivory);box-shadow:0 40px 70px -30px rgba(47,49,41,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px}
+.story .roses{width:300px;height:180px;opacity:.6;filter:brightness(1.35)}
+.story .roses.a{top:-20px;left:-50px;background-position:left top}
+.story .roses.b{bottom:-20px;right:-50px;background-position:right bottom}
+.story .yr{font-family:var(--f-display);font-size:120px;line-height:.85;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+.story .yl{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-hi);margin-top:4px;position:relative}
+.story .ln{font-family:var(--f-display);font-style:italic;font-size:22px;line-height:1.25;margin:22px 0 14px;position:relative}
+.story .nm{font-family:var(--f-display);font-size:30px;position:relative}
+.story .ex{position:relative;margin-top:18px;font-size:9.5px;letter-spacing:.1em;color:var(--sand);border:1px solid rgba(230,207,148,.4);padding:5px 12px;border-radius:99px}
+.story .tag{position:absolute;bottom:20px;left:0;right:0;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--sand)}
+.story .tag i{font-style:normal;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+.story .anim{animation:rise .9s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* seating */
+.drop{border:1px dashed var(--gold);background:var(--ivory);padding:24px;text-align:center;cursor:pointer;transition:.2s}
+.drop.over{background:var(--paper);border-color:var(--rosa)}
+.drop b{display:block;font-family:var(--f-display);font-weight:400;font-size:22px}
+.drop span{font-size:12px;color:var(--sage-ink)}
+.sumrow{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.sumrow div{background:var(--paper);border:1px solid var(--line);padding:12px 18px;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-ink)}
+.sumrow b{display:block;font-family:var(--f-display);font-weight:400;font-size:30px;letter-spacing:0;color:var(--ink);line-height:1.05}
+.tables{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.tbl{background:var(--paper);border:1px solid var(--line);padding:16px;min-height:150px;transition:.15s}
+.tbl.over{border-color:var(--rosa);box-shadow:0 0 0 3px rgba(228,0,124,.1)}
+.tbl .hd{display:flex;justify-content:space-between;align-items:baseline}
+.tbl .hd b{font-family:var(--f-display);font-weight:400;font-size:24px}
+.tbl .hd span{font-size:10px;letter-spacing:.14em;color:var(--sage-ink)}
+.tbl .hd span.full{color:var(--rosa-ink)}
+.circ{width:104px;height:104px;margin:10px auto 12px;border-radius:50%;border:1px solid var(--line);position:relative;display:flex;align-items:center;justify-content:center}
+.circ .n{font-family:var(--f-display);font-size:30px;color:var(--gold-lo)}
+.seat{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--sand-3);border:1px solid var(--line)}
+.seat.t{background:var(--rosa-ink);border-color:var(--rosa-ink)}
+.pr{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line-soft);background:var(--ivory);margin-bottom:5px;font-size:12.5px;cursor:grab}
+.pr .h{color:var(--rosa-ink);font-size:11px}
+.pr.solo .h{color:var(--gold)}
+.plist{max-height:260px;overflow:auto;margin-top:6px}
+.result{display:none;margin:16px 22px;padding:22px;border:1px solid var(--line);background:var(--paper);text-align:center}
+.result .tn{font-family:var(--f-display);font-size:68px;line-height:1;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.result .who{font-size:12.5px;color:var(--sage-ink);margin-top:8px}
+.result .who b{display:block;font-family:var(--f-display);font-weight:400;font-size:26px;color:var(--ink);margin:4px 0}
+
+/* how */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media(max-width:800px){.steps{grid-template-columns:1fr}}
+.step{background:var(--paper);border:1px solid var(--line);padding:28px}
+.step .n{font-family:var(--f-display);font-size:48px;line-height:1;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h4{font-family:var(--f-display);font-weight:400;font-size:26px;margin:10px 0 6px}
+.step p{font-size:14px;color:var(--sage-ink);margin:0}
+.close{text-align:center;padding:120px 0 140px;position:relative;overflow:hidden}
+.close .roses.a{top:0;left:-40px;width:420px;height:260px;background-position:left top}
+.close .roses.b{bottom:0;right:-40px;width:420px;height:260px;background-position:right bottom}
+.close img{width:130px}
+.close h2{font-size:clamp(40px,6vw,74px);margin:16px 0}
+.close .lead{margin:0 auto 28px;text-align:center}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--gold-hi);padding:13px 22px;font-size:12px;letter-spacing:.08em;z-index:90;transition:.35s;box-shadow:0 14px 30px -12px rgba(0,0,0,.4)}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<header class="top">
+  <a class="brand" href="#top"><img src="vx.png" alt=""><span>Vita Experience × <b>BlindFate</b></span></a>
+  <nav class="toc">
+    <a href="#gift">The Gift</a><a href="#single">Single?</a><a href="#wall">The Wall</a><a href="#anniversary">Anniversary</a><a href="#events">Events</a>
+  </nav>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="roses a"></div><div class="roses b"></div>
+  <div class="hero-in wrap">
+    <div class="pair-logos">
+      <img src="logo.png" alt="Vita Experience">
+      <span class="x">&amp;</span>
+      <div class="bfmark"><b>BlindFate</b><span>Rivkah Fox</span></div>
+    </div>
+    <p class="eyebrow c">A partnership proposal</p>
+    <h1 class="display">From blind date<br>to <span class="foil">Save the Date.</span></h1>
+    <p class="lead">Rivkah brings two people together in a group chat. Vita Experience makes sure the whole world sees how the story ends, and every wedding brings the next couple to BlindFate.</p>
+    <a class="btn btn-pri" href="#gift">See how it works</a>
+    <div class="marks"><span>The engagement gift</span><span>Single at this wedding?</span><span>The BlindFate Wall</span><span>Match anniversary</span><span>Event seating</span></div>
+  </div>
+</section>
+
+<!-- 01 GIFT -->
+<section class="ch" id="gift">
+<div class="wrap">
+  <div class="ch-head reveal">
+    <div class="ch-num">01</div>
+    <div>
+      <p class="eyebrow">The engagement gift</p>
+      <h2 class="display">Their invitation is ready.<br><span class="foil">Only the date is missing.</span></h2>
+      <p class="lead">Every BlindFate couple who gets engaged receives a luxury digital invitation from Vita, already designed with their names and their story. When they set the date, it goes live. And every guest who opens it learns this couple is a BlindFate match.</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="phone reveal"><div class="screen" id="invScreen">
+      <span class="notch"></span>
+      <div class="env" id="env">
+        <p>You're invited</p>
+        <div class="flap"><div class="seal"><img src="vx.png" alt=""></div></div>
+        <p class="to" id="envTo">Leah &amp; David</p>
+        <p>Tap to open</p>
+      </div>
+      <div class="iv-hero">
+        <div class="roses a"></div><div class="roses b"></div>
+        <span class="bf-badge"><i></i><em>A BlindFate Match</em></span>
+        <p class="iv-pre">Together with their families</p>
+        <h3 class="iv-names"><span id="nA">Leah</span><span class="amp">&amp;</span><span id="nB">David</span></h3>
+        <div class="iv-date"><small id="dL">The date</small><b class="pending" id="dV">Coming soon</b></div>
+        <div class="countd" id="cd"><div><b id="cD">0</b><span>Days</span></div><div><b id="cH">0</b><span>Hours</span></div><div><b id="cM">0</b><span>Minutes</span></div></div>
+      </div>
+      <div class="iv-sec">
+        <p class="eyebrow">Our story</p>
+        <h4>It started in a group chat</h4>
+        <p>No apps. No swiping. One matchmaker, one question, and two people brave enough to answer it.</p>
+        <div class="chat">
+          <div class="gn">“<span id="gN">January wedding?</span>”<small>Group · 3 members</small></div>
+          <div class="bub">I think you guys could be great together. Please start by discussing your biggest red flags. I'll leave you to it 🤍<i>Rivkah · <span id="gD"></span></i></div>
+          <span class="left-pill">Rivkah left the group</span>
+        </div>
+        <div class="stats"><div><b id="sD">74</b>days from<br>first text</div><div><b>1</b>group<br>chat</div><div><b>∞</b>to<br>go</div></div>
+      </div>
+      <div class="iv-sec">
+        <p class="eyebrow">Celebrate with us</p>
+        <h4 id="vT">Details to follow</h4>
+        <p id="vS">The venue and schedule will appear here as soon as the date is set.</p>
+      </div>
+      <div class="iv-sec">
+        <p class="eyebrow">Kindly reply</p>
+        <h4>RSVP</h4>
+        <form class="rsvp" id="rsvp">
+          <label class="lbl" for="rN">Your name</label>
+          <input class="inp" id="rN" placeholder="Full name" required>
+          <label class="lbl" for="rA">Will you join us?</label>
+          <select class="inp" id="rA"><option>Joyfully accepts</option><option>Regretfully declines</option></select>
+          <label class="single"><input type="checkbox" id="rS"><span><b>Single?</b> I'd love for Rivkah Fox, the matchmaker behind this couple, to find my match too.</span></label>
+          <button class="btn btn-pri full" style="margin-top:16px" type="submit">Send my reply</button>
+        </form>
+        <div class="thanks" id="thx"></div>
+      </div>
+      <div class="iv-bf">
+        <p class="eyebrow c" style="color:var(--gold-hi)">BlindFate</p>
+        <p class="q">This love story was matched by Rivkah Fox.</p>
+        <p>Couples matched across the US, Israel, Europe, Canada, Brazil and Australia. Yours could be next.</p>
+        <a href="https://join.blindfate.org" target="_blank" rel="noopener">Apply to be matched</a>
+      </div>
+      <div class="iv-made"><img src="logo.png" alt="">Invitation by Vita Experience</div>
+    </div></div>
+
+    <div class="reveal">
+      <div class="card">
+        <h3>The couple's panel</h3>
+        <p class="sub">The invitation arrives as an engagement gift. The couple only adds the date when they have it.</p>
+        <div class="row2">
+          <div><label class="lbl">Bride</label><input class="inp" id="iA" value="Leah"></div>
+          <div><label class="lbl">Groom</label><input class="inp" id="iB" value="David"></div>
+        </div>
+        <label class="lbl">Their BlindFate group chat</label>
+        <input class="inp" id="iG" value="January wedding?">
+        <label class="lbl">Status</label>
+        <div class="seg" id="seg"><button class="on" data-s="e">Engaged · date pending</button><button data-s="d">Date is set</button></div>
+        <div id="dF" style="display:none">
+          <div class="row2"><div><label class="lbl">Date</label><input class="inp" type="date" id="iD"></div><div><label class="lbl">Time</label><input class="inp" type="time" id="iT" value="19:30"></div></div>
+          <label class="lbl">Venue</label><input class="inp" id="iV" value="The Plaza, New York">
+        </div>
+        <button class="btn btn-line sm" style="margin-top:18px" id="reEnv" type="button">Replay the envelope</button>
+        <div class="why"><b>Why it works for BlindFate:</b> each invitation reaches 150 to 400 guests, often single friends, siblings and cousins. The badge, the story and the RSVP turn every wedding Rivkah creates into her next introductions.</div>
+        <label class="lbl" style="margin-top:22px">Singles who asked to be matched · sent to BlindFate</label>
+        <div id="leads"><div class="empty">Reply to the invitation with “Single?” checked to see it arrive here.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 02 SINGLE -->
+<section class="ch" id="single">
+<div class="wrap">
+  <div class="ch-head reveal">
+    <div class="ch-num">02</div>
+    <div>
+      <p class="eyebrow">Single at this wedding?</p>
+      <h2 class="display">The matchmaker<br><span class="foil">is in the room.</span></h2>
+      <p class="lead">At every BlindFate wedding, an elegant card on each table invites single guests to scan and apply. The happiest room of the year becomes Rivkah's best place to meet her next singles.</p>
+    </div>
+  </div>
+  <div class="grid2" style="grid-template-columns:minmax(0,1fr) minmax(0,320px);align-items:center">
+    <div class="tc-stage reveal">
+      <div class="tent small"><div class="tn">Table 7</div><h5>Welcome</h5><p>Leah &amp; David</p></div>
+      <div class="tent">
+        <div class="tn">Table 12</div>
+        <h5>Single?<br><span class="foil">Fate is at table 12.</span></h5>
+        <p>The couple you're celebrating was matched by Rivkah Fox. Scan to be next.</p>
+        <div class="qr" id="qrSingle"></div>
+        <div class="by">Matched by <i>BlindFate</i> · Vita Experience</div>
+      </div>
+    </div>
+    <div class="phone mini-phone reveal"><div class="screen">
+      <span class="notch"></span>
+      <div class="sf">
+        <span class="bf-badge"><i></i><em>BlindFate</em></span>
+        <h6>At Leah &amp; David's wedding and single?</h6>
+        <p>Tell Rivkah a little about you. She'll be in touch after the celebration.</p>
+        <form id="sForm" style="text-align:left;margin-top:14px">
+          <label class="lbl">Name</label><input class="inp" id="sN" placeholder="Your name" required>
+          <label class="lbl">I'm a</label>
+          <div class="chips" id="sG"><button type="button" class="on">Woman</button><button type="button">Man</button></div>
+          <label class="lbl">Age</label>
+          <div class="chips" id="sAge"><button type="button">21–25</button><button type="button" class="on">26–30</button><button type="button">31–35</button><button type="button">36+</button></div>
+          <button class="btn btn-pri full" style="margin-top:18px" type="submit">Match me</button>
+        </form>
+        <div class="thanks" id="sThx"></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+</section>
+
+<!-- 03 WALL -->
+<section class="ch" id="wall">
+<div class="wrap">
+  <div class="ch-head reveal">
+    <div class="ch-num">03</div>
+    <div>
+      <p class="eyebrow">The BlindFate Wall</p>
+      <h2 class="display">Every couple,<br><span class="foil">one wall of fate.</span></h2>
+      <p class="lead">A living public page with every BlindFate couple: where they're from, the name of the group chat that started it all, and how fast they went from first text to yes. Tap a couple to open their invitation. It's social proof that grows with every wedding, and Rivkah can link it in her bio.</p>
+    </div>
+  </div>
+  <div class="wall-top reveal">
+    <div class="counter"><div><b id="wC">0</b>couples</div><div><b id="wK">0</b>countries</div><div><b id="wA">0</b>avg. days to yes</div></div>
+    <div class="filters" id="wF"></div>
+  </div>
+  <div class="wall" id="wG"></div>
+  <p class="demo-note">Demo with sample couples. The real wall fills with each couple who accepts their Vita invitation.</p>
+</div>
+</section>
+
+<!-- 04 ANNIVERSARY -->
+<section class="ch" id="anniversary">
+<div class="wrap">
+  <div class="ch-head reveal">
+    <div class="ch-num">04</div>
+    <div>
+      <p class="eyebrow">The match anniversary</p>
+      <h2 class="display">One year since<br><span class="foil">Rivkah left the chat.</span></h2>
+      <p class="lead">On the anniversary of their match, every couple receives a beautiful story-format card, ready to post. They share it, tag @rivkahfox, and BlindFate reaches all their friends again, year after year.</p>
+    </div>
+  </div>
+  <div class="grid2" style="grid-template-columns:minmax(0,1fr) minmax(0,380px);align-items:center">
+    <div class="ann-stage reveal">
+      <div class="story" id="story">
+        <div class="roses a"></div><div class="roses b"></div>
+        <div class="yr anim" id="aY">1</div>
+        <div class="yl anim" id="aYL">Year</div>
+        <div class="ln anim" id="aL">since Rivkah added us to a group chat and left.</div>
+        <div class="nm anim" id="aN">Leah &amp; David</div>
+        <div class="ex anim" id="aG">“January wedding?” · Group · 2 members</div>
+        <div class="tag">Matched by <i>@rivkahfox</i> · Vita Experience</div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <h3>Choose the moment</h3>
+      <p class="sub">Vita sends it automatically on the right day.</p>
+      <label class="lbl">Milestone</label>
+      <div class="seg" id="aSeg"><button class="on" data-y="1">1 year</button><button data-y="5">5 years</button><button data-y="m">First child</button></div>
+      <label class="lbl">Couple</label>
+      <input class="inp" id="aIn" value="Leah & David">
+      <div class="why"><b>Why it works:</b> a married couple is BlindFate's most trusted ad. Each anniversary card puts Rivkah's name back in front of hundreds of people who already know the couple personally.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 05 EVENTS -->
+<section class="ch" id="events">
+<div class="wrap">
+  <div class="ch-head reveal">
+    <div class="ch-num">05</div>
+    <div>
+      <p class="eyebrow">BlindFate events</p>
+      <h2 class="display">Upload the matches.<br><span class="foil">The tables set themselves.</span></h2>
+      <p class="lead">For Shabbatons and singles events: Rivkah uploads her Excel with the pairs she's matched, and every match is seated together automatically. At the door, guests scan a QR, type their name and discover their table, and their date.</p>
+    </div>
+  </div>
+  <div class="grid2" style="grid-template-columns:minmax(0,340px) minmax(0,1fr)">
+    <div class="card reveal">
+      <h3>Event setup</h3>
+      <label class="lbl">Event</label><input class="inp" id="eN" value="BlindFate Shabbaton · Chicago">
+      <div class="row2">
+        <div><label class="lbl">Seats per table</label><select class="inp" id="eS"><option>6</option><option selected>8</option><option>10</option><option>12</option></select></div>
+        <div><label class="lbl">Seating</label><select class="inp" id="eM"><option value="p">Matches together</option><option value="x">Mix the room</option></select></div>
+      </div>
+      <label class="lbl">Upload the matches</label>
+      <div class="drop" id="drop"><b>Drop Excel or CSV</b><span>Two names per row = a match · one name = single guest</span><input type="file" id="file" accept=".xlsx,.xls,.csv" hidden></div>
+      <button class="btn btn-line sm full" style="margin-top:10px" id="sample" type="button">Use a sample list</button>
+      <label class="lbl">Or paste from Excel / Google Sheets</label>
+      <textarea class="inp" id="paste" rows="3" placeholder="Leah Cohen	David Levy"></textarea>
+      <button class="btn btn-gold sm full" style="margin-top:10px" id="gen" type="button">Generate tables</button>
+    </div>
+    <div class="reveal">
+      <div class="sumrow" id="sum"><div><b>—</b>guests</div><div><b>—</b>matches</div><div><b>—</b>tables</div></div>
+      <div class="tables" id="tables"><div class="empty">Upload a list or use the sample to see the tables appear.</div></div>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:70px;grid-template-columns:minmax(0,1fr) minmax(0,340px);align-items:center">
+    <div class="tc-stage reveal">
+      <div class="tent">
+        <div class="tn">Welcome</div>
+        <h5 id="qEv">BlindFate Shabbaton</h5>
+        <p>Scan to find your table, and your fate.</p>
+        <div class="qr" id="qrEvent"></div>
+        <div class="by"><i>BlindFate</i> · Vita Experience</div>
+      </div>
+    </div>
+    <div class="phone mini-phone reveal"><div class="screen">
+      <span class="notch"></span>
+      <div class="sf" style="padding-bottom:10px">
+        <span class="bf-badge"><i></i><em>BlindFate</em></span>
+        <h6 id="fEv">BlindFate Shabbaton</h6>
+        <p>Type your name to reveal your table.</p>
+      </div>
+      <form id="fF" style="padding:0 22px">
+        <input class="inp" id="fN" list="names" placeholder="e.g. Leah Cohen" autocomplete="off">
+        <datalist id="names"></datalist>
+        <button class="btn btn-pri full sm" style="margin-top:10px" type="submit">Reveal my table</button>
+      </form>
+      <div class="result" id="fR"></div>
+    </div></div>
+  </div>
+</div>
+</section>
+
+<!-- HOW -->
+<section class="ch" id="how">
+<div class="wrap">
+  <div class="ch-head reveal" style="margin-bottom:40px">
+    <div class="ch-num">✦</div>
+    <div><p class="eyebrow">How it would work</p><h2 class="display">Simple for Rivkah.<br><span class="foil">Beautiful for her couples.</span></h2></div>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><div class="n">i.</div><h4>A couple says yes</h4><p>Rivkah sends Vita their names and the name of their group chat. That's all.</p></div>
+    <div class="step reveal"><div class="n">ii.</div><h4>Vita designs the gift</h4><p>The couple receives their invitation, ready to go live as soon as they set the date.</p></div>
+    <div class="step reveal"><div class="n">iii.</div><h4>Every guest meets BlindFate</h4><p>Badge, story, "Single?" RSVP, table cards, the Wall and anniversaries bring the singles back to Rivkah.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="close">
+  <div class="roses a"></div><div class="roses b"></div>
+  <div class="wrap" style="position:relative">
+    <img src="logo.png" alt="Vita Experience">
+    <h2 class="display">Let's write<br><span class="foil">the ending together.</span></h2>
+    <p class="lead">Vita Experience · Luxury digital invitations in English, Hebrew and Spanish.</p>
+    <a class="btn btn-pri" href="https://www.instagram.com/vitaexperience.studio" target="_blank" rel="noopener">@vitaexperience.studio</a>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="modal"><div class="box"><button class="x" id="mX" aria-label="Close">×</button><div id="mB"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let tt;function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2400)}
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===== 01 invitation ===== */
+$('env').onclick=()=>$('env').classList.add('open');
+$('reEnv').onclick=()=>{$('invScreen').scrollTop=0;$('env').classList.remove('open')};
+let st='e',timer;
+const ft=new Date();ft.setDate(ft.getDate()-74);$('gD').textContent=ft.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+const dd=new Date();dd.setMonth(dd.getMonth()+5);$('iD').value=dd.toISOString().slice(0,10);
+function inv(){
+  const a=$('iA').value||'Bride',b=$('iB').value||'Groom';
+  $('nA').textContent=a;$('nB').textContent=b;$('envTo').textContent=a+' & '+b;
+  $('gN').textContent=$('iG').value||'Our group chat';
+  clearInterval(timer);
+  if(st==='e'){
+    $('dL').textContent='The date';$('dV').className='pending';$('dV').textContent='Coming soon';
+    $('cd').style.display='none';$('vT').textContent='Details to follow';
+    $('vS').textContent='The venue and schedule will appear here as soon as the date is set.';
+  }else{
+    const d=new Date($('iD').value+'T'+($('iT').value||'19:30'));
+    $('dL').textContent='Save the date';$('dV').className='';
+    $('dV').textContent=isNaN(d)?'—':d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+    $('cd').style.display='flex';$('vT').textContent=$('iV').value||'Venue';
+    $('vS').textContent=isNaN(d)?'':'Ceremony at '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})+', followed by dinner and dancing.';
+    const tick=()=>{const ms=Math.max(0,d-new Date());$('cD').textContent=Math.floor(ms/864e5);$('cH').textContent=Math.floor(ms/36e5)%24;$('cM').textContent=Math.floor(ms/6e4)%60};
+    tick();timer=setInterval(tick,30000);
+  }
+}
+['iA','iB','iG','iD','iT','iV'].forEach(i=>$(i).addEventListener('input',inv));
+$('seg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  $('seg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  st=b.dataset.s;$('dF').style.display=st==='d'?'block':'none';inv();
+  if(st==='d'){toast('The date is live for every guest');$('invScreen').scrollTo({top:0,behavior:'smooth'});$('env').classList.add('open')}
+});
+inv();
+const leads=[];
+function addLead(n,src){leads.unshift({n,src});$('leads').innerHTML=leads.map(l=>`<div class="lead-row">${esc(l.n)}<em>${l.src}</em></div>`).join('')}
+$('rsvp').addEventListener('submit',e=>{
+  e.preventDefault();const n=$('rN').value.trim();if(!n)return;const s=$('rS').checked;
+  $('thx').style.display='block';
+  $('thx').innerHTML=s?`<b>Thank you, ${esc(n)}</b>Your reply is in, and Rivkah's team at BlindFate will be in touch. The next invitation might be yours.`:`<b>Thank you, ${esc(n)}</b>Your reply is in. We can't wait to celebrate with you.`;
+  if(s){addLead(n,'RSVP · NEW SINGLE');toast('A new single was sent to BlindFate')}
+  $('rN').value='';$('rS').checked=false;
+});
+
+/* ===== 02 single ===== */
+function chips(id){$(id).querySelectorAll('button').forEach(b=>b.onclick=()=>{$(id).querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on')})}
+chips('sG');chips('sAge');
+$('sForm').addEventListener('submit',e=>{
+  e.preventDefault();const n=$('sN').value.trim();if(!n)return;
+  $('sForm').style.display='none';$('sThx').style.display='block';
+  $('sThx').innerHTML=`<b>You're on Rivkah's list, ${esc(n)}</b>Enjoy the wedding. She'll reach out soon.<br><button class="btn btn-line sm" style="margin-top:12px" type="button" id="sAgain">Try again</button>`;
+  addLead(n,'TABLE CARD · NEW SINGLE');toast('Lead captured from a table card');
+  $('sAgain').onclick=()=>{$('sForm').style.display='block';$('sThx').style.display='none';$('sN').value=''};
+});
+
+/* ===== 03 wall ===== */
+const C=[
+ {a:'Leah',b:'David',f:'🇺🇸',c:'United States',city:'New York',g:'January wedding?',d:74,n:1},
+ {a:'Noa',b:'Ariel',f:'🇮🇱',c:'Israel',city:'Jerusalem',g:'Make me a bridesmaid!',d:41},
+ {a:'Esther',b:'Yoni',f:'🇺🇸',c:'United States',city:'Philadelphia',g:'Mr and Mrs Pending',d:28,n:1},
+ {a:'Chloé',b:'Raphaël',f:'🇫🇷',c:'France',city:'Paris',g:'The rebbe edition',d:96},
+ {a:'Sarah',b:'Ethan',f:'🇨🇦',c:'Canada',city:'Toronto',g:"Let's get married",d:63},
+ {a:'Rebeca',b:'Daniel',f:'🇧🇷',c:'Brazil',city:'São Paulo',g:"Don't remember if u guys met before",d:88},
+ {a:'Hannah',b:'Josh',f:'🇬🇧',c:'United Kingdom',city:'London',g:'Chivalry is not dead',d:52},
+ {a:'Talia',b:'Sam',f:'🇦🇺',c:'Australia',city:'Melbourne',g:'Red flags only',d:110},
+ {a:'Miriam',b:'Eli',f:'🇧🇪',c:'Belgium',city:'Antwerp',g:'Coffee or Kiddush?',d:47},
+ {a:'Shira',b:'Avi',f:'🇮🇱',c:'Israel',city:'Tel Aviv',g:'Two olim walk into a chat',d:35},
+ {a:'Rachel',b:'Jake',f:'🇺🇸',c:'United States',city:'Miami',g:'Is this a shidduch?',d:69},
+];
+let wf='All';
+function wall(){
+  const cs=[...new Set(C.map(x=>x.c))];
+  $('wF').innerHTML=['All',...cs].map(c=>{const f=c==='All'?'':C.find(x=>x.c===c).f;return `<button class="${c===wf?'on':''}" data-c="${esc(c)}">${f} ${c==='All'?'All countries':esc(c)}</button>`}).join('');
+  $('wF').querySelectorAll('button').forEach(b=>b.onclick=()=>{wf=b.dataset.c;wall()});
+  const L=C.filter(x=>wf==='All'||x.c===wf);
+  $('wG').innerHTML=L.map((x,i)=>`<div class="wc ${x.n?'new':''}" data-i="${C.indexOf(x)}"><div class="flag">${x.f}</div><div class="nm">${esc(x.a)} <i>&amp;</i> ${esc(x.b)}</div><div class="city">${esc(x.city)}</div><div class="gc"><small>The group chat</small>“${esc(x.g)}”</div><div class="st"><span>First text → yes</span><b>${x.d} days</b></div></div>`).join('')
+   +`<div class="wc add"><b>Your names here</b><span style="font-size:12px;margin-top:6px">Apply at join.blindfate.org</span></div>`;
+  $('wG').querySelectorAll('.wc[data-i]').forEach(el=>el.onclick=()=>openCouple(C[+el.dataset.i]));
+  anim($('wC'),C.length);anim($('wK'),cs.length);anim($('wA'),Math.round(C.reduce((s,x)=>s+x.d,0)/C.length));
+}
+function anim(el,to){const from=+el.textContent||0,t0=performance.now();const f=t=>{const p=Math.min(1,(t-t0)/900);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function openCouple(x){
+  $('mB').innerHTML=`<div class="iv-hero" style="padding-top:54px"><div class="roses a"></div><div class="roses b"></div>
+   <span class="bf-badge"><i></i><em>A BlindFate Match</em></span><p class="iv-pre">${x.f} ${esc(x.city)}</p>
+   <h3 class="iv-names">${esc(x.a)}<span class="amp">&amp;</span>${esc(x.b)}</h3>
+   <div class="iv-date"><small>From first text to yes</small><b>${x.d} days</b></div></div>
+   <div class="iv-sec"><div class="chat" style="margin-top:0"><div class="gn">“${esc(x.g)}”<small>Group · 3 members</small></div><div class="bub">I think you guys could be great together. I'll leave you to it 🤍<i>Rivkah</i></div><span class="left-pill">Rivkah left the group</span></div></div>
+   <div class="iv-made"><img src="logo.png" alt="">Invitation by Vita Experience</div>`;
+  $('modal').classList.add('on');
+}
+$('mX').onclick=()=>$('modal').classList.remove('on');
+$('modal').onclick=e=>{if(e.target.id==='modal')$('modal').classList.remove('on')};
+wall();
+
+/* ===== 04 anniversary ===== */
+let ay='1';
+function ann(){
+  const n=$('aIn').value||'Leah & David';
+  const M={'1':['1','Year','since Rivkah added us to a group chat and left.'],'5':['5','Years','five years, one group chat, and a whole lot of yes.'],'m':['+1','Our new match','the group chat just got a new member.']}[ay];
+  $('aY').textContent=M[0];$('aYL').textContent=M[1];$('aL').textContent=M[2];$('aN').textContent=n;
+  document.querySelectorAll('#story .anim').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation=''});
+}
+$('aSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('aSeg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');ay=b.dataset.y;ann()});
+$('aIn').addEventListener('input',ann);
+
+/* ===== 05 events ===== */
+const SAMPLE=[["Leah Cohen","David Levy"],["Rachel Mizrahi","Yosef Harari"],["Esther Benzaquen","Ari Shapiro"],["Miriam Sasson","Eli Gabay"],["Sarah Klein","Jake Rosen"],["Dina Hamui","Sruly Katz"],["Talia Romano","Yidi Weiss"],["Noa Ashkenazi","Brandon Fried"],["Hannah Cattan","Moshe Attie"],["Chaya Fridman","Daniel Sutton"],["Ilana Penhos","Benny Harari"],["Yael Mustri","Avi Kalach"],["Shira Tawil"],["Nathan Chayo"],["Rivka Saba","Ezra Cohen"],["Abigail Kassin","Jonathan Mann"]];
+let G=[],T=[];
+function setG(rows){G=rows.map(r=>(r||[]).map(x=>String(x??'').trim()).filter(Boolean).slice(0,2)).filter(r=>r.length&&!/^(name|nombre)/i.test(r[0])).map((r,i)=>({id:'g'+i,names:r}))}
+function gen(){
+  if(!G.length){toast('Upload or paste a list first');return}
+  const cap=+$('eS').value,mix=$('eM').value==='x';
+  let U=mix?G.flatMap(g=>g.names.map((n,i)=>({id:g.id+'_'+i,names:[n]}))):G.map(g=>({...g}));
+  if(mix){for(let i=U.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[U[i],U[j]]=[U[j],U[i]]}}else U.sort((a,b)=>b.names.length-a.names.length);
+  T=[];U.forEach(u=>{let t=T.find(t=>t.cap-t.used>=u.names.length);if(!t){t={n:T.length+1,cap,used:0,u:[]};T.push(t)}t.u.push(u);t.used+=u.names.length});
+  draw();toast(T.length+' tables ready');
+}
+function draw(){
+  const guests=T.reduce((a,t)=>a+t.used,0);
+  $('sum').innerHTML=`<div><b>${guests}</b>guests</div><div><b>${G.filter(g=>g.names.length===2).length}</b>matches</div><div><b>${T.length}</b>tables</div>`;
+  $('tables').innerHTML=T.map((t,ti)=>{let s='';for(let i=0;i<t.cap;i++){const a=i/t.cap*2*Math.PI-Math.PI/2;s+=`<span class="seat ${i<t.used?'t':''}" style="left:${46+48*Math.cos(a)}px;top:${46+48*Math.sin(a)}px"></span>`}
+    return `<div class="tbl" data-t="${ti}"><div class="hd"><b>Table ${t.n}</b><span class="${t.used>=t.cap?'full':''}">${t.used} / ${t.cap}</span></div><div class="circ">${s}<span class="n">${t.n}</span></div>${t.u.map(u=>`<div class="pr ${u.names.length<2?'solo':''}" draggable="true" data-u="${u.id}"><span class="h">${u.names.length<2?'◇':'♥'}</span>${u.names.map(esc).join(' &amp; ')}</div>`).join('')}</div>`}).join('');
+  document.querySelectorAll('.tbl .pr').forEach(p=>p.addEventListener('dragstart',e=>e.dataTransfer.setData('text',p.dataset.u)));
+  document.querySelectorAll('.tbl').forEach(tb=>{
+    tb.addEventListener('dragover',e=>{e.preventDefault();tb.classList.add('over')});
+    tb.addEventListener('dragleave',()=>tb.classList.remove('over'));
+    tb.addEventListener('drop',e=>{e.preventDefault();tb.classList.remove('over');const id=e.dataTransfer.getData('text'),to=T[+tb.dataset.t],fr=T.find(t=>t.u.some(u=>u.id===id));if(!fr||fr===to)return;const u=fr.u.find(u=>u.id===id);if(to.cap-to.used<u.names.length){toast('Table '+to.n+' is full');return}fr.u=fr.u.filter(x=>x!==u);fr.used-=u.names.length;to.u.push(u);to.used+=u.names.length;draw()});
+  });
+  $('names').innerHTML=T.flatMap(t=>t.u.flatMap(u=>u.names)).map(n=>`<option value="${esc(n)}">`).join('');
+}
+const drop=$('drop');drop.onclick=()=>$('file').click();
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over')});
+drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');if(e.dataTransfer.files[0])read(e.dataTransfer.files[0])});
+$('file').onchange=e=>{if(e.target.files[0])read(e.target.files[0])};
+function read(f){const r=new FileReader();r.onload=ev=>{try{let rows;if(/\.csv$/i.test(f.name)||typeof XLSX==='undefined'){rows=new TextDecoder().decode(ev.target.result).split(/\r?\n/).map(l=>l.split(/[,;\t]/))}else{const wb=XLSX.read(ev.target.result,{type:'array'});rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1})}setG(rows);gen()}catch(err){toast('That file could not be read')}};r.readAsArrayBuffer(f)}
+$('sample').onclick=()=>{setG(SAMPLE);gen()};
+$('gen').onclick=()=>{const t=$('paste').value.trim();if(t)setG(t.split(/\r?\n/).map(l=>l.split(/\t|,|;| & /)));gen()};
+$('eS').onchange=$('eM').onchange=()=>{if(G.length)gen()};
+$('eN').oninput=()=>{const v=$('eN').value.split('·')[0].trim()||'BlindFate Event';$('qEv').textContent=$('fEv').textContent=v};
+$('fF').addEventListener('submit',e=>{
+  e.preventDefault();const q=$('fN').value.trim().toLowerCase(),R=$('fR');R.style.display='block';
+  if(!T.length){R.innerHTML='<div class="who">The tables aren\'t set yet. Use the sample list above first.</div>';return}
+  for(const t of T)for(const u of t.u){const i=u.names.findIndex(n=>n.toLowerCase().includes(q));if(q&&i>-1){const o=u.names[1-i],m=t.u.filter(x=>x!==u).flatMap(x=>x.names).slice(0,4);
+    R.innerHTML=`<div class="lbl" style="margin:0">Your table</div><div class="tn">${t.n}</div><div class="who">${o?`Tonight you're sitting with<b>${esc(o)}</b>`:'Rivkah has someone in mind for you tonight.'}<br>Also at your table: ${m.map(esc).join(', ')||'—'}</div>`;return}}
+  R.innerHTML='<div class="who">We couldn\'t find that name. Try the full name you registered with.</div>';
+});
+
+/* QR codes */
+window.addEventListener('load',()=>{
+  const mk=(id,url)=>{try{new QRCode($(id),{text:url,width:120,height:120,colorDark:'#2F3129',colorLight:'#ffffff'})}catch(e){}};
+  mk('qrSingle','https://join.blindfate.org');mk('qrEvent','https://vitaexperience.studio/blindfate/#events');
+});
+</script>
+</body>
+</html>
