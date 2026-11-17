@@ -34,7 +34,9 @@ body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--f-body)
 .frame::after{content:"";position:absolute;inset:4px;border:1px solid var(--line-soft)}
 .frame i{position:absolute;width:8px;height:8px;border:1px solid var(--gold);background:var(--ivory);transform:rotate(45deg)}
 .frame i:nth-child(1){top:-5px;left:-5px}.frame i:nth-child(2){top:-5px;right:-5px}.frame i:nth-child(3){bottom:-5px;left:-5px}.frame i:nth-child(4){bottom:-5px;right:-5px}
-.roses{position:absolute;pointer-events:none;background:url("roses.png") no-repeat;background-size:auto 100%;opacity:.95}
+.roses{position:absolute;pointer-events:none;background-repeat:no-repeat;background-size:contain;opacity:.95}
+.roses.a{background-image:url("rose-tl.png");background-position:left top}
+.roses.b{background-image:url("rose-br.png");background-position:right bottom}
 main{position:relative;z-index:2}
 .wrap{max-width:1140px;margin:0 auto;padding:0 34px}
 a{color:var(--rosa-ink)}
@@ -72,8 +74,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* hero */
 .hero{position:relative;overflow:hidden;min-height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 0 80px}
-.hero .roses.a{top:-80px;left:-40px;width:520px;height:330px;background-position:left top}
-.hero .roses.b{bottom:0;right:-40px;width:520px;height:330px;background-position:right bottom}
+.hero .roses.a{top:-20px;left:-30px;width:240px;height:310px}
+.hero .roses.b{bottom:-20px;right:-30px;width:240px;height:310px}
+@media(max-width:1100px){.hero .roses{opacity:.35}}
+@media(max-width:700px){.hero .roses{display:none}}
+.hero-in{z-index:2}
 .hero-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px}
 .pair-logos{display:flex;align-items:center;gap:22px}
 .pair-logos img{width:150px;filter:drop-shadow(0 10px 18px rgba(142,111,51,.18))}
@@ -127,10 +132,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 .env .to{font-family:var(--f-display);font-style:italic;font-size:24px;letter-spacing:0;text-transform:none;color:var(--ink)}
 
 /* invitation */
+.pv{position:sticky;top:0;z-index:3;margin:0;padding:44px 18px 14px;text-align:center;background:var(--ink);color:var(--ivory)}
+.pv span{display:block;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-hi)}
+.pv b{display:block;font-family:var(--f-display);font-weight:400;font-size:17px;line-height:1.25;margin:6px 0 10px}
+.pv button{border:0;background:var(--rosa-ink);color:#fff;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;padding:10px 18px;cursor:pointer}
+.pv.done{display:none}
 .iv-hero{position:relative;text-align:center;padding:64px 26px 40px;overflow:hidden}
-.iv-hero .roses{width:330px;height:200px;opacity:.75}
-.iv-hero .roses.a{top:-30px;left:-60px;background-position:left top}
-.iv-hero .roses.b{bottom:-40px;right:-70px;background-position:right bottom}
+.iv-hero .roses{width:84px;height:110px;opacity:.6}
+.iv-hero .roses.a{top:-6px;left:-26px}
+.iv-hero .roses.b{display:none}
 .bf-badge{position:relative;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--line);background:var(--paper);font-size:9px;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
 .bf-badge i{width:7px;height:7px;border-radius:50%;background:var(--bf);display:inline-block}
 .bf-badge em{font-style:normal;background:var(--bf);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -229,9 +239,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* anniversary */
 .ann-stage{display:flex;justify-content:center}
 .story{width:300px;aspect-ratio:9/16;position:relative;overflow:hidden;background:var(--ink);color:var(--ivory);box-shadow:0 40px 70px -30px rgba(47,49,41,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px}
-.story .roses{width:300px;height:180px;opacity:.6;filter:brightness(1.35)}
-.story .roses.a{top:-20px;left:-50px;background-position:left top}
-.story .roses.b{bottom:-20px;right:-50px;background-position:right bottom}
+.story .roses{width:130px;height:170px;opacity:.55;filter:brightness(1.35)}
+.story .roses.a{top:-10px;left:-20px}
+.story .roses.b{bottom:-10px;right:-20px}
 .story .yr{font-family:var(--f-display);font-size:120px;line-height:.85;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
 .story .yl{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-hi);margin-top:4px;position:relative}
 .story .ln{font-family:var(--f-display);font-style:italic;font-size:22px;line-height:1.25;margin:22px 0 14px;position:relative}
@@ -278,8 +288,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .step h4{font-family:var(--f-display);font-weight:400;font-size:26px;margin:10px 0 6px}
 .step p{font-size:14px;color:var(--sage-ink);margin:0}
 .close{text-align:center;padding:120px 0 140px;position:relative;overflow:hidden}
-.close .roses.a{top:0;left:-40px;width:420px;height:260px;background-position:left top}
-.close .roses.b{bottom:0;right:-40px;width:420px;height:260px;background-position:right bottom}
+.close .roses.a{top:0;left:-30px;width:220px;height:285px}
+.close .roses.b{bottom:0;right:-30px;width:220px;height:285px}
+@media(max-width:1000px){.close .roses{display:none}}
 .close img{width:130px}
 .close h2{font-size:clamp(40px,6vw,74px);margin:16px 0}
 .close .lead{margin:0 auto 28px;text-align:center}
@@ -287,6 +298,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .toast.on{transform:translateX(-50%) translateY(0)}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
+@media(max-width:700px){.pair-logos{gap:12px}.pair-logos img,.bfmark{width:104px;height:104px}.bfmark b{font-size:24px}.pair-logos .x{font-size:28px}.wrap{padding:0 26px}.hero .lead{font-size:15px}}
+@media(max-width:700px){.ch{padding:80px 0}.top{padding:18px 26px}.card{padding:22px}}
 </style>
 </head>
 <body>
@@ -296,7 +309,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <header class="top">
   <a class="brand" href="#top"><img src="vx.png" alt=""><span>Vita Experience × <b>BlindFate</b></span></a>
   <nav class="toc">
-    <a href="#gift">The Gift</a><a href="#single">Single?</a><a href="#wall">The Wall</a><a href="#anniversary">Anniversary</a><a href="#events">Events</a>
+    <a href="#gift">The Preview</a><a href="#single">Single?</a><a href="#wall">The Wall</a><a href="#anniversary">Anniversary</a><a href="#events">Events</a>
   </nav>
 </header>
 
@@ -314,7 +327,7 @@ button,input,select,textarea{font:inherit;color:inherit}
     <h1 class="display">From blind date<br>to <span class="foil">Save the Date.</span></h1>
     <p class="lead">Rivkah brings two people together in a group chat. Vita Experience makes sure the whole world sees how the story ends, and every wedding brings the next couple to BlindFate.</p>
     <a class="btn btn-pri" href="#gift">See how it works</a>
-    <div class="marks"><span>The engagement gift</span><span>Single at this wedding?</span><span>The BlindFate Wall</span><span>Match anniversary</span><span>Event seating</span></div>
+    <div class="marks"><span>The engagement preview</span><span>Single at this wedding?</span><span>The BlindFate Wall</span><span>Match anniversary</span><span>Event seating</span></div>
   </div>
 </section>
 
@@ -324,9 +337,9 @@ button,input,select,textarea{font:inherit;color:inherit}
   <div class="ch-head reveal">
     <div class="ch-num">01</div>
     <div>
-      <p class="eyebrow">The engagement gift</p>
-      <h2 class="display">Their invitation is ready.<br><span class="foil">Only the date is missing.</span></h2>
-      <p class="lead">Every BlindFate couple who gets engaged receives a luxury digital invitation from Vita, already designed with their names and their story. When they set the date, it goes live. And every guest who opens it learns this couple is a BlindFate match.</p>
+      <p class="eyebrow">The engagement preview</p>
+      <h2 class="display">Their invitation is already waiting.<br><span class="foil">Only the date is missing.</span></h2>
+      <p class="lead">The day a BlindFate couple gets engaged, Rivkah sends them a personal preview of their wedding invitation, already designed with their names and the story of their group chat. With the exclusive BlindFate couple rate, they make it theirs. When they set the date, it goes live, and every guest learns this couple is a BlindFate match.</p>
     </div>
   </div>
   <div class="grid2">
@@ -338,6 +351,7 @@ button,input,select,textarea{font:inherit;color:inherit}
         <p class="to" id="envTo">Leah &amp; David</p>
         <p>Tap to open</p>
       </div>
+      <div class="pv" id="pv"><span>Your preview · Mazal tov!</span><b>Made for you by Vita, with the BlindFate couple rate</b><button type="button" id="pvB">Make it ours</button></div>
       <div class="iv-hero">
         <div class="roses a"></div><div class="roses b"></div>
         <span class="bf-badge"><i></i><em>A BlindFate Match</em></span>
@@ -387,7 +401,7 @@ button,input,select,textarea{font:inherit;color:inherit}
     <div class="reveal">
       <div class="card">
         <h3>The couple's panel</h3>
-        <p class="sub">The invitation arrives as an engagement gift. The couple only adds the date when they have it.</p>
+        <p class="sub">See the journey: the couple receives a preview, books it with their BlindFate rate, and adds the date when they have it.</p>
         <div class="row2">
           <div><label class="lbl">Bride</label><input class="inp" id="iA" value="Leah"></div>
           <div><label class="lbl">Groom</label><input class="inp" id="iB" value="David"></div>
@@ -395,13 +409,13 @@ button,input,select,textarea{font:inherit;color:inherit}
         <label class="lbl">Their BlindFate group chat</label>
         <input class="inp" id="iG" value="January wedding?">
         <label class="lbl">Status</label>
-        <div class="seg" id="seg"><button class="on" data-s="e">Engaged · date pending</button><button data-s="d">Date is set</button></div>
+        <div class="seg" id="seg"><button class="on" data-s="p">Preview</button><button data-s="e">Booked</button><button data-s="d">Date is set</button></div>
         <div id="dF" style="display:none">
           <div class="row2"><div><label class="lbl">Date</label><input class="inp" type="date" id="iD"></div><div><label class="lbl">Time</label><input class="inp" type="time" id="iT" value="19:30"></div></div>
           <label class="lbl">Venue</label><input class="inp" id="iV" value="The Plaza, New York">
         </div>
         <button class="btn btn-line sm" style="margin-top:18px" id="reEnv" type="button">Replay the envelope</button>
-        <div class="why"><b>Why it works for BlindFate:</b> each invitation reaches 150 to 400 guests, often single friends, siblings and cousins. The badge, the story and the RSVP turn every wedding Rivkah creates into her next introductions.</div>
+        <div class="why"><b>Why it works for BlindFate:</b> Rivkah earns a referral fee for every couple who books, and each invitation reaches 150 to 400 guests, often single friends, siblings and cousins. The badge, the story and the RSVP turn every wedding she creates into her next introductions.</div>
         <label class="lbl" style="margin-top:22px">Singles who asked to be matched · sent to BlindFate</label>
         <div id="leads"><div class="empty">Reply to the invitation with “Single?” checked to see it arrive here.</div></div>
       </div>
@@ -576,9 +590,14 @@ button,input,select,textarea{font:inherit;color:inherit}
     <div><p class="eyebrow">How it would work</p><h2 class="display">Simple for Rivkah.<br><span class="foil">Beautiful for her couples.</span></h2></div>
   </div>
   <div class="steps">
-    <div class="step reveal"><div class="n">i.</div><h4>A couple says yes</h4><p>Rivkah sends Vita their names and the name of their group chat. That's all.</p></div>
-    <div class="step reveal"><div class="n">ii.</div><h4>Vita designs the gift</h4><p>The couple receives their invitation, ready to go live as soon as they set the date.</p></div>
-    <div class="step reveal"><div class="n">iii.</div><h4>Every guest meets BlindFate</h4><p>Badge, story, "Single?" RSVP, table cards, the Wall and anniversaries bring the singles back to Rivkah.</p></div>
+    <div class="step reveal"><div class="n">i.</div><h4>A couple says yes</h4><p>Rivkah sends Vita their names and the name of their group chat. Vita prepares their personal preview.</p></div>
+    <div class="step reveal"><div class="n">ii.</div><h4>They make it theirs</h4><p>The couple books their invitation with the exclusive BlindFate rate, and adds the date whenever they're ready.</p></div>
+    <div class="step reveal"><div class="n">iii.</div><h4>Everyone wins</h4><p>Rivkah earns a referral fee for every couple who books, and every guest meets BlindFate through the badge, the RSVP, the table cards, the Wall and the anniversaries.</p></div>
+  </div>
+  <div class="steps" style="margin-top:20px">
+    <div class="step reveal"><p class="eyebrow">For the couple</p><h4>The BlindFate rate</h4><p>An exclusive price on a luxury invitation that already tells their story, in English, Hebrew or Spanish.</p></div>
+    <div class="step reveal"><p class="eyebrow">For Rivkah</p><h4>A referral fee</h4><p>For every BlindFate couple who books, plus her name on every invitation, wedding table and anniversary.</p></div>
+    <div class="step reveal"><p class="eyebrow">For BlindFate events</p><h4>RSVP &amp; seating</h4><p>Invitations, RSVP and automatic seating from her Excel of matches, as an event package.</p></div>
   </div>
 </div>
 </section>
@@ -609,7 +628,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 /* ===== 01 invitation ===== */
 $('env').onclick=()=>$('env').classList.add('open');
 $('reEnv').onclick=()=>{$('invScreen').scrollTop=0;$('env').classList.remove('open')};
-let st='e',timer;
+let st='p',timer;
 const ft=new Date();ft.setDate(ft.getDate()-74);$('gD').textContent=ft.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 const dd=new Date();dd.setMonth(dd.getMonth()+5);$('iD').value=dd.toISOString().slice(0,10);
 function inv(){
@@ -617,7 +636,7 @@ function inv(){
   $('nA').textContent=a;$('nB').textContent=b;$('envTo').textContent=a+' & '+b;
   $('gN').textContent=$('iG').value||'Our group chat';
   clearInterval(timer);
-  if(st==='e'){
+  if(st!=='d'){
     $('dL').textContent='The date';$('dV').className='pending';$('dV').textContent='Coming soon';
     $('cd').style.display='none';$('vT').textContent='Details to follow';
     $('vS').textContent='The venue and schedule will appear here as soon as the date is set.';
@@ -634,9 +653,16 @@ function inv(){
 ['iA','iB','iG','iD','iT','iV'].forEach(i=>$(i).addEventListener('input',inv));
 $('seg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
   $('seg').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
-  st=b.dataset.s;$('dF').style.display=st==='d'?'block':'none';inv();
-  if(st==='d'){toast('The date is live for every guest');$('invScreen').scrollTo({top:0,behavior:'smooth'});$('env').classList.add('open')}
+  setSt(b.dataset.s);
 });
+function setSt(v){
+  st=v;$('seg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.s===v));
+  $('dF').style.display=st==='d'?'block':'none';$('pv').classList.toggle('done',st!=='p');inv();
+  $('invScreen').scrollTo({top:0,behavior:'smooth'});$('env').classList.add('open');
+  if(st==='e')toast('Booked with the BlindFate rate · referral sent to Rivkah');
+  if(st==='d')toast('The date is live for every guest');
+}
+$('pvB').onclick=()=>setSt('e');
 inv();
 const leads=[];
 function addLead(n,src){leads.unshift({n,src});$('leads').innerHTML=leads.map(l=>`<div class="lead-row">${esc(l.n)}<em>${l.src}</em></div>`).join('')}
