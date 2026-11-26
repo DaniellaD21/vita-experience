@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vita Experience · Catálogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Jost:wght@300;400;500&family=Frank+Ruhl+Libre:wght@400;500&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE: hushed couture — a private appointment at a bridal atelier
+   IDEA: the catalogue is a gilded stationery box: gold leaf, the real Vita envelope and wax seal, things revealed slowly
+   PICTURE: the real VX logo glowing in with a gold light sweep, floating gold dust, an envelope that opens into petals
+   COLOUR and TYPE: ivory paper, burnished gold foil, rosa mexicano accents, a plum night band; Cormorant + Pinyon Script + Jost
+   LAYOUT: centred hero object; framed sections with ornament dividers; features as gilded cards that reveal on scroll */
+:root{color-scheme:light dark;
+ --bg:light-dark(#fbf7f0,#1b1217);--paper:light-dark(#fffdf9,#251a20);--ink:light-dark(#3a2a2f,#f3e9df);
+ --soft:light-dark(#7d6a68,#c9b8ad);--gold:light-dark(#a8803a,#d8b46a);--gold2:light-dark(#e6c98a,#f0d99a);
+ --rosa:light-dark(#c2185b,#e8508f);--sand:light-dark(#f4ece0,#2b1f25);--line:light-dark(#e8d9bd,#4a3a3f);
+ --foil:linear-gradient(100deg,#8f6a2a 0%,#d9b766 22%,#fbecc0 38%,#c79f4f 55%,#f3dc9c 72%,#9c7430 100%)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Jost,system-ui,sans-serif;font-weight:300;overflow-x:clip}
+html[dir=rtl] body{font-family:Heebo,Jost,sans-serif}
+html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] h3{font-family:'Frank Ruhl Libre',serif}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(34px,5vw,52px)}h3{font-size:27px}
+.foil{background:var(--foil);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+.script{font-family:'Pinyon Script',cursive;font-weight:400}
+.band{padding:clamp(56px,8vw,120px) max(5vw,16px);position:relative}.wrap{max-width:1180px;margin:0 auto;position:relative}
+.lede{color:var(--soft);max-width:62ch;font-size:17px;margin-inline:auto}
+.head{text-align:center;margin-bottom:40px}
+.orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto;color:var(--gold)}
+.orn::before,.orn::after{content:"";height:1px;width:min(120px,22vw);background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{transform:scaleX(-1)}.orn i{width:7px;height:7px;background:var(--rosa);transform:rotate(45deg)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--rosa);outline-offset:3px}
+.btn{min-height:46px;padding:11px 30px;border-radius:999px;border:0;background:var(--foil);background-size:200% 100%;color:#2b1d14;font-weight:500;letter-spacing:.04em;transition:background-position .8s,transform .3s;box-shadow:0 8px 24px -10px rgba(150,110,40,.7)}
+.btn:hover{background-position:100% 0;transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:inherit;border:1px solid var(--gold);box-shadow:none}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+/* nav */
+nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;padding:8px max(5vw,16px);background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .brand{display:flex;align-items:center;gap:10px;font:500 19px 'Cormorant Garamond',serif;letter-spacing:.18em}
+nav img{width:46px;height:46px}
+.langs{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px}
+.langs button{min-height:38px;min-width:46px;border:0;border-radius:999px;background:transparent;color:var(--ink)}
+.langs button[aria-pressed=true]{background:var(--rosa);color:#fff}
+/* hero */
+.hero{min-height:calc(100svh - 64px);display:grid;place-items:center;text-align:center;overflow:hidden;
+ background:radial-gradient(ellipse 70% 55% at 50% 40%,var(--paper),var(--bg) 75%)}
+#dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.mono{position:relative;width:min(360px,76vw);aspect-ratio:1;margin:0 auto;opacity:0;animation:logo 2.4s cubic-bezier(.2,.8,.2,1) .2s forwards}
+.mono img{position:relative;width:100%;height:100%;display:block}
+.mono::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,247,215,.95) 50%,transparent 65%);background-size:300% 100%;-webkit-mask:url(logo.png) center/contain no-repeat;mask:url(logo.png) center/contain no-repeat;animation:sweep 5s ease-in-out 2.4s infinite}
+@keyframes logo{from{opacity:0;transform:scale(.92);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes sweep{0%{background-position:150% 0}60%,100%{background-position:-150% 0}}
+.mono-halo{position:absolute;inset:-6%;border-radius:50%;background:radial-gradient(circle,rgba(232,80,143,.14),transparent 65%);animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.06);opacity:.7}}
+@keyframes fadein{to{opacity:1}}
+.hero h1{font-size:clamp(40px,6.5vw,76px);margin-top:18px;opacity:0;animation:up 1.4s ease 1.4s forwards}
+.hero h1 .script{display:block;font-size:.8em;line-height:1.25;color:var(--rosa)}
+.hero .lede{opacity:0;animation:up 1.4s ease 1.8s forwards}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.scrollcue{margin-top:28px;display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:var(--gold);font-size:13px;letter-spacing:.2em;opacity:0;animation:fadein 1s ease 2.4s forwards;text-decoration:none}
+.scrollcue span{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
+/* envelope */
+.envwrap{text-align:center}
+.env{position:relative;width:min(560px,92vw);margin:150px auto 14px;cursor:pointer;border:0;background:none;padding:0;display:block;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.env.open{animation:none;cursor:default}
+.env .photo{position:relative;z-index:2;display:block;width:100%;border-radius:4px;box-shadow:0 40px 70px -24px rgba(70,35,25,.55);transition:transform 1.2s cubic-bezier(.2,.8,.2,1),opacity 1.2s}
+.env .ring{position:absolute;z-index:3;left:49.9%;top:60.4%;width:22%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,236,190,.9);animation:pulse 2.2s ease-out infinite;pointer-events:none;transition:opacity .4s}
+@keyframes pulse{from{transform:translate(-50%,-50%) scale(.95);opacity:.95}to{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
+.env .card{position:absolute;z-index:1;left:7%;right:7%;top:4%;bottom:4%;background:#fffdf8;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#3a2a2f;box-shadow:inset 0 0 0 8px #fffdf8,inset 0 0 0 9px #d9bb7a,0 30px 60px -25px rgba(70,35,25,.5);transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.env .card img{width:64px;height:64px}
+.env .card .script{font-size:clamp(34px,7vw,52px);color:#a3104c;line-height:1.1}
+.env .card small{letter-spacing:.24em;font-size:13px;color:#8a7568}
+.env.open .ring{opacity:0;animation:none}
+.env.open .card{transform:translateY(-62%)}
+.env.out .photo{transform:translateY(40%) scale(.9);opacity:0}
+.env.out .card{z-index:3;transform:translateY(-22%) scale(1.06)}
+.hint{color:var(--soft);font-size:14px;letter-spacing:.06em}
+.petal{position:fixed;top:-30px;width:14px;height:18px;border-radius:80% 0 80% 0;pointer-events:none;z-index:50;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r))}}
+/* styles */
+.styles{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.note{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-bottom:18px;font-size:15px}
+.note b{color:var(--rosa);font-weight:500}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.sw{border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:14px;text-align:start;color:var(--ink);min-height:44px;transition:transform .35s,box-shadow .35s}
+.sw:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(120,80,30,.6)}
+.sw[aria-pressed=true]{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.sw .chips{display:flex;gap:5px;margin-bottom:10px}.sw .chips i{width:24px;height:24px;border-radius:50%;border:1px solid rgba(0,0,0,.12)}
+.sw b{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;display:block;line-height:1.1}
+.sw span{font-size:13px;color:var(--soft)}
+.custom{grid-column:1/-1;border:1px dashed var(--gold);background:transparent}
+.picker{display:none;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px;padding:14px 18px;border-radius:16px;background:var(--paper);border:1px solid var(--line)}
+.picker.on{display:flex}
+.picker label{display:flex;align-items:center;gap:8px;font-size:14px}
+.picker input{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;padding:0;background:none;cursor:pointer}
+.phone{width:min(300px,78vw);aspect-ratio:9/18.5;margin:auto;border-radius:44px;padding:11px;background:linear-gradient(145deg,#2a2024,#0f0a0c);box-shadow:0 50px 90px -34px rgba(60,25,20,.7),inset 0 0 0 1.5px #6b5a4a}
+.screen{height:100%;border-radius:34px;overflow:hidden;background:var(--s-bg);color:var(--s-ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:24px 18px;transition:background .8s,color .8s;position:relative}
+.screen::before{content:"";position:absolute;inset:12px;border:1px solid var(--s-acc);border-radius:24px;opacity:.5;transition:border-color .8s}
+.screen .ln{width:60%;height:1px;background:var(--s-acc);transition:background .8s}
+.screen .names{font-family:var(--s-font);font-size:var(--s-size);line-height:1.1;color:var(--s-acc);transition:color .8s}
+.screen .lbl{font-size:11px;letter-spacing:.28em}
+.screen .date{font-family:'Cormorant Garamond',serif;font-size:22px}
+.screen .cta{margin-top:10px;padding:8px 20px;border-radius:999px;border:1px solid var(--s-acc);font-size:13px}
+.screen .tagline{position:absolute;bottom:22px;font-size:11px;opacity:.7}
+.screen.swap .names{animation:swap .8s ease}
+@keyframes swap{from{opacity:0;transform:scale(.94)}}
+/* builder */
+.builder{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px 22px;margin-bottom:28px;text-align:center}
+.chipset{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
+.chip{min-height:44px;padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);transition:all .3s}
+.chip[aria-pressed=true]{background:var(--foil);border-color:transparent;color:#2b1d14}
+.mine{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--gold);min-height:1.5em}
+/* features */
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:22px}
+.feat{background:var(--paper);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:12px;position:relative;box-shadow:0 0 0 1px var(--line),0 24px 50px -36px rgba(110,70,30,.5);transition:transform .5s,box-shadow .5s}
+.feat:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--gold),0 30px 60px -34px rgba(110,70,30,.6)}
+.feat::after{content:"";position:absolute;inset:8px;border:1px solid var(--line);border-radius:18px;pointer-events:none}
+.feat p{margin:0;color:var(--soft)}
+.stage{border-radius:16px;background:var(--sand);min-height:240px;display:grid;place-items:center;position:relative;overflow:hidden;padding:18px}
+.tag{align-self:flex-start;font-size:13px;padding:2px 12px;border-radius:999px;background:color-mix(in srgb,var(--rosa) 12%,transparent);color:var(--rosa)}
+.scratch{position:relative;width:min(250px,100%);aspect-ratio:1;border-radius:50%;background:#fffdf8;display:grid;place-items:center;text-align:center;color:#3a2a2f;box-shadow:0 0 0 5px #fffdf8,0 0 0 6px #d9bb7a,0 20px 40px -20px rgba(100,60,20,.5)}
+.scratch .script{font-size:34px;color:#c2185b}.scratch .d{font:500 30px 'Cormorant Garamond',serif;letter-spacing:.1em;color:#a8803a}
+.scratch canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;touch-action:none;cursor:grab}
+.slot{display:flex;flex-direction:column;align-items:center;gap:14px}
+.machine{padding:14px;border-radius:20px;background:linear-gradient(#4a1a30,#2a0d1b);box-shadow:inset 0 0 0 2px #e6c98a,0 20px 40px -18px rgba(60,10,30,.7);position:relative}
+.machine::before{content:"VX";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font:italic 600 18px 'Cormorant Garamond',serif;background:var(--foil);color:#2b1d14;padding:0 14px;border-radius:999px}
+.reels{display:flex;gap:8px}
+.reel{width:64px;height:78px;overflow:hidden;border-radius:10px;background:linear-gradient(#e9dcc4,#fffdf8 30%,#fffdf8 70%,#e9dcc4)}
+.strip{display:flex;flex-direction:column}
+.strip div{height:78px;display:grid;place-items:center;font:600 32px 'Cormorant Garamond',serif;color:#a3104c}
+.machine.win{animation:glow 1s ease 3}
+@keyframes glow{50%{box-shadow:inset 0 0 0 2px #fff3cf,0 0 40px 6px rgba(230,200,130,.8)}}
+.slotmsg{min-height:1.6em;font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);text-align:center}
+.count{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.count div{background:var(--paper);border-radius:14px;padding:12px 6px;width:72px;text-align:center;box-shadow:inset 0 0 0 1px var(--line)}
+.count b{display:block;font:500 34px 'Cormorant Garamond',serif}.count span{font-size:13px;color:var(--soft)}
+.rsvp,.tables{width:100%;max-width:300px;display:flex;flex-direction:column;gap:10px;text-align:center}
+.rsvp{background:var(--paper);border-radius:16px;padding:16px}
+.step{display:flex;align-items:center;justify-content:center;gap:16px}
+.step button{width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:transparent;color:var(--ink);font-size:20px}
+.step output{font:500 34px 'Cormorant Garamond',serif;min-width:2ch}
+.small{font-size:13px;color:var(--soft)}
+.tables input{min-height:46px;font:16px Jost,sans-serif;padding:8px 14px;border-radius:999px;border:1px solid var(--gold);background:var(--paper);color:var(--ink);text-align:center}
+.tableres{font-family:'Cormorant Garamond',serif;font-size:26px;min-height:2.4em;color:var(--gold)}
+.langs3 div{transition:opacity .6s,transform .6s}
+/* includes */
+.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:22px}
+.more div{padding:22px 4px 0;border-top:1px solid var(--gold)}
+.more h3{font-size:23px;margin-bottom:6px}.more p{margin:0;color:var(--soft);font-size:15px}
+.process{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:18px;padding:0;list-style:none;counter-reset:s}
+.process li{counter-increment:s;text-align:center;padding:10px}
+.process li::before{content:counter(s);display:grid;place-items:center;width:52px;height:52px;margin:0 auto 12px;border-radius:50%;border:1px solid var(--gold);font:italic 500 24px 'Cormorant Garamond',serif;color:var(--gold)}
+.process b{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;display:block}
+.process span{color:var(--soft);font-size:15px}
+.final{background:radial-gradient(ellipse at 50% 0%,#5a2238,#2a0d1b 70%);color:#f6e9dc;text-align:center;overflow:hidden}
+.final .lede{color:#e3cfc2}
+.final .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.final a{text-decoration:none}.final .btn.ghost{color:#f6e9dc;border-color:#d8b46a}
+.final img{width:120px;height:120px;background:#fbf7f0;border-radius:50%;box-shadow:0 0 0 6px rgba(230,200,138,.25),0 0 60px rgba(230,200,138,.35)}
+footer{text-align:center;padding:24px;font-size:13px;color:var(--soft)}
+@media(max-width:760px){.styles{grid-template-columns:minmax(0,1fr)}.phone{order:-1}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}.reveal{opacity:1;transform:none}.mono{opacity:1}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9c7430"/><stop offset=".45" stop-color="#f3dc9c"/><stop offset=".7" stop-color="#c79f4f"/><stop offset="1" stop-color="#8f6a2a"/></linearGradient>
+ </defs>
+</svg>
+<nav>
+ <div class="brand"><img src="logo.png" alt="Vita Experience"><span>VITA EXPERIENCE</span></div>
+ <div class="langs" role="group" aria-label="Idioma">
+  <button data-lang="es" aria-pressed="true">ES</button><button data-lang="en" aria-pressed="false">EN</button><button data-lang="he" aria-pressed="false">עב</button>
+ </div>
+</nav>
+
+<header class="band hero">
+ <canvas id="dust"></canvas>
+ <div class="wrap">
+  <div class="mono"><div class="mono-halo"></div><img src="logo.png" alt="Vita Experience"></div>
+  <h1><span data-i="h1a">El catálogo</span><span class="script" data-i="h1b">de la invitación de tus sueños</span></h1>
+  <p class="lede" data-i="intro">No es solo una invitación: es una experiencia que tus invitados abren, tocan, juegan y recuerdan.</p>
+  <a class="scrollcue" href="#sobre"><em data-i="discover">DESCUBRE</em><span></span></a>
+ </div>
+</header>
+
+<section class="band" id="sobre" style="background:var(--sand)">
+ <div class="wrap envwrap reveal">
+  <h2 class="foil" data-i="envT">Todo empieza con un sobre</h2>
+  <div class="orn"><i></i></div>
+  <button class="env" id="env" aria-label="Abrir el sobre">
+   <div class="card"><img src="logo.png" alt=""><small data-i="encl">NOS CASAMOS</small><span class="script">Sofía &amp; Daniel</span><small>14 · 06 · 2027</small></div>
+   <img class="photo" src="sobre.jpg" alt="Vita Experience"><span class="ring"></span>
+  </button>
+  <p class="hint" data-i="hint">Toca el sello</p>
+ </div>
+</section>
+
+<section class="band" id="estilos">
+ <div class="wrap">
+  <div class="head reveal"><h2 data-i="stT">Estilos y colores</h2><div class="orn"><i></i></div>
+   <p class="lede" data-i="stL">Estas paletas son solo ideas para inspirarte. Elige una y mírala en el teléfono, o crea la tuya.</p></div>
+  <div class="styles">
+   <div class="reveal">
+    <div class="note"><span>✦</span><span><b data-i="nB">Los colores son sugerencias.</b> <span data-i="nP">Tu invitación puede ir en los colores que tú quieras: los de tu boda, tus flores o tu vestido. Cada diseño se hace a tu medida.</span></span></div>
+    <div class="swatches" id="sw"></div>
+    <div class="picker" id="picker">
+     <label><input type="color" id="cBg" value="#fdf6ee"><span data-i="cBg">Fondo</span></label>
+     <label><input type="color" id="cAcc" value="#7b2d4a"><span data-i="cAcc">Detalles</span></label>
+     <label><input type="color" id="cInk" value="#3a2a2f"><span data-i="cInk">Texto</span></label>
+    </div>
+   </div>
+   <div class="phone reveal"><div class="screen" id="screen">
+    <span class="lbl" data-i="encl">NOS CASAMOS</span><div class="ln"></div>
+    <div class="names">Sofía &amp; Daniel</div><div class="ln"></div>
+    <div class="date">14 · 06 · 2027</div><span class="lbl" data-i="city">CIUDAD DE MÉXICO</span>
+    <span class="cta" data-i="confirm">Confirmar asistencia</span>
+    <span class="tagline" id="stname"></span>
+   </div></div>
+  </div>
+ </div>
+</section>
+
+<section class="band" style="background:var(--sand)" id="experiencias">
+ <div class="wrap">
+  <div class="head reveal"><h2 class="foil" data-i="fT">Experiencias interactivas</h2><div class="orn"><i></i></div>
+   <p class="lede" data-i="fL">La fecha no se lee, se descubre. Puedes elegir una, varias o todas, y combinarlas como quieras: tu invitación, a tu manera.</p></div>
+  <div class="builder reveal">
+   <b class="script" style="font-size:30px;color:var(--rosa)" data-i="bT">Arma tu experiencia</b>
+   <div class="chipset" id="chips"></div>
+   <div class="mine" id="mine" aria-live="polite"></div>
+  </div>
+  <div class="feats">
+   <article class="feat reveal"><span class="tag" data-i="tFav">Favorita</span><h3 data-i="scT">Rasca y descubre</h3>
+    <div class="stage"><div class="scratch"><div><div class="script">Save the date</div><div class="d">14·06·27</div></div><canvas id="scr" aria-label="Rasca con el dedo o el mouse"></canvas></div></div>
+    <p data-i="scP">Tus invitados raspan la capa dorada con el dedo para revelar la fecha. Ideal para el Save the Date.</p>
+    <button class="btn ghost" id="scrReset" data-i="again">Volver a cubrir</button></article>
+
+   <article class="feat reveal"><span class="tag" data-i="tNew">Nueva</span><h3 data-i="jkT">Jackpot de la fecha</h3>
+    <div class="stage"><div class="slot"><div class="machine" id="machine"><div class="reels" id="reels"></div></div><div class="slotmsg" id="slotmsg" aria-live="polite"></div><button class="btn" id="spin" data-i="spin">Girar</button></div></div>
+    <p data-i="jkP">Una máquina de la suerte que siempre cae en su gran día. Divertida, sorprendente y muy compartible.</p></article>
+
+   <article class="feat reveal"><h3 data-i="cdT">Cuenta regresiva</h3>
+    <div class="stage"><div class="count" id="count"></div></div>
+    <p data-i="cdP">Días, horas, minutos y segundos para la boda, siempre en vivo.</p></article>
+
+   <article class="feat reveal"><h3 data-i="rsT">Confirmación con cupo</h3>
+    <div class="stage"><div class="rsvp"><span data-i="rsHi">Hola, Familia Levy</span><span class="small" data-i="rsCap">Tienen 2 lugares reservados</span>
+     <div class="step"><button id="minus" aria-label="−">−</button><output id="pax">1</output><button id="plus" aria-label="+">+</button></div>
+     <span class="small" id="paxmsg" aria-live="polite"></span><button class="btn" id="rsBtn" data-i="confirm">Confirmar asistencia</button></div></div>
+    <p data-i="rsP">Cada invitado recibe su link personal. El sistema no deja confirmar más lugares de los asignados y pide el nombre de cada acompañante.</p></article>
+
+   <article class="feat reveal"><span class="tag" data-i="tExtra">Servicio extra</span><h3 data-i="tbT">Encuentra tu mesa</h3>
+    <div class="stage"><div class="tables"><label class="small" for="tq" data-i="tbL">Escribe tu nombre (prueba: Ana, Moisés, Rebeca)</label><input id="tq" autocomplete="off"><div class="tableres" id="tres" aria-live="polite"></div></div></div>
+    <p data-i="tbP">El día de la boda tus invitados escanean un QR, escriben su nombre y ven su mesa. Tú armas el mapa arrastrando nombres.</p></article>
+
+   <article class="feat reveal"><h3 data-i="lgT">En tres idiomas</h3>
+    <div class="stage"><div class="langs3" style="text-align:center"><div class="script" style="font-size:38px;color:var(--rosa)">Bienvenidos</div><div style="font:italic 500 32px 'Cormorant Garamond',serif">Welcome</div><div style="font:500 30px 'Frank Ruhl Libre',serif;color:var(--gold)" dir="rtl">ברוכים הבאים</div></div></div>
+    <p data-i="lgP">Español, inglés y hebreo, con la escritura de derecha a izquierda bien hecha. Toda tu familia, en México, Israel o donde esté, la lee en su idioma.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="band">
+ <div class="wrap">
+  <div class="head reveal"><h2 data-i="incT">Todo lo que incluye tu invitación</h2><div class="orn"><i></i></div></div>
+  <div class="more reveal" id="more"></div>
+  <div class="head reveal" style="margin-top:96px"><h2 data-i="prT">Cómo trabajamos</h2><div class="orn"><i></i></div></div>
+  <ol class="process reveal" id="process"></ol>
+ </div>
+</section>
+
+<section class="band final">
+ <div class="wrap reveal">
+  <img src="logo.png" alt="Vita Experience">
+  <h2 class="foil" style="margin-top:26px" data-i="ctaT">Diseñemos la invitación de tus sueños</h2>
+  <div class="orn"><i></i></div>
+  <p class="lede" data-i="ctaL">Cuéntanos de tu boda y te enviamos una propuesta personalizada.</p>
+  <div class="row">
+   <a class="btn" href="https://wa.me/525664674617">WhatsApp +52 56 6467 4617</a>
+   <a class="btn ghost" href="https://instagram.com/vitaexperience.studio">@vitaexperience.studio</a>
+  </div>
+ </div>
+</section>
+<footer><span data-i="sample">Sofía &amp; Daniel y los invitados son un ejemplo.</span> · Vita Experience Studio</footer>
+
+<script>
+{
+const T={
+es:{h1a:"El catálogo",h1b:"de la invitación de tus sueños",discover:"DESCUBRE",envT:"Todo empieza con un sobre",encl:"NOS CASAMOS",hint:"Toca el sello",intro:"No es solo una invitación: es una experiencia que tus invitados abren, tocan, juegan y recuerdan.",stT:"Estilos y colores",stL:"Estas paletas son solo ideas para inspirarte. Elige una y mírala en el teléfono, o crea la tuya.",nB:"Los colores son sugerencias.",nP:"Tu invitación puede ir en los colores que tú quieras: los de tu boda, tus flores o tu vestido. Cada diseño se hace a tu medida.",custom:["Tu propia paleta","Elige tus colores y míralos en vivo"],cBg:"Fondo",cAcc:"Detalles",cInk:"Texto",city:"CIUDAD DE MÉXICO",confirm:"Confirmar asistencia",fT:"Experiencias interactivas",fL:"La fecha no se lee, se descubre. Puedes elegir una, varias o todas, y combinarlas como quieras: tu invitación, a tu manera.",bT:"Arma tu experiencia",chips:["Sobre","Rasca y descubre","Jackpot","Cuenta regresiva","Confirmación con cupo","Encuentra tu mesa","Música","Tres idiomas"],mine:"Tu invitación: ",pick:"Toca las que te gusten",tFav:"Favorita",tNew:"Nueva",tExtra:"Servicio extra",scT:"Rasca y descubre",scP:"Tus invitados raspan la capa dorada con el dedo para revelar la fecha. Ideal para el Save the Date.",again:"Volver a cubrir",scr:"Rasca aquí",jkT:"Jackpot de la fecha",jkP:"Una máquina de la suerte que siempre cae en su gran día. Divertida, sorprendente y muy compartible.",spin:"Girar",win:"¡Jackpot! Nos vemos el 14 de junio",cdT:"Cuenta regresiva",cdP:"Días, horas, minutos y segundos para la boda, siempre en vivo.",cd:["días","horas","min","seg"],rsT:"Confirmación con cupo",rsHi:"Hola, Familia Levy",rsCap:"Tienen 2 lugares reservados",rsP:"Cada invitado recibe su link personal. El sistema no deja confirmar más lugares de los asignados y pide el nombre de cada acompañante.",max:"Tu invitación es para 2 personas",ok:"¡Gracias! Confirmaste {n}",per:["persona","personas"],tbT:"Encuentra tu mesa",tbL:"Escribe tu nombre (prueba: Ana, Moisés, Rebeca)",tbP:"El día de la boda tus invitados escanean un QR, escriben su nombre y ven su mesa. Tú armas el mapa arrastrando nombres.",table:"Mesa",none:"No encontramos ese nombre",lgT:"En tres idiomas",lgP:"Español, inglés y hebreo, con la escritura de derecha a izquierda bien hecha. Toda tu familia, en México, Israel o donde esté, la lee en su idioma.",incT:"Todo lo que incluye tu invitación",prT:"Cómo trabajamos",ctaT:"Diseñemos la invitación de tus sueños",ctaL:"Cuéntanos de tu boda y te enviamos una propuesta personalizada.",sample:"Sofía & Daniel y los invitados son un ejemplo.",
+ more:[["Link personal por invitado","Con su nombre y su cupo ya programado."],["Envío por WhatsApp","Lo enviamos por ti, o un botón abre WhatsApp con el mensaje ya escrito."],["Save the Date","Guía para su diseño y envío a cada invitado."],["Itinerario y ubicación","Horarios del evento y mapa con un toque."],["Dress code y mesa de regalos","Todo lo que tus invitados necesitan saber."],["Recordatorios","Dos recordatorios incluidos antes de la boda."],["Libro de mensajes","Al final, de regalo, los mensajes de tus invitados en una página con el diseño de tu boda."],["Música","Tu canción sonando al abrir la invitación."]],
+ process:[["Contacto","Nos escribes y nos cuentas de tu boda."],["Detalles","Llenas un formulario corto con lo esencial."],["Propuesta","Te enviamos tu cotización personalizada."],["Diseño","Eliges estilo, colores y experiencias; dos rondas de ajustes."],["Envío","Cargamos tu lista y la enviamos a cada invitado."]],
+ styles:[["Marfil Clásico","Atemporal, con detalles en dorado"],["Rosa Mexicano","Vibrante y con raíces"],["Jardín Salvia","Natural, fresco y botánico"],["Noche Dorada","Elegancia de gala"],["Arena Mediterránea","Cálido, de playa y sol"],["Blanco Minimal","Limpio y moderno"]]},
+en:{h1a:"The catalogue",h1b:"of your dream invitation",discover:"DISCOVER",envT:"It all begins with an envelope",encl:"WE'RE GETTING MARRIED",hint:"Tap the seal",intro:"It's not just an invitation: it's an experience your guests open, touch, play with and remember.",stT:"Styles and colours",stL:"These palettes are just ideas to inspire you. Pick one and see it on the phone, or create your own.",nB:"Colours are suggestions.",nP:"Your invitation can be in any colours you like: your wedding's, your flowers' or your dress's. Every design is made to measure.",custom:["Your own palette","Choose your colours and see them live"],cBg:"Background",cAcc:"Details",cInk:"Text",city:"MEXICO CITY",confirm:"RSVP",fT:"Interactive experiences",fL:"The date isn't read, it's discovered. Choose one, several or all of them, and mix them however you like: your invitation, your way.",bT:"Build your experience",chips:["Envelope","Scratch to reveal","Jackpot","Countdown","RSVP with set seats","Find your table","Music","Three languages"],mine:"Your invitation: ",pick:"Tap the ones you love",tFav:"Favourite",tNew:"New",tExtra:"Add-on",scT:"Scratch to reveal",scP:"Guests scratch off the gold layer with a finger to reveal the date. Perfect for the Save the Date.",again:"Cover it again",scr:"Scratch here",jkT:"Date jackpot",jkP:"A lucky slot machine that always lands on your big day. Fun, surprising and made to be shared.",spin:"Spin",win:"Jackpot! See you on June 14",cdT:"Countdown",cdP:"Days, hours, minutes and seconds to the wedding, always live.",cd:["days","hours","min","sec"],rsT:"RSVP with set seats",rsHi:"Hi, Levy family",rsCap:"You have 2 seats reserved",rsP:"Each guest gets a personal link. The system won't allow more seats than assigned and asks for each companion's name.",max:"Your invitation is for 2 guests",ok:"Thank you! You confirmed {n}",per:["guest","guests"],tbT:"Find your table",tbL:"Type your name (try: Ana, Moisés, Rebeca)",tbP:"On the wedding day guests scan a QR, type their name and see their table. You build the map by dragging names.",table:"Table",none:"We couldn't find that name",lgT:"In three languages",lgP:"Spanish, English and Hebrew, with right-to-left done properly. Your whole family, in Mexico, Israel or anywhere, reads it in their language.",incT:"Everything your invitation includes",prT:"How we work",ctaT:"Let's design your dream invitation",ctaL:"Tell us about your wedding and we'll send you a tailored proposal.",sample:"Sofía & Daniel and the guests are an example.",
+ more:[["A personal link per guest","With their name and seats already set."],["Sent by WhatsApp","We send it for you, or a button opens WhatsApp with the message ready."],["Save the Date","Design guidance and delivery to every guest."],["Schedule and location","Event times and a one-tap map."],["Dress code and registry","Everything your guests need to know."],["Reminders","Two reminders included before the wedding."],["Message book","A closing gift: your guests' messages on a page in your wedding's design."],["Music","Your song playing as the invitation opens."]],
+ process:[["Contact","You write to us about your wedding."],["Details","You fill in a short form with the essentials."],["Proposal","We send you a personalised quote."],["Design","Choose style, colours and experiences; two rounds of edits."],["Delivery","We load your list and send it to every guest."]],
+ styles:[["Classic Ivory","Timeless, with gold details"],["Rosa Mexicano","Vibrant, with roots"],["Sage Garden","Natural, fresh, botanical"],["Golden Night","Black-tie elegance"],["Mediterranean Sand","Warm, sun and sea"],["Minimal White","Clean and modern"]]},
+he:{h1a:"הקטלוג",h1b:"של הזמנת החלומות שלכם",discover:"גלו",envT:"הכול מתחיל במעטפה",encl:"אנחנו מתחתנים",hint:"געו בחותם",intro:"זו לא רק הזמנה: זו חוויה שהאורחים פותחים, נוגעים, משחקים וזוכרים.",stT:"סגנונות וצבעים",stL:"הפלטות האלה הן רק השראה. בחרו אחת וראו אותה בטלפון, או צרו משלכם.",nB:"הצבעים הם הצעות בלבד.",nP:"ההזמנה שלכם יכולה להיות בכל צבע שתרצו: של החתונה, הפרחים או השמלה. כל עיצוב נעשה במיוחד בשבילכם.",custom:["הפלטה שלכם","בחרו צבעים וראו אותם בזמן אמת"],cBg:"רקע",cAcc:"פרטים",cInk:"טקסט",city:"מקסיקו סיטי",confirm:"אישור הגעה",fT:"חוויות אינטראקטיביות",fL:"את התאריך לא קוראים, מגלים. בחרו אחת, כמה או את כולן, ושלבו כמו שתרצו: ההזמנה שלכם, בדרך שלכם.",bT:"בנו את החוויה שלכם",chips:["מעטפה","גרדו וגלו","ג'קפוט","ספירה לאחור","אישור הגעה עם מקומות","מצאו את השולחן","מוזיקה","שלוש שפות"],mine:"ההזמנה שלכם: ",pick:"געו במה שאהבתם",tFav:"האהובה",tNew:"חדש",tExtra:"שירות נוסף",scT:"גרדו וגלו",scP:"האורחים מגרדים את השכבה הזהובה באצבע וחושפים את התאריך. מושלם ל-Save the Date.",again:"לכסות שוב",scr:"גרדו כאן",jkT:"ג'קפוט התאריך",jkP:"מכונת מזל שתמיד נעצרת על היום הגדול שלכם. כיפית, מפתיעה ומזמינה שיתוף.",spin:"סובבו",win:"ג'קפוט! נתראה ב-14 ביוני",cdT:"ספירה לאחור",cdP:"ימים, שעות, דקות ושניות עד החתונה, תמיד בזמן אמת.",cd:["ימים","שעות","דק'","שנ'"],rsT:"אישור הגעה עם מקומות שמורים",rsHi:"שלום, משפחת לוי",rsCap:"שמורים לכם 2 מקומות",rsP:"כל אורח מקבל קישור אישי. המערכת לא מאפשרת לאשר יותר מקומות מהשמורים ומבקשת את שם כל מלווה.",max:"ההזמנה שלכם ל-2 אנשים",ok:"תודה! אישרתם {n}",per:["אורח","אורחים"],tbT:"מצאו את השולחן",tbL:"כתבו את שמכם (נסו: Ana, Moisés, Rebeca)",tbP:"ביום החתונה האורחים סורקים QR, כותבים את שמם ורואים את השולחן. אתם בונים את המפה בגרירת שמות.",table:"שולחן",none:"לא מצאנו את השם הזה",lgT:"בשלוש שפות",lgP:"ספרדית, אנגלית ועברית, עם כתיבה מימין לשמאל כמו שצריך. כל המשפחה, במקסיקו, בישראל או בכל מקום, קוראת בשפה שלה.",incT:"כל מה שכלול בהזמנה",prT:"איך אנחנו עובדים",ctaT:"בואו נעצב את הזמנת החלומות שלכם",ctaL:"ספרו לנו על החתונה ונשלח לכם הצעה אישית.",sample:"סופיה ודניאל והאורחים הם דוגמה.",
+ more:[["קישור אישי לכל אורח","עם השם ומספר המקומות שכבר הוגדרו."],["שליחה בוואטסאפ","אנחנו שולחים בשבילכם, או כפתור שפותח וואטסאפ עם ההודעה מוכנה."],["Save the Date","הכוונה לעיצוב ושליחה לכל אורח."],["לו\"ז ומיקום","שעות האירוע ומפה בנגיעה."],["קוד לבוש ורשימת מתנות","כל מה שהאורחים צריכים לדעת."],["תזכורות","שתי תזכורות כלולות לפני החתונה."],["ספר ברכות","מתנה בסוף: הברכות של האורחים בעמוד בעיצוב החתונה שלכם."],["מוזיקה","השיר שלכם מתנגן כשנפתחת ההזמנה."]],
+ process:[["יצירת קשר","כותבים לנו על החתונה."],["פרטים","ממלאים טופס קצר עם העיקר."],["הצעה","שולחים לכם הצעת מחיר אישית."],["עיצוב","בוחרים סגנון, צבעים וחוויות; שני סבבי תיקונים."],["שליחה","טוענים את הרשימה ושולחים לכל אורח."]],
+ styles:[["שנהב קלאסי","על-זמני, עם נגיעות זהב"],["רוזה מקסיקנו","תוסס ושורשי"],["גן מרווה","טבעי, רענן ובוטני"],["לילה זהוב","אלגנטיות של ערב גאלה"],["חול ים-תיכוני","חם, שמש וים"],["לבן מינימלי","נקי ומודרני"]]}};
+const ST=[
+ {bg:"#fbf7f0",ink:"#3a2a2f",acc:"#a8803a",font:"'Pinyon Script',cursive",size:"40px",chips:["#fbf7f0","#e6c98a","#a8803a"]},
+ {bg:"#fff4f7",ink:"#4a1530",acc:"#c2185b",font:"'Pinyon Script',cursive",size:"40px",chips:["#c2185b","#f6c9d8","#d9bb7a"]},
+ {bg:"#eef1e8",ink:"#2f3a2a",acc:"#6f8460",font:"'Cormorant Garamond',serif",size:"36px",chips:["#eef1e8","#8a9a7b","#c9b48a"]},
+ {bg:"#2a1220",ink:"#f6e6d6",acc:"#e2c27e",font:"'Pinyon Script',cursive",size:"40px",chips:["#2a1220","#5a2238","#e2c27e"]},
+ {bg:"#f3e7d6",ink:"#4a3626",acc:"#b0754a",font:"'Cormorant Garamond',serif",size:"36px",chips:["#f3e7d6","#b0754a","#8a9a7b"]},
+ {bg:"#ffffff",ink:"#222222",acc:"#222222",font:"'Jost',sans-serif",size:"28px",chips:["#ffffff","#d6d6d6","#222222"]}];
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let lang="es",cur=0;const picked=new Set([0,1,4]);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* gold dust */
+const dc=$("dust"),dx=dc.getContext("2d");let P=[];
+function sizeDust(){const r=dc.getBoundingClientRect(),d=devicePixelRatio||1;dc.width=r.width*d;dc.height=r.height*d;dx.setTransform(d,0,0,d,0,0);
+ P=Array.from({length:Math.round(r.width/14)},()=>({x:Math.random()*r.width,y:Math.random()*r.height,s:Math.random()*2+.6,v:Math.random()*.35+.1,t:Math.random()*6}))}
+function dust(){const W=dc.clientWidth,H=dc.clientHeight;dx.clearRect(0,0,W,H);
+ for(const p of P){p.y-=p.v;p.t+=.03;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}
+  const a=.35+.45*Math.sin(p.t);dx.fillStyle=`rgba(214,178,98,${a})`;dx.beginPath();dx.arc(p.x+Math.sin(p.t)*6,p.y,p.s,0,7);dx.fill()}
+ if(!RM)requestAnimationFrame(dust)}
+const dro=new ResizeObserver(()=>{sizeDust();if(RM)dust()});dro.observe(dc);if(!RM)requestAnimationFrame(dust);
+
+/* petals / gold burst */
+function shower(n,cols){if(RM)return;for(let i=0;i<n;i++){const p=document.createElement("i");p.className="petal";
+ p.style.left=Math.random()*100+"vw";p.style.background=cols[i%cols.length];p.style.setProperty("--dx",(Math.random()*160-80)+"px");p.style.setProperty("--r",(Math.random()*720)+"deg");
+ p.style.animationDuration=(3+Math.random()*3)+"s";p.style.animationDelay=(Math.random()*.8)+"s";document.body.appendChild(p);setTimeout(()=>p.remove(),7000)}}
+const PET=["#e8508f","#f6c9d8","#c2185b","#e6c98a"],GOLD=["#e6c98a","#f3dc9c","#c79f4f","#fbecc0"];
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* styles */
+function applyScreen(s){const sc=$("screen");["bg","ink","acc","font","size"].forEach(k=>sc.style.setProperty("--s-"+k,s[k]));sc.classList.remove("swap");void sc.offsetWidth;sc.classList.add("swap")}
+function custom(){return{bg:$("cBg").value,ink:$("cInk").value,acc:$("cAcc").value,font:"'Pinyon Script',cursive",size:"40px"}}
+function renderStyles(){const t=T[lang];
+ $("sw").innerHTML=ST.map((s,i)=>`<button class="sw" data-s="${i}" aria-pressed="${i===cur}"><div class="chips">${s.chips.map(c=>`<i style="background:${c}"></i>`).join("")}</div><b>${esc(t.styles[i][0])}</b><span>${esc(t.styles[i][1])}</span></button>`).join("")
+  +`<button class="sw custom" data-s="-1" aria-pressed="${cur===-1}"><div class="chips"><i style="background:conic-gradient(#e8508f,#e6c98a,#8a9a7b,#7b9bd1,#e8508f)"></i></div><b>${esc(t.custom[0])}</b><span>${esc(t.custom[1])}</span></button>`;
+ $("picker").classList.toggle("on",cur===-1);
+ $("stname").textContent=cur===-1?t.custom[0]:t.styles[cur][0];
+ applyScreen(cur===-1?custom():ST[cur])}
+$("sw").addEventListener("click",e=>{const b=e.target.closest(".sw");if(!b)return;cur=+b.dataset.s;renderStyles()});
+["cBg","cAcc","cInk"].forEach(id=>$(id).addEventListener("input",()=>{const s=custom(),sc=$("screen");["bg","ink","acc"].forEach(k=>sc.style.setProperty("--s-"+k,s[k]))}));
+
+/* builder */
+function renderChips(){const t=T[lang];
+ $("chips").innerHTML=t.chips.map((c,i)=>`<button class="chip" data-c="${i}" aria-pressed="${picked.has(i)}">${esc(c)}</button>`).join("");
+ const list=[...picked].sort((a,b)=>a-b).map(i=>t.chips[i]);
+ $("mine").textContent=list.length?t.mine+list.join(" · "):t.pick}
+$("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;const i=+b.dataset.c;picked.has(i)?picked.delete(i):picked.add(i);renderChips()});
+
+function render(){const t=T[lang];
+ document.documentElement.lang=lang;document.documentElement.dir=lang==="he"?"rtl":"ltr";
+ document.querySelectorAll("[data-i]").forEach(el=>{const v=t[el.dataset.i];if(typeof v==="string")el.textContent=v});
+ document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+ $("more").innerHTML=t.more.map(m=>`<div><h3>${esc(m[0])}</h3><p>${esc(m[1])}</p></div>`).join("");
+ $("process").innerHTML=t.process.map(m=>`<li><b>${esc(m[0])}</b><span>${esc(m[1])}</span></li>`).join("");
+ renderStyles();renderChips();tick();paxMsg("");lookup();if(!scratched)cover()}
+document.querySelector(".langs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.lang;try{localStorage.setItem("vxlang",lang)}catch(_){}render()});
+
+/* envelope */
+$("env").addEventListener("click",()=>{const e=$("env");
+ if(e.classList.contains("open")){e.classList.remove("open","out");return}
+ e.classList.add("open");setTimeout(()=>{e.classList.add("out");shower(40,PET)},RM?0:1100)});
+
+/* scratch */
+const cv=$("scr"),cx=cv.getContext("2d");let drawing=false,scratched=false;
+function cover(){const r=cv.getBoundingClientRect();if(!r.width)return;const d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;cx.setTransform(d,0,0,d,0,0);cx.globalCompositeOperation="source-over";
+ const g=cx.createLinearGradient(0,0,r.width,r.height);g.addColorStop(0,"#9c7430");g.addColorStop(.35,"#f3dc9c");g.addColorStop(.5,"#c79f4f");g.addColorStop(.7,"#fbecc0");g.addColorStop(1,"#8f6a2a");cx.fillStyle=g;cx.fillRect(0,0,r.width,r.height);
+ for(let i=0;i<260;i++){cx.fillStyle=`rgba(255,248,220,${Math.random()*.5})`;cx.fillRect(Math.random()*r.width,Math.random()*r.height,1.4,1.4)}
+ cx.fillStyle="rgba(90,55,20,.6)";cx.font="italic 600 24px 'Cormorant Garamond',serif";cx.textAlign="center";cx.fillText(T[lang].scr,r.width/2,r.height/2+8);cv.style.transition="none";cv.style.opacity=1;scratched=false}
+function scratch(e){if(!drawing)return;const r=cv.getBoundingClientRect();cx.globalCompositeOperation="destination-out";cx.beginPath();cx.arc(e.clientX-r.left,e.clientY-r.top,22,0,7);cx.fill()}
+function checkDone(){if(scratched)return;const d=cx.getImageData(0,0,cv.width,cv.height).data;let c=0,n=0;for(let i=3;i<d.length;i+=160){n++;if(d[i]===0)c++}
+ if(c/n>.5){scratched=true;cv.style.transition="opacity .8s";cv.style.opacity=0;shower(36,GOLD)}}
+cv.addEventListener("pointerdown",e=>{drawing=true;cv.setPointerCapture(e.pointerId);scratch(e)});
+cv.addEventListener("pointermove",scratch);
+cv.addEventListener("pointerup",()=>{drawing=false;checkDone()});
+$("scrReset").addEventListener("click",cover);
+const sro=new ResizeObserver(()=>{if(!scratched)cover()});sro.observe(cv);
+
+/* slot */
+const SYM=["♥","VX","✦","14","06","27","♥","✦"],GOAL=["14","06","27"],H=78;
+$("reels").innerHTML=[0,1,2].map(i=>`<div class="reel"><div class="strip" id="st${i}"><div>${["VX","♥","✦"][i]}</div></div></div>`).join("");
+function fill(i,target){const list=[$("st"+i).lastElementChild.textContent];for(let k=0;k<20+i*7;k++)list.push(SYM[Math.floor(Math.random()*SYM.length)]);list.push(target);$("st"+i).innerHTML=list.map(s=>`<div>${s}</div>`).join("");return list.length}
+$("spin").addEventListener("click",()=>{$("slotmsg").textContent="";$("spin").disabled=true;$("machine").classList.remove("win");
+ [0,1,2].forEach(i=>{const st=$("st"+i),n=fill(i,GOAL[i]);st.style.transition="none";st.style.transform="translateY(0)";void st.offsetHeight;
+  st.style.transition=`transform ${RM?0:1.8+i*.7}s cubic-bezier(.12,.85,.22,1)`;st.style.transform=`translateY(-${(n-1)*H}px)`});
+ setTimeout(()=>{$("slotmsg").textContent=T[lang].win;$("spin").disabled=false;$("machine").classList.add("win");shower(50,GOLD)},RM?50:3300)});
+
+/* countdown */
+const WED=new Date("2027-06-14T19:00:00-06:00");
+function tick(){const s=Math.max(0,(WED-Date.now())/1000);const v=[Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),Math.floor(s%60)];
+ $("count").innerHTML=v.map((n,i)=>`<div><b class="foil">${String(n).padStart(2,"0")}</b><span>${esc(T[lang].cd[i])}</span></div>`).join("")}
+const timer=setInterval(tick,1000);
+
+/* rsvp */
+let pax=1;
+function paxMsg(m){$("paxmsg").textContent=m;$("pax").textContent=pax}
+$("plus").addEventListener("click",()=>{if(pax>=2){paxMsg(T[lang].max);return}pax++;paxMsg("")});
+$("minus").addEventListener("click",()=>{if(pax>1)pax--;paxMsg("")});
+$("rsBtn").addEventListener("click",()=>{paxMsg(T[lang].ok.replace("{n}",pax+" "+T[lang].per[pax>1?1:0]));shower(24,PET)});
+
+/* tables */
+const G={ana:4,moises:7,rebeca:2,sofia:1,daniel:1};
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function lookup(){const q=norm($("tq").value.trim());if(!q){$("tres").textContent="";return}
+ const k=Object.keys(G).find(n=>n.startsWith(q));
+ $("tres").textContent=k?`${T[lang].table} ${G[k]}`:(q.length>2?T[lang].none:"")}
+$("tq").addEventListener("input",lookup);
+
+try{const l=localStorage.getItem("vxlang");if(l&&T[l])lang=l}catch(_){}
+render();
+}
+</script>
+</body>
+</html>
