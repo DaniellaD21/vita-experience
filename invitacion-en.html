@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://vitaexperience.studio/og.jpg">
 <title>Itzjak &amp; Sara</title>
 <meta name="description" content="Sample invitation · Vita Experience">
 <style>
-@font-face{font-family:'IS';src:url('InstrumentSerif-Regular.ttf')}
-@font-face{font-family:'IS';src:url('InstrumentSerif-Italic.ttf');font-style:italic}
-@font-face{font-family:'ISans';src:url('InstrumentSans-Regular.ttf');font-weight:400 500}
-@font-face{font-family:'ISans';src:url('InstrumentSans-Bold.ttf');font-weight:600 800}
+@font-face{font-family:'IS';src:url('/fonts/instrument-serif.woff') format('woff');font-display:swap}
+@font-face{font-family:'IS';src:url('/fonts/instrument-serif-italic.woff') format('woff');font-style:italic;font-display:swap}
+@font-face{font-family:'ISans';src:url('/fonts/instrument-sans.woff') format('woff');font-weight:400 700;font-display:swap}
 :root{--ivory:#F8F6F1;--paper:#FFFDF9;--cream:#F3ECDF;--sand:#D8CFC2;--sage-ink:#5E6253;--ink:#2F3129;--gold:#B8913A;--gold-lo:#8E6F33;--gold-hi:#E6CF94;--rosa:#E4007C;--rosa-ink:#C4006B;
 --foil:linear-gradient(100deg,#8E6F33 0%,#C9A24E 22%,#F1DEA6 38%,#B8913A 55%,#E6CF94 72%,#8E6F33 100%)}
 *{box-sizing:border-box}
@@ -22,7 +24,7 @@ body{overflow-x:hidden;background:#EFE9DE}
 @keyframes shine{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 .halo{text-shadow:0 0 6px var(--ivory),0 0 14px var(--ivory),0 0 24px var(--ivory)}
 .grain{background-color:var(--ivory);background-image:radial-gradient(rgba(142,111,51,.05) 1px,transparent 1.2px),radial-gradient(rgba(142,111,51,.035) 1px,transparent 1.2px);background-size:7px 7px,11px 11px;background-position:0 0,3px 5px}
-.corner{position:absolute;pointer-events:none;background:url(rosas-doradas.png) no-repeat;mix-blend-mode:darken}
+.corner{position:absolute;pointer-events:none;background:url(rosas-doradas.jpg) no-repeat;mix-blend-mode:darken}
 .corner.tl{top:0;left:0;width:150px;height:170px;background-size:auto 225px;background-position:left top}
 .corner.br{bottom:0;right:0;width:160px;height:180px;background-size:auto 240px;background-position:right bottom}
 
@@ -36,7 +38,7 @@ body{overflow-x:hidden;background:#EFE9DE}
 .env{position:relative;width:min(84vw,340px);aspect-ratio:1.42;perspective:1400px;z-index:2}
 .env::after{content:'';position:absolute;inset:3px;border:1px solid rgba(184,145,58,.45);border-radius:4px;z-index:5;pointer-events:none}
 .env .back{position:absolute;inset:0;border-radius:6px;background:repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(142,111,51,.05) 0 1px,transparent 1px 3px),linear-gradient(160deg,#F2EADB,#E2D5BE);box-shadow:0 30px 60px -28px rgba(94,74,40,.55),0 2px 0 rgba(255,255,255,.6) inset}
-.env .liner{position:absolute;inset:7px 7px 40% 7px;border-radius:4px;background:#F3DCE2 url(rosas-doradas.png) center 35%/130% auto no-repeat;background-blend-mode:multiply;clip-path:polygon(0 0,100% 0,50% 100%)}
+.env .liner{position:absolute;inset:7px 7px 40% 7px;border-radius:4px;background:#F3DCE2 url(rosas-doradas.jpg) center 35%/130% auto no-repeat;background-blend-mode:multiply;clip-path:polygon(0 0,100% 0,50% 100%)}
 .card{position:absolute;left:7%;right:7%;top:9%;height:84%;z-index:2;background:var(--paper);border-radius:3px;box-shadow:0 10px 24px -14px rgba(60,50,30,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:transform 1.2s cubic-bezier(.3,.7,.2,1);padding:10px}
 .card::before{content:"";position:absolute;inset:7px;border:1px solid rgba(184,145,58,.55)}
 .card::after{content:"";position:absolute;inset:11px;border:.5px solid rgba(184,145,58,.35)}
@@ -51,7 +53,7 @@ body{overflow-x:hidden;background:#EFE9DE}
 .env .flap{position:absolute;left:0;right:0;top:0;height:58%;z-index:4;transform-origin:50% 0;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.6,0,.25,1)}
 .env .flap i{position:absolute;inset:0;display:block;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden}
 .env .flap .fr{background:repeating-linear-gradient(0deg,rgba(255,255,255,.2) 0 1px,transparent 1px 3px),linear-gradient(180deg,#F5EEE1,#E3D6BF);filter:drop-shadow(0 4px 6px rgba(0,0,0,.08))}
-.env .flap .bk{transform:rotateX(180deg);background:#F3DCE2 url(rosas-doradas.png) center 70%/130% auto no-repeat;background-blend-mode:multiply}
+.env .flap .bk{transform:rotateX(180deg);background:#F3DCE2 url(rosas-doradas.jpg) center 70%/130% auto no-repeat;background-blend-mode:multiply}
 .env .flapline{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden}
 .env .seam{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 .env .gold-edge{display:none;position:absolute;left:0;right:0;top:0;height:58%;z-index:4;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(184,145,58,.55),transparent);clip-path:polygon(0 0,1.2% 0,50% 98%,98.8% 0,100% 0,50% 100%);transition:opacity .3s}

@@ -3,9 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vita Experience · Catálogo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Jost:wght@300;400;500&family=Frank+Ruhl+Libre:wght@400;500&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Catálogo de invitaciones digitales · Vita Experience</title>
+<meta name="description" content="Estilos, colores y experiencias interactivas para tu invitación digital de boda: sobre con sello, rasca y descubre, jackpot de la fecha, RSVP y mesas con QR, en hebreo, español e inglés.">
+<link rel="canonical" href="https://vitaexperience.studio/catalogo">
+<meta name="theme-color" content="#fbf7f0">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vita Experience">
+<meta property="og:title" content="Catálogo · Vita Experience">
+<meta property="og:description" content="Estilos y experiencias interactivas para la invitación digital de tus sueños, en hebreo, español e inglés.">
+<meta property="og:url" content="https://vitaexperience.studio/catalogo">
+<meta property="og:image" content="https://vitaexperience.studio/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sobre de Vita Experience con sello de lacre">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon-32.png" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/vita.css">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 /* VOICE: hushed couture — a private appointment at a bridal atelier
    IDEA: the catalogue is a gilded stationery box: gold leaf, the real Vita envelope and wax seal, things revealed slowly
@@ -14,7 +27,7 @@
    LAYOUT: centred hero object; framed sections with ornament dividers; features as gilded cards that reveal on scroll */
 :root{color-scheme:light dark;
  --bg:light-dark(#fbf7f0,#1b1217);--paper:light-dark(#fffdf9,#251a20);--ink:light-dark(#3a2a2f,#f3e9df);
- --soft:light-dark(#7d6a68,#c9b8ad);--gold:light-dark(#a8803a,#d8b46a);--gold2:light-dark(#e6c98a,#f0d99a);
+ --soft:light-dark(#6b5856,#c9b8ad);--gold-txt:light-dark(#82632a,#e2c27e);--gold:light-dark(#a8803a,#d8b46a);--gold2:light-dark(#e6c98a,#f0d99a);
  --rosa:light-dark(#c2185b,#e8508f);--sand:light-dark(#f4ece0,#2b1f25);--line:light-dark(#e8d9bd,#4a3a3f);
  --foil:linear-gradient(100deg,#8f6a2a 0%,#d9b766 22%,#fbecc0 38%,#c79f4f 55%,#f3dc9c 72%,#9c7430 100%)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
@@ -44,16 +57,53 @@ button{font:inherit;cursor:pointer}
 nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;padding:8px max(5vw,16px);background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .brand{display:flex;align-items:center;gap:10px;font:500 19px 'Cormorant Garamond',serif;letter-spacing:.18em}
 nav img{width:46px;height:46px}
+nav .brand{color:var(--ink);text-decoration:none}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.menu{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.links{display:flex;gap:4px 18px;list-style:none;margin:0;padding:0}
+.links a{display:inline-block;padding:10px 2px;color:var(--ink);text-decoration:none;font-size:15px;position:relative}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1px;background:var(--rosa);transform:scaleX(0);transition:transform .3s}
+.links a:hover{color:var(--rosa)}.links a:hover::after{transform:scaleX(1)}
+.theme{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:border-color .3s,color .3s}
+.theme:hover{border-color:var(--rosa);color:var(--rosa)}
+.theme svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5}
+.theme[aria-pressed=true] svg{fill:currentColor}
+.menu-btn{display:none;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.menu-btn .bars{display:grid;gap:4px;justify-items:center}.menu-btn i{display:block;width:18px;height:1.5px;background:currentColor;transition:transform .3s,opacity .3s}
+.menu-btn[aria-expanded=true] i:nth-child(1){transform:translateY(5.5px) rotate(45deg)}.menu-btn[aria-expanded=true] i:nth-child(2){opacity:0}.menu-btn[aria-expanded=true] i:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:820px){
+ .menu-btn{display:grid;place-items:center}
+ .menu{display:none;flex-basis:100%;flex-direction:column;align-items:stretch;gap:14px;padding:10px 0 16px;border-top:1px solid var(--line)}
+ .menu.open{display:flex;animation:drop .35s ease}
+ .links{flex-direction:column;gap:0}.links a{display:block;padding:13px 4px;font-size:18px;font-family:'Cormorant Garamond',serif}
+ .menu .theme,.menu .langs{align-self:flex-start}
+}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}}
+.faq{max-width:780px;margin:0 auto;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 4px;font:500 22px/1.25 'Cormorant Garamond',serif;transition:color .25s}
+html[dir=rtl] .faq summary{font-family:'Frank Ruhl Libre',serif;font-size:20px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--rosa)}
+.faq summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font:300 20px/1 Jost,sans-serif;color:var(--gold);transition:transform .35s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0;padding:0 4px 22px;color:var(--soft);max-width:65ch}
+.ig{display:inline-block;margin-top:18px;color:#e3cfc2;font-size:15px}
+.ig:hover{color:#fff}
+footer .fl{display:flex;gap:6px 20px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+footer a{color:var(--soft);text-decoration:none;padding:6px 0}footer a:hover{color:var(--rosa);text-decoration:underline}
+footer .copy{min-height:40px;margin:10px 0 6px;padding:0 16px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;cursor:pointer;font:inherit;font-size:13px}
+footer .copy:hover{border-color:var(--rosa);color:var(--rosa)}
 .langs{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px}
 .langs button{min-height:38px;min-width:46px;border:0;border-radius:999px;background:transparent;color:var(--ink)}
-.langs button[aria-pressed=true]{background:var(--rosa);color:#fff}
+.langs button[aria-pressed=true]{background:#c2185b;color:#fff}
 /* hero */
 .hero{min-height:calc(100svh - 64px);display:grid;place-items:center;text-align:center;overflow:hidden;
  background:radial-gradient(ellipse 70% 55% at 50% 40%,var(--paper),var(--bg) 75%)}
 #dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .mono{position:relative;width:min(360px,76vw);aspect-ratio:1;margin:0 auto;opacity:0;animation:logo 2.4s cubic-bezier(.2,.8,.2,1) .2s forwards}
 .mono img{position:relative;width:100%;height:100%;display:block}
-.mono::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,247,215,.95) 50%,transparent 65%);background-size:300% 100%;-webkit-mask:url(logo.png) center/contain no-repeat;mask:url(logo.png) center/contain no-repeat;animation:sweep 5s ease-in-out 2.4s infinite}
+.mono::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,247,215,.95) 50%,transparent 65%);background-size:300% 100%;-webkit-mask:url(/catalogo/logo.png) center/contain no-repeat;mask:url(/catalogo/logo.png) center/contain no-repeat;animation:sweep 5s ease-in-out 2.4s infinite}
 @keyframes logo{from{opacity:0;transform:scale(.92);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 @keyframes sweep{0%{background-position:150% 0}60%,100%{background-position:-150% 0}}
 .mono-halo{position:absolute;inset:-6%;border-radius:50%;background:radial-gradient(circle,rgba(232,80,143,.14),transparent 65%);animation:breathe 6s ease-in-out infinite}
@@ -63,7 +113,7 @@ nav img{width:46px;height:46px}
 .hero h1 .script{display:block;font-size:.8em;line-height:1.25;color:var(--rosa)}
 .hero .lede{opacity:0;animation:up 1.4s ease 1.8s forwards}
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.scrollcue{margin-top:28px;display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:var(--gold);font-size:13px;letter-spacing:.2em;opacity:0;animation:fadein 1s ease 2.4s forwards;text-decoration:none}
+.scrollcue{margin-top:28px;display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:var(--gold-txt);font-size:13px;letter-spacing:.2em;opacity:0;animation:fadein 1s ease 2.4s forwards;text-decoration:none}
 .scrollcue span{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:cue 2s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
 /* envelope */
@@ -117,7 +167,7 @@ nav img{width:46px;height:46px}
 .chipset{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
 .chip{min-height:44px;padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);transition:all .3s}
 .chip[aria-pressed=true]{background:var(--foil);border-color:transparent;color:#2b1d14}
-.mine{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--gold);min-height:1.5em}
+.mine{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--gold-txt);min-height:1.5em}
 /* features */
 .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:22px}
 .feat{background:var(--paper);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:12px;position:relative;box-shadow:0 0 0 1px var(--line),0 24px 50px -36px rgba(110,70,30,.5);transition:transform .5s,box-shadow .5s}
@@ -138,7 +188,7 @@ nav img{width:46px;height:46px}
 .strip div{height:78px;display:grid;place-items:center;font:600 32px 'Cormorant Garamond',serif;color:#a3104c}
 .machine.win{animation:glow 1s ease 3}
 @keyframes glow{50%{box-shadow:inset 0 0 0 2px #fff3cf,0 0 40px 6px rgba(230,200,130,.8)}}
-.slotmsg{min-height:1.6em;font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);text-align:center}
+.slotmsg{min-height:1.6em;font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-txt);text-align:center}
 .count{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .count div{background:var(--paper);border-radius:14px;padding:12px 6px;width:72px;text-align:center;box-shadow:inset 0 0 0 1px var(--line)}
 .count b{display:block;font:500 34px 'Cormorant Garamond',serif}.count span{font-size:13px;color:var(--soft)}
@@ -170,23 +220,31 @@ footer{text-align:center;padding:24px;font-size:13px;color:var(--soft)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}.reveal{opacity:1;transform:none}.mono{opacity:1}}
 </style>
 </head>
-<body>
+<body data-vx="wa top progress loader">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
  <defs>
   <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9c7430"/><stop offset=".45" stop-color="#f3dc9c"/><stop offset=".7" stop-color="#c79f4f"/><stop offset="1" stop-color="#8f6a2a"/></linearGradient>
  </defs>
 </svg>
-<nav>
- <div class="brand"><img src="logo.png" alt="Vita Experience"><span>VITA EXPERIENCE</span></div>
- <div class="langs" role="group" aria-label="Idioma">
+<nav aria-label="Vita Experience">
+ <a class="brand" href="/" aria-label="Vita Experience, inicio"><img src="/catalogo/logo.png" alt="" width="46" height="46"><span>VITA EXPERIENCE</span></a>
+ <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="vh" data-i="menu">Menú</span></button>
+ <div class="menu" id="menu">
+ <ul class="links">
+  <li><a href="#estilos" data-i="nStyles">Estilos</a></li><li><a href="#experiencias" data-i="nExp">Experiencias</a></li><li><a href="#incluye" data-i="nInc">Qué incluye</a></li><li><a href="#faq" data-i="nFaq">Preguntas</a></li>
+ </ul>
+ <button class="theme" id="theme" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg><span class="vh" data-i="dark">Modo oscuro</span></button>
+ <div class="langs" role="group" aria-label="Idioma · שפה · Language">
   <button data-lang="es" aria-pressed="true">ES</button><button data-lang="en" aria-pressed="false">EN</button><button data-lang="he" aria-pressed="false">עב</button>
+ </div>
  </div>
 </nav>
 
+<main id="contenido">
 <header class="band hero">
  <canvas id="dust"></canvas>
  <div class="wrap">
-  <div class="mono"><div class="mono-halo"></div><img src="logo.png" alt="Vita Experience"></div>
+  <div class="mono"><div class="mono-halo"></div><img src="/catalogo/logo.png" alt="Vita Experience"></div>
   <h1><span data-i="h1a">El catálogo</span><span class="script" data-i="h1b">de la invitación de tus sueños</span></h1>
   <p class="lede" data-i="intro">No es solo una invitación: es una experiencia que tus invitados abren, tocan, juegan y recuerdan.</p>
   <a class="scrollcue" href="#sobre"><em data-i="discover">DESCUBRE</em><span></span></a>
@@ -198,8 +256,8 @@ footer{text-align:center;padding:24px;font-size:13px;color:var(--soft)}
   <h2 class="foil" data-i="envT">Todo empieza con un sobre</h2>
   <div class="orn"><i></i></div>
   <button class="env" id="env" aria-label="Abrir el sobre">
-   <div class="card"><img src="logo.png" alt=""><small data-i="encl">NOS CASAMOS</small><span class="script">Sofía &amp; Daniel</span><small>14 · 06 · 2027</small></div>
-   <img class="photo" src="sobre.jpg" alt="Vita Experience"><span class="ring"></span>
+   <div class="card"><img src="/catalogo/logo.png" alt=""><small data-i="encl">NOS CASAMOS</small><span class="script">Sofía &amp; Daniel</span><small>14 · 06 · 2027</small></div>
+   <img class="photo" src="/catalogo/sobre.jpg" alt="Vita Experience"><span class="ring"></span>
   </button>
   <p class="hint" data-i="hint">Toca el sello</p>
  </div>
@@ -270,7 +328,7 @@ footer{text-align:center;padding:24px;font-size:13px;color:var(--soft)}
  </div>
 </section>
 
-<section class="band">
+<section class="band" id="incluye">
  <div class="wrap">
   <div class="head reveal"><h2 data-i="incT">Todo lo que incluye tu invitación</h2><div class="orn"><i></i></div></div>
   <div class="more reveal" id="more"></div>
@@ -279,34 +337,46 @@ footer{text-align:center;padding:24px;font-size:13px;color:var(--soft)}
  </div>
 </section>
 
+<section class="band" id="faq" style="background:var(--sand)">
+ <div class="wrap">
+  <div class="head reveal"><h2 data-i="faqT">Preguntas frecuentes</h2><div class="orn"><i></i></div></div>
+  <div class="faq reveal" id="faqList"></div>
+ </div>
+</section>
+
 <section class="band final">
  <div class="wrap reveal">
-  <img src="logo.png" alt="Vita Experience">
+  <img src="/catalogo/logo.png" alt="Vita Experience">
   <h2 class="foil" style="margin-top:26px" data-i="ctaT">Diseñemos la invitación de tus sueños</h2>
   <div class="orn"><i></i></div>
   <p class="lede" data-i="ctaL">Cuéntanos de tu boda y te enviamos una propuesta personalizada.</p>
   <div class="row">
-   <a class="btn" href="https://wa.me/525664674617">WhatsApp +52 56 6467 4617</a>
-   <a class="btn ghost" href="https://instagram.com/vitaexperience.studio">@vitaexperience.studio</a>
+   <a class="btn" href="https://wa.me/525664674617" target="_blank" rel="noopener"><span data-i="ctaB">Escríbenos por WhatsApp</span></a>
   </div>
+  <a class="ig" href="https://instagram.com/vitaexperience.studio" target="_blank" rel="noopener">Instagram · @vitaexperience.studio</a>
  </div>
 </section>
-<footer><span data-i="sample">Sofía &amp; Daniel y los invitados son un ejemplo.</span> · Vita Experience Studio</footer>
+</main>
+<footer>
+ <div class="fl vx-noprint"><a href="/" data-i="fHome">Inicio</a><a href="/privacidad" data-i="fPriv">Privacidad</a><a href="/terminos" data-i="fTerms">Términos</a></div>
+ <button type="button" class="copy vx-noprint" data-copy="https://vitaexperience.studio/catalogo" data-i="fCopy">Copiar enlace del catálogo</button>
+ <div><span data-i="sample">Sofía &amp; Daniel y los invitados son un ejemplo.</span> · Vita Experience Studio · <span data-i="fUpd">Actualizado</span> <time datetime="2026-11-27" data-i="fDate">noviembre de 2026</time></div>
+</footer>
 
 <script>
 {
 const T={
-es:{h1a:"El catálogo",h1b:"de la invitación de tus sueños",discover:"DESCUBRE",envT:"Todo empieza con un sobre",encl:"NOS CASAMOS",hint:"Toca el sello",intro:"No es solo una invitación: es una experiencia que tus invitados abren, tocan, juegan y recuerdan.",stT:"Estilos y colores",stL:"Estas paletas son solo ideas para inspirarte. Elige una y mírala en el teléfono, o crea la tuya.",nB:"Los colores son sugerencias.",nP:"Tu invitación puede ir en los colores que tú quieras: los de tu boda, tus flores o tu vestido. Cada diseño se hace a tu medida.",custom:["Tu propia paleta","Elige tus colores y míralos en vivo"],cBg:"Fondo",cAcc:"Detalles",cInk:"Texto",city:"CIUDAD DE MÉXICO",confirm:"Confirmar asistencia",fT:"Experiencias interactivas",fL:"La fecha no se lee, se descubre. Puedes elegir una, varias o todas, y combinarlas como quieras: tu invitación, a tu manera.",bT:"Arma tu experiencia",chips:["Sobre","Rasca y descubre","Jackpot","Cuenta regresiva","Confirmación con cupo","Encuentra tu mesa","Música","Tres idiomas"],mine:"Tu invitación: ",pick:"Toca las que te gusten",tFav:"Favorita",tNew:"Nueva",tExtra:"Servicio extra",scT:"Rasca y descubre",scP:"Tus invitados raspan la capa dorada con el dedo para revelar la fecha. Ideal para el Save the Date.",again:"Volver a cubrir",scr:"Rasca aquí",jkT:"Jackpot de la fecha",jkP:"Una máquina de la suerte que siempre cae en su gran día. Divertida, sorprendente y muy compartible.",spin:"Girar",win:"¡Jackpot! Nos vemos el 14 de junio",cdT:"Cuenta regresiva",cdP:"Días, horas, minutos y segundos para la boda, siempre en vivo.",cd:["días","horas","min","seg"],rsT:"Confirmación con cupo",rsHi:"Hola, Familia Levy",rsCap:"Tienen 2 lugares reservados",rsP:"Cada invitado recibe su link personal. El sistema no deja confirmar más lugares de los asignados y pide el nombre de cada acompañante.",max:"Tu invitación es para 2 personas",ok:"¡Gracias! Confirmaste {n}",per:["persona","personas"],tbT:"Encuentra tu mesa",tbL:"Escribe tu nombre (prueba: Ana, Moisés, Rebeca)",tbP:"El día de la boda tus invitados escanean un QR, escriben su nombre y ven su mesa. Tú armas el mapa arrastrando nombres.",table:"Mesa",none:"No encontramos ese nombre",lgT:"En tres idiomas",lgP:"Español, inglés y hebreo, con la escritura de derecha a izquierda bien hecha. Toda tu familia, en México, Israel o donde esté, la lee en su idioma.",incT:"Todo lo que incluye tu invitación",prT:"Cómo trabajamos",ctaT:"Diseñemos la invitación de tus sueños",ctaL:"Cuéntanos de tu boda y te enviamos una propuesta personalizada.",sample:"Sofía & Daniel y los invitados son un ejemplo.",
+es:{nStyles:"Estilos",nExp:"Experiencias",nInc:"Qué incluye",nFaq:"Preguntas",menu:"Menú",dark:"Modo oscuro",faqT:"Preguntas frecuentes",ctaB:"Escríbenos por WhatsApp",fHome:"Inicio",fPriv:"Privacidad",fTerms:"Términos",fCopy:"Copiar enlace del catálogo",fUpd:"Actualizado",fDate:"noviembre de 2026",faq:[["¿En qué idiomas puede ir mi invitación?","En español, hebreo e inglés, y puedes combinarlos: cada invitado la recibe en su idioma, con el hebreo de derecha a izquierda."],["¿Puedo elegir mis propios colores?","Sí. Las paletas del catálogo son solo sugerencias: tu invitación va en los colores que tú quieras."],["¿Puedo combinar varias experiencias?","Sí. Elige una, varias o todas (sobre, rasca y descubre, jackpot, cuenta regresiva, música…) y las combinamos como imagines."],["¿Cómo la reciben mis invitados?","Por WhatsApp, con un link personal con su nombre y sus lugares. Nosotros la enviamos por ti o, si prefieres enviarla tú, un botón abre WhatsApp con el mensaje ya escrito."],["¿Y si un invitado quiere confirmar más lugares?","No puede: el sistema solo deja confirmar los lugares que le asignaste y pide el nombre de cada acompañante."],["¿Cuántos cambios puedo pedir?","Ajustamos tu invitación contigo las veces que haga falta, hasta que sea la invitación de tus sueños."],["¿La asignación de mesas con QR está incluida?","Es un servicio extra que puedes sumar a tu invitación. El día de la boda tus invitados escanean el QR, escriben su nombre y ven su mesa."],["¿Cuánto cuesta?","Depende del estilo, las experiencias y los idiomas que elijas. Escríbenos y te enviamos una propuesta personalizada."]],h1a:"El catálogo",h1b:"de la invitación de tus sueños",discover:"DESCUBRE",envT:"Todo empieza con un sobre",encl:"NOS CASAMOS",hint:"Toca el sello",intro:"No es solo una invitación: es una experiencia que tus invitados abren, tocan, juegan y recuerdan.",stT:"Estilos y colores",stL:"Estas paletas son solo ideas para inspirarte. Elige una y mírala en el teléfono, o crea la tuya.",nB:"Los colores son sugerencias.",nP:"Tu invitación puede ir en los colores que tú quieras: los de tu boda, tus flores o tu vestido. Cada diseño se hace a tu medida.",custom:["Tu propia paleta","Elige tus colores y míralos en vivo"],cBg:"Fondo",cAcc:"Detalles",cInk:"Texto",city:"CIUDAD DE MÉXICO",confirm:"Confirmar asistencia",fT:"Experiencias interactivas",fL:"La fecha no se lee, se descubre. Puedes elegir una, varias o todas, y combinarlas como quieras: tu invitación, a tu manera.",bT:"Arma tu experiencia",chips:["Sobre","Rasca y descubre","Jackpot","Cuenta regresiva","Confirmación con cupo","Encuentra tu mesa","Música","Tres idiomas"],mine:"Tu invitación: ",pick:"Toca las que te gusten",tFav:"Favorita",tNew:"Nueva",tExtra:"Servicio extra",scT:"Rasca y descubre",scP:"Tus invitados raspan la capa dorada con el dedo para revelar la fecha. Ideal para el Save the Date.",again:"Volver a cubrir",scr:"Rasca aquí",jkT:"Jackpot de la fecha",jkP:"Una máquina de la suerte que siempre cae en su gran día. Divertida, sorprendente y muy compartible.",spin:"Girar",win:"¡Jackpot! Nos vemos el 14 de junio",cdT:"Cuenta regresiva",cdP:"Días, horas, minutos y segundos para la boda, siempre en vivo.",cd:["días","horas","min","seg"],rsT:"Confirmación con cupo",rsHi:"Hola, Familia Levy",rsCap:"Tienen 2 lugares reservados",rsP:"Cada invitado recibe su link personal. El sistema no deja confirmar más lugares de los asignados y pide el nombre de cada acompañante.",max:"Tu invitación es para 2 personas",ok:"¡Gracias! Confirmaste {n}",per:["persona","personas"],tbT:"Encuentra tu mesa",tbL:"Escribe tu nombre (prueba: Ana, Moisés, Rebeca)",tbP:"El día de la boda tus invitados escanean un QR, escriben su nombre y ven su mesa. Tú armas el mapa arrastrando nombres.",table:"Mesa",none:"No encontramos ese nombre",lgT:"En tres idiomas",lgP:"Español, inglés y hebreo, con la escritura de derecha a izquierda bien hecha. Toda tu familia, en México, Israel o donde esté, la lee en su idioma.",incT:"Todo lo que incluye tu invitación",prT:"Cómo trabajamos",ctaT:"Diseñemos la invitación de tus sueños",ctaL:"Cuéntanos de tu boda y te enviamos una propuesta personalizada.",sample:"Sofía & Daniel y los invitados son un ejemplo.",
  more:[["Link personal por invitado","Con su nombre y su cupo ya programado."],["Envío por WhatsApp","Lo enviamos por ti, o un botón abre WhatsApp con el mensaje ya escrito."],["Save the Date","Guía para su diseño y envío a cada invitado."],["Itinerario y ubicación","Horarios del evento y mapa con un toque."],["Dress code y mesa de regalos","Todo lo que tus invitados necesitan saber."],["Recordatorios","Dos recordatorios incluidos antes de la boda."],["Libro de mensajes","Al final, de regalo, los mensajes de tus invitados en una página con el diseño de tu boda."],["Música","Tu canción sonando al abrir la invitación."]],
- process:[["Contacto","Nos escribes y nos cuentas de tu boda."],["Detalles","Llenas un formulario corto con lo esencial."],["Propuesta","Te enviamos tu cotización personalizada."],["Diseño","Eliges estilo, colores y experiencias; dos rondas de ajustes."],["Envío","Cargamos tu lista y la enviamos a cada invitado."]],
+ process:[["Contacto","Nos escribes y nos cuentas de tu boda."],["Detalles","Llenas un formulario corto con lo esencial."],["Propuesta","Te enviamos tu cotización personalizada."],["Diseño","Eliges estilo, colores y experiencias; ajustamos contigo hasta el último detalle."],["Envío","Cargamos tu lista y la enviamos a cada invitado."]],
  styles:[["Marfil Clásico","Atemporal, con detalles en dorado"],["Rosa Mexicano","Vibrante y con raíces"],["Jardín Salvia","Natural, fresco y botánico"],["Noche Dorada","Elegancia de gala"],["Arena Mediterránea","Cálido, de playa y sol"],["Blanco Minimal","Limpio y moderno"]]},
-en:{h1a:"The catalogue",h1b:"of your dream invitation",discover:"DISCOVER",envT:"It all begins with an envelope",encl:"WE'RE GETTING MARRIED",hint:"Tap the seal",intro:"It's not just an invitation: it's an experience your guests open, touch, play with and remember.",stT:"Styles and colours",stL:"These palettes are just ideas to inspire you. Pick one and see it on the phone, or create your own.",nB:"Colours are suggestions.",nP:"Your invitation can be in any colours you like: your wedding's, your flowers' or your dress's. Every design is made to measure.",custom:["Your own palette","Choose your colours and see them live"],cBg:"Background",cAcc:"Details",cInk:"Text",city:"MEXICO CITY",confirm:"RSVP",fT:"Interactive experiences",fL:"The date isn't read, it's discovered. Choose one, several or all of them, and mix them however you like: your invitation, your way.",bT:"Build your experience",chips:["Envelope","Scratch to reveal","Jackpot","Countdown","RSVP with set seats","Find your table","Music","Three languages"],mine:"Your invitation: ",pick:"Tap the ones you love",tFav:"Favourite",tNew:"New",tExtra:"Add-on",scT:"Scratch to reveal",scP:"Guests scratch off the gold layer with a finger to reveal the date. Perfect for the Save the Date.",again:"Cover it again",scr:"Scratch here",jkT:"Date jackpot",jkP:"A lucky slot machine that always lands on your big day. Fun, surprising and made to be shared.",spin:"Spin",win:"Jackpot! See you on June 14",cdT:"Countdown",cdP:"Days, hours, minutes and seconds to the wedding, always live.",cd:["days","hours","min","sec"],rsT:"RSVP with set seats",rsHi:"Hi, Levy family",rsCap:"You have 2 seats reserved",rsP:"Each guest gets a personal link. The system won't allow more seats than assigned and asks for each companion's name.",max:"Your invitation is for 2 guests",ok:"Thank you! You confirmed {n}",per:["guest","guests"],tbT:"Find your table",tbL:"Type your name (try: Ana, Moisés, Rebeca)",tbP:"On the wedding day guests scan a QR, type their name and see their table. You build the map by dragging names.",table:"Table",none:"We couldn't find that name",lgT:"In three languages",lgP:"Spanish, English and Hebrew, with right-to-left done properly. Your whole family, in Mexico, Israel or anywhere, reads it in their language.",incT:"Everything your invitation includes",prT:"How we work",ctaT:"Let's design your dream invitation",ctaL:"Tell us about your wedding and we'll send you a tailored proposal.",sample:"Sofía & Daniel and the guests are an example.",
+en:{nStyles:"Styles",nExp:"Experiences",nInc:"What’s included",nFaq:"FAQ",menu:"Menu",dark:"Dark mode",faqT:"Frequently asked questions",ctaB:"Message us on WhatsApp",fHome:"Home",fPriv:"Privacy",fTerms:"Terms",fCopy:"Copy catalogue link",fUpd:"Updated",fDate:"November 2026",faq:[["Which languages can my invitation be in?","Spanish, Hebrew and English, and you can combine them: each guest receives it in their language, with Hebrew right to left."],["Can I choose my own colours?","Yes. The palettes in the catalogue are only suggestions: your invitation can be in any colours you like."],["Can I combine several experiences?","Yes. Choose one, several or all of them (envelope, scratch to reveal, jackpot, countdown, music…) and we combine them the way you imagine."],["How do my guests receive it?","On WhatsApp, with a personal link showing their name and seats. We send it for you or, if you’d rather send it yourself, a button opens WhatsApp with the message ready."],["What if a guest wants to confirm more seats?","They can’t: the system only lets them confirm the seats you assigned and asks for each companion’s name."],["How many changes can I ask for?","We refine your invitation with you as many times as needed, until it’s your dream invitation."],["Is QR table seating included?","It’s an add-on you can include. On the wedding day guests scan the QR, type their name and see their table."],["How much does it cost?","It depends on the style, experiences and languages you choose. Message us and we’ll send you a personalised proposal."]],h1a:"The catalogue",h1b:"of your dream invitation",discover:"DISCOVER",envT:"It all begins with an envelope",encl:"WE'RE GETTING MARRIED",hint:"Tap the seal",intro:"It's not just an invitation: it's an experience your guests open, touch, play with and remember.",stT:"Styles and colours",stL:"These palettes are just ideas to inspire you. Pick one and see it on the phone, or create your own.",nB:"Colours are suggestions.",nP:"Your invitation can be in any colours you like: your wedding's, your flowers' or your dress's. Every design is made to measure.",custom:["Your own palette","Choose your colours and see them live"],cBg:"Background",cAcc:"Details",cInk:"Text",city:"MEXICO CITY",confirm:"RSVP",fT:"Interactive experiences",fL:"The date isn't read, it's discovered. Choose one, several or all of them, and mix them however you like: your invitation, your way.",bT:"Build your experience",chips:["Envelope","Scratch to reveal","Jackpot","Countdown","RSVP with set seats","Find your table","Music","Three languages"],mine:"Your invitation: ",pick:"Tap the ones you love",tFav:"Favourite",tNew:"New",tExtra:"Add-on",scT:"Scratch to reveal",scP:"Guests scratch off the gold layer with a finger to reveal the date. Perfect for the Save the Date.",again:"Cover it again",scr:"Scratch here",jkT:"Date jackpot",jkP:"A lucky slot machine that always lands on your big day. Fun, surprising and made to be shared.",spin:"Spin",win:"Jackpot! See you on June 14",cdT:"Countdown",cdP:"Days, hours, minutes and seconds to the wedding, always live.",cd:["days","hours","min","sec"],rsT:"RSVP with set seats",rsHi:"Hi, Levy family",rsCap:"You have 2 seats reserved",rsP:"Each guest gets a personal link. The system won't allow more seats than assigned and asks for each companion's name.",max:"Your invitation is for 2 guests",ok:"Thank you! You confirmed {n}",per:["guest","guests"],tbT:"Find your table",tbL:"Type your name (try: Ana, Moisés, Rebeca)",tbP:"On the wedding day guests scan a QR, type their name and see their table. You build the map by dragging names.",table:"Table",none:"We couldn't find that name",lgT:"In three languages",lgP:"Spanish, English and Hebrew, with right-to-left done properly. Your whole family, in Mexico, Israel or anywhere, reads it in their language.",incT:"Everything your invitation includes",prT:"How we work",ctaT:"Let's design your dream invitation",ctaL:"Tell us about your wedding and we'll send you a tailored proposal.",sample:"Sofía & Daniel and the guests are an example.",
  more:[["A personal link per guest","With their name and seats already set."],["Sent by WhatsApp","We send it for you, or a button opens WhatsApp with the message ready."],["Save the Date","Design guidance and delivery to every guest."],["Schedule and location","Event times and a one-tap map."],["Dress code and registry","Everything your guests need to know."],["Reminders","Two reminders included before the wedding."],["Message book","A closing gift: your guests' messages on a page in your wedding's design."],["Music","Your song playing as the invitation opens."]],
- process:[["Contact","You write to us about your wedding."],["Details","You fill in a short form with the essentials."],["Proposal","We send you a personalised quote."],["Design","Choose style, colours and experiences; two rounds of edits."],["Delivery","We load your list and send it to every guest."]],
+ process:[["Contact","You write to us about your wedding."],["Details","You fill in a short form with the essentials."],["Proposal","We send you a personalised quote."],["Design","Choose style, colours and experiences; we refine it with you down to the last detail."],["Delivery","We load your list and send it to every guest."]],
  styles:[["Classic Ivory","Timeless, with gold details"],["Rosa Mexicano","Vibrant, with roots"],["Sage Garden","Natural, fresh, botanical"],["Golden Night","Black-tie elegance"],["Mediterranean Sand","Warm, sun and sea"],["Minimal White","Clean and modern"]]},
-he:{h1a:"הקטלוג",h1b:"של הזמנת החלומות שלכם",discover:"גלו",envT:"הכול מתחיל במעטפה",encl:"אנחנו מתחתנים",hint:"געו בחותם",intro:"זו לא רק הזמנה: זו חוויה שהאורחים פותחים, נוגעים, משחקים וזוכרים.",stT:"סגנונות וצבעים",stL:"הפלטות האלה הן רק השראה. בחרו אחת וראו אותה בטלפון, או צרו משלכם.",nB:"הצבעים הם הצעות בלבד.",nP:"ההזמנה שלכם יכולה להיות בכל צבע שתרצו: של החתונה, הפרחים או השמלה. כל עיצוב נעשה במיוחד בשבילכם.",custom:["הפלטה שלכם","בחרו צבעים וראו אותם בזמן אמת"],cBg:"רקע",cAcc:"פרטים",cInk:"טקסט",city:"מקסיקו סיטי",confirm:"אישור הגעה",fT:"חוויות אינטראקטיביות",fL:"את התאריך לא קוראים, מגלים. בחרו אחת, כמה או את כולן, ושלבו כמו שתרצו: ההזמנה שלכם, בדרך שלכם.",bT:"בנו את החוויה שלכם",chips:["מעטפה","גרדו וגלו","ג'קפוט","ספירה לאחור","אישור הגעה עם מקומות","מצאו את השולחן","מוזיקה","שלוש שפות"],mine:"ההזמנה שלכם: ",pick:"געו במה שאהבתם",tFav:"האהובה",tNew:"חדש",tExtra:"שירות נוסף",scT:"גרדו וגלו",scP:"האורחים מגרדים את השכבה הזהובה באצבע וחושפים את התאריך. מושלם ל-Save the Date.",again:"לכסות שוב",scr:"גרדו כאן",jkT:"ג'קפוט התאריך",jkP:"מכונת מזל שתמיד נעצרת על היום הגדול שלכם. כיפית, מפתיעה ומזמינה שיתוף.",spin:"סובבו",win:"ג'קפוט! נתראה ב-14 ביוני",cdT:"ספירה לאחור",cdP:"ימים, שעות, דקות ושניות עד החתונה, תמיד בזמן אמת.",cd:["ימים","שעות","דק'","שנ'"],rsT:"אישור הגעה עם מקומות שמורים",rsHi:"שלום, משפחת לוי",rsCap:"שמורים לכם 2 מקומות",rsP:"כל אורח מקבל קישור אישי. המערכת לא מאפשרת לאשר יותר מקומות מהשמורים ומבקשת את שם כל מלווה.",max:"ההזמנה שלכם ל-2 אנשים",ok:"תודה! אישרתם {n}",per:["אורח","אורחים"],tbT:"מצאו את השולחן",tbL:"כתבו את שמכם (נסו: Ana, Moisés, Rebeca)",tbP:"ביום החתונה האורחים סורקים QR, כותבים את שמם ורואים את השולחן. אתם בונים את המפה בגרירת שמות.",table:"שולחן",none:"לא מצאנו את השם הזה",lgT:"בשלוש שפות",lgP:"ספרדית, אנגלית ועברית, עם כתיבה מימין לשמאל כמו שצריך. כל המשפחה, במקסיקו, בישראל או בכל מקום, קוראת בשפה שלה.",incT:"כל מה שכלול בהזמנה",prT:"איך אנחנו עובדים",ctaT:"בואו נעצב את הזמנת החלומות שלכם",ctaL:"ספרו לנו על החתונה ונשלח לכם הצעה אישית.",sample:"סופיה ודניאל והאורחים הם דוגמה.",
+he:{nStyles:"סגנונות",nExp:"חוויות",nInc:"מה כלול",nFaq:"שאלות",menu:"תפריט",dark:"מצב כהה",faqT:"שאלות נפוצות",ctaB:"כתבו לנו בוואטסאפ",fHome:"בית",fPriv:"פרטיות",fTerms:"תנאים",fCopy:"העתקת קישור לקטלוג",fUpd:"עודכן",fDate:"נובמבר 2026",faq:[["באילו שפות יכולה להיות ההזמנה?","עברית, ספרדית ואנגלית, ואפשר לשלב: כל אורח מקבל אותה בשפה שלו, והעברית מימין לשמאל."],["אפשר לבחור צבעים משלנו?","כן. הפלטות בקטלוג הן רק הצעות: ההזמנה יכולה להיות בכל צבע שתרצו."],["אפשר לשלב כמה חוויות?","כן. בחרו אחת, כמה או את כולן (מעטפה, גרדו וגלו, ג׳קפוט, ספירה לאחור, מוזיקה…) ונשלב אותן כמו שדמיינתם."],["איך האורחים מקבלים אותה?","בוואטסאפ, עם קישור אישי עם השם ומספר המקומות. אנחנו שולחים בשבילכם, ואם תעדיפו לשלוח בעצמכם, כפתור פותח וואטסאפ עם ההודעה מוכנה."],["ומה אם אורח רוצה לאשר יותר מקומות?","הוא לא יכול: המערכת מאפשרת לאשר רק את המקומות שהקציתם ומבקשת את שם כל מלווה."],["כמה שינויים אפשר לבקש?","אנחנו מדייקים את ההזמנה יחד איתכם כמה פעמים שצריך, עד שהיא הזמנת החלומות שלכם."],["סידורי הושבה עם QR כלולים?","זה שירות נוסף שאפשר להוסיף. ביום החתונה האורחים סורקים QR, כותבים את שמם ורואים את השולחן."],["כמה זה עולה?","תלוי בסגנון, בחוויות ובשפות שתבחרו. כתבו לנו ונשלח לכם הצעה אישית."]],h1a:"הקטלוג",h1b:"של הזמנת החלומות שלכם",discover:"גלו",envT:"הכול מתחיל במעטפה",encl:"אנחנו מתחתנים",hint:"געו בחותם",intro:"זו לא רק הזמנה: זו חוויה שהאורחים פותחים, נוגעים, משחקים וזוכרים.",stT:"סגנונות וצבעים",stL:"הפלטות האלה הן רק השראה. בחרו אחת וראו אותה בטלפון, או צרו משלכם.",nB:"הצבעים הם הצעות בלבד.",nP:"ההזמנה שלכם יכולה להיות בכל צבע שתרצו: של החתונה, הפרחים או השמלה. כל עיצוב נעשה במיוחד בשבילכם.",custom:["הפלטה שלכם","בחרו צבעים וראו אותם בזמן אמת"],cBg:"רקע",cAcc:"פרטים",cInk:"טקסט",city:"מקסיקו סיטי",confirm:"אישור הגעה",fT:"חוויות אינטראקטיביות",fL:"את התאריך לא קוראים, מגלים. בחרו אחת, כמה או את כולן, ושלבו כמו שתרצו: ההזמנה שלכם, בדרך שלכם.",bT:"בנו את החוויה שלכם",chips:["מעטפה","גרדו וגלו","ג'קפוט","ספירה לאחור","אישור הגעה עם מקומות","מצאו את השולחן","מוזיקה","שלוש שפות"],mine:"ההזמנה שלכם: ",pick:"געו במה שאהבתם",tFav:"האהובה",tNew:"חדש",tExtra:"שירות נוסף",scT:"גרדו וגלו",scP:"האורחים מגרדים את השכבה הזהובה באצבע וחושפים את התאריך. מושלם ל-Save the Date.",again:"לכסות שוב",scr:"גרדו כאן",jkT:"ג'קפוט התאריך",jkP:"מכונת מזל שתמיד נעצרת על היום הגדול שלכם. כיפית, מפתיעה ומזמינה שיתוף.",spin:"סובבו",win:"ג'קפוט! נתראה ב-14 ביוני",cdT:"ספירה לאחור",cdP:"ימים, שעות, דקות ושניות עד החתונה, תמיד בזמן אמת.",cd:["ימים","שעות","דק'","שנ'"],rsT:"אישור הגעה עם מקומות שמורים",rsHi:"שלום, משפחת לוי",rsCap:"שמורים לכם 2 מקומות",rsP:"כל אורח מקבל קישור אישי. המערכת לא מאפשרת לאשר יותר מקומות מהשמורים ומבקשת את שם כל מלווה.",max:"ההזמנה שלכם ל-2 אנשים",ok:"תודה! אישרתם {n}",per:["אורח","אורחים"],tbT:"מצאו את השולחן",tbL:"כתבו את שמכם (נסו: Ana, Moisés, Rebeca)",tbP:"ביום החתונה האורחים סורקים QR, כותבים את שמם ורואים את השולחן. אתם בונים את המפה בגרירת שמות.",table:"שולחן",none:"לא מצאנו את השם הזה",lgT:"בשלוש שפות",lgP:"ספרדית, אנגלית ועברית, עם כתיבה מימין לשמאל כמו שצריך. כל המשפחה, במקסיקו, בישראל או בכל מקום, קוראת בשפה שלה.",incT:"כל מה שכלול בהזמנה",prT:"איך אנחנו עובדים",ctaT:"בואו נעצב את הזמנת החלומות שלכם",ctaL:"ספרו לנו על החתונה ונשלח לכם הצעה אישית.",sample:"סופיה ודניאל והאורחים הם דוגמה.",
  more:[["קישור אישי לכל אורח","עם השם ומספר המקומות שכבר הוגדרו."],["שליחה בוואטסאפ","אנחנו שולחים בשבילכם, או כפתור שפותח וואטסאפ עם ההודעה מוכנה."],["Save the Date","הכוונה לעיצוב ושליחה לכל אורח."],["לו\"ז ומיקום","שעות האירוע ומפה בנגיעה."],["קוד לבוש ורשימת מתנות","כל מה שהאורחים צריכים לדעת."],["תזכורות","שתי תזכורות כלולות לפני החתונה."],["ספר ברכות","מתנה בסוף: הברכות של האורחים בעמוד בעיצוב החתונה שלכם."],["מוזיקה","השיר שלכם מתנגן כשנפתחת ההזמנה."]],
- process:[["יצירת קשר","כותבים לנו על החתונה."],["פרטים","ממלאים טופס קצר עם העיקר."],["הצעה","שולחים לכם הצעת מחיר אישית."],["עיצוב","בוחרים סגנון, צבעים וחוויות; שני סבבי תיקונים."],["שליחה","טוענים את הרשימה ושולחים לכל אורח."]],
+ process:[["יצירת קשר","כותבים לנו על החתונה."],["פרטים","ממלאים טופס קצר עם העיקר."],["הצעה","שולחים לכם הצעת מחיר אישית."],["עיצוב","בוחרים סגנון, צבעים וחוויות; מדייקים יחד עד הפרט האחרון."],["שליחה","טוענים את הרשימה ושולחים לכל אורח."]],
  styles:[["שנהב קלאסי","על-זמני, עם נגיעות זהב"],["רוזה מקסיקנו","תוסס ושורשי"],["גן מרווה","טבעי, רענן ובוטני"],["לילה זהוב","אלגנטיות של ערב גאלה"],["חול ים-תיכוני","חם, שמש וים"],["לבן מינימלי","נקי ומודרני"]]}};
 const ST=[
  {bg:"#fbf7f0",ink:"#3a2a2f",acc:"#a8803a",font:"'Pinyon Script',cursive",size:"40px",chips:["#fbf7f0","#e6c98a","#a8803a"]},
@@ -365,8 +435,9 @@ function render(){const t=T[lang];
  document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
  $("more").innerHTML=t.more.map(m=>`<div><h3>${esc(m[0])}</h3><p>${esc(m[1])}</p></div>`).join("");
  $("process").innerHTML=t.process.map(m=>`<li><b>${esc(m[0])}</b><span>${esc(m[1])}</span></li>`).join("");
+ $("faqList").innerHTML=t.faq.map(q=>`<details><summary>${esc(q[0])}</summary><p>${esc(q[1])}</p></details>`).join("");
  renderStyles();renderChips();tick();paxMsg("");lookup();if(!scratched)cover()}
-document.querySelector(".langs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.lang;try{localStorage.setItem("vxlang",lang)}catch(_){}render()});
+document.querySelector(".langs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.lang;try{localStorage.setItem("vxlang",lang);localStorage.setItem("vx_lang",lang)}catch(_){}render()});
 
 /* envelope */
 $("env").addEventListener("click",()=>{const e=$("env");
@@ -418,9 +489,21 @@ function lookup(){const q=norm($("tq").value.trim());if(!q){$("tres").textConten
  $("tres").textContent=k?`${T[lang].table} ${G[k]}`:(q.length>2?T[lang].none:"")}
 $("tq").addEventListener("input",lookup);
 
-try{const l=localStorage.getItem("vxlang");if(l&&T[l])lang=l}catch(_){}
+/* menú móvil */
+const mb=$("menuBtn"),menu=$("menu");
+mb.addEventListener("click",()=>{const o=menu.classList.toggle("open");mb.setAttribute("aria-expanded",o)});
+menu.addEventListener("click",e=>{if(e.target.closest(".links a")){menu.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&menu.classList.contains("open")){menu.classList.remove("open");mb.setAttribute("aria-expanded","false");mb.focus()}});
+/* modo oscuro */
+const th=$("theme"),RT=document.documentElement;
+function setTheme(d){RT.setAttribute("data-theme",d?"dark":"light");th.setAttribute("aria-pressed",d);try{localStorage.setItem("vx_theme",d?"dark":"light")}catch(_){}}
+let st=null;try{st=localStorage.getItem("vx_theme")}catch(_){}
+setTheme(st?st==="dark":matchMedia("(prefers-color-scheme: dark)").matches);
+th.addEventListener("click",()=>setTheme(th.getAttribute("aria-pressed")!=="true"));
+try{const l=localStorage.getItem("vxlang")||localStorage.getItem("vx_lang");if(l&&T[l])lang=l}catch(_){}
 render();
 }
 </script>
+<script src="/assets/vita.js" defer></script>
 </body>
 </html>

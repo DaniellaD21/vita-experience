@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#F8F6F1">
 <meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
+<meta property="og:image" content="https://vitaexperience.studio/og.jpg">
 <title>Vita Experience × BlindFate</title>
+<meta name="description" content="Propuesta de Vita Experience para BlindFate: invitaciones digitales, RSVP y mesas para las parejas y eventos de BlindFate.">
 <meta property="og:title" content="Vita Experience × BlindFate">
 <meta property="og:description" content="From blind date to Save the Date.">
-<link rel="icon" href="vx.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/blindfate/vx.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <style>
@@ -35,8 +36,8 @@ body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--f-body)
 .frame i{position:absolute;width:8px;height:8px;border:1px solid var(--gold);background:var(--ivory);transform:rotate(45deg)}
 .frame i:nth-child(1){top:-5px;left:-5px}.frame i:nth-child(2){top:-5px;right:-5px}.frame i:nth-child(3){bottom:-5px;left:-5px}.frame i:nth-child(4){bottom:-5px;right:-5px}
 .roses{position:absolute;pointer-events:none;background-repeat:no-repeat;background-size:contain;opacity:.95}
-.roses.a{background-image:url("rose-tl.png");background-position:left top}
-.roses.b{background-image:url("rose-br.png");background-position:right bottom}
+.roses.a{background-image:url("/blindfate/rose-tl.png");background-position:left top}
+.roses.b{background-image:url("/blindfate/rose-br.png");background-position:right bottom}
 main{position:relative;z-index:2}
 .wrap{max-width:1140px;margin:0 auto;padding:0 34px}
 a{color:var(--rosa-ink)}
@@ -310,7 +311,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
 <header class="top">
-  <a class="brand" href="#top"><img src="vx.png" alt=""><span>Vita Experience × <b>BlindFate</b></span></a>
+  <a class="brand" href="#top"><img src="/blindfate/vx.png" alt=""><span>Vita Experience × <b>BlindFate</b></span></a>
   <nav class="toc">
     <a href="#gift">The Preview</a><a href="#wall">The Wall</a><a href="#anniversary">Anniversary</a><a href="#events">Events</a>
   </nav>
@@ -322,7 +323,7 @@ button,input,select,textarea{font:inherit;color:inherit}
   <div class="roses a"></div><div class="roses b"></div>
   <div class="hero-in wrap">
     <div class="pair-logos">
-      <img src="logo.png" alt="Vita Experience">
+      <img src="/blindfate/logo.png" alt="Vita Experience">
       <span class="x">&amp;</span>
       <div class="bfmark"><b>BlindFate</b><span>Rivkah Fox</span></div>
     </div>
@@ -351,7 +352,7 @@ button,input,select,textarea{font:inherit;color:inherit}
       <span class="notch"></span>
       <div class="env" id="env">
         <p>You're invited</p>
-        <div class="flap"><div class="seal"><img src="vx.png" alt=""></div></div>
+        <div class="flap"><div class="seal"><img src="/blindfate/vx.png" alt=""></div></div>
         <p class="to" id="envTo">Leah &amp; David</p>
         <p>Tap to open</p>
       </div>
@@ -399,7 +400,7 @@ button,input,select,textarea{font:inherit;color:inherit}
         <p>Couples matched across the US, Israel, Europe, Canada, Brazil and Australia. Yours could be next.</p>
         <a href="https://join.blindfate.org" target="_blank" rel="noopener">Apply to be matched</a>
       </div>
-      <div class="iv-made"><img src="logo.png" alt="">Invitation by Vita Experience</div>
+      <div class="iv-made"><img src="/blindfate/logo.png" alt="">Invitation by Vita Experience</div>
     </div></div>
 
     <div class="reveal">
@@ -566,7 +567,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <section class="close">
   <div class="roses a"></div><div class="roses b"></div>
   <div class="wrap" style="position:relative">
-    <img src="logo.png" alt="Vita Experience">
+    <img src="/blindfate/logo.png" alt="Vita Experience">
     <h2 class="display">Let's write<br><span class="foil">the ending together.</span></h2>
     <p class="lead">Vita Experience · Luxury digital invitations in English, Hebrew and Spanish.</p>
     <a class="btn btn-pri" href="https://www.instagram.com/vitaexperience.studio" target="_blank" rel="noopener">@vitaexperience.studio</a>
@@ -667,7 +668,7 @@ function openCouple(x){
    <h3 class="iv-names">${esc(x.a)}<span class="amp">&amp;</span>${esc(x.b)}</h3>
    <div class="iv-date"><small>From first text to yes</small><b>${x.d} days</b></div></div>
    <div class="iv-sec"><div class="chat" style="margin-top:0"><div class="gn">“${esc(x.g)}”<small>Group · 3 members</small></div><div class="bub">I think you guys could be great together. I'll leave you to it 🤍<i>Rivkah</i></div><span class="left-pill">Rivkah left the group</span></div></div>
-   <div class="iv-made"><img src="logo.png" alt="">Invitation by Vita Experience</div>`;
+   <div class="iv-made"><img src="/blindfate/logo.png" alt="">Invitation by Vita Experience</div>`;
   $('modal').classList.add('on');
 }
 $('mX').onclick=()=>$('modal').classList.remove('on');

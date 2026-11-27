@@ -1,0 +1,82 @@
+/* Vita Experience · piezas compartidas por todas las páginas:
+   saltar al contenido, aviso de cookies, botón de contacto, volver arriba,
+   barra de lectura, pantalla de carga, ventana de confirmación, avisos, impresión. */
+:root{--vx-ivory:#F8F6F1;--vx-paper:#FFFDF9;--vx-ink:#2F3129;--vx-sage:#5E6253;--vx-gold:#B8913A;--vx-gold-lo:#8E6F33;--vx-rosa:#C4006B;--vx-rosa-deep:#A8005C;--vx-line:rgba(184,145,58,.38)}
+.vx-skip{position:fixed;top:10px;inset-inline-start:10px;z-index:200;padding:12px 18px;background:var(--vx-rosa);color:#fff;font:500 14px/1 'Instrument Sans','Jost',Arial,sans-serif;text-decoration:none;border-radius:2px;transform:translateY(-200%);transition:transform .2s}
+.vx-skip:focus{transform:none;outline:2px solid var(--vx-gold);outline-offset:2px}
+
+/* barra de progreso de lectura */
+.vx-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:120;pointer-events:none}
+.vx-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--vx-gold),var(--vx-rosa))}
+[dir=rtl] .vx-progress i{transform-origin:100% 50%}
+
+/* pantalla de carga: solo aparece si la página tarda */
+.vx-loader{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:var(--vx-ivory);opacity:0;animation:vxIn .3s ease .25s forwards;transition:opacity .6s ease,visibility .6s}
+.vx-loader.out{opacity:0!important;visibility:hidden;animation:none}
+.vx-loader div{position:relative;width:110px;height:86px;background:url(/assets/vx.png) center/contain no-repeat}
+.vx-loader div::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,250,225,.95) 50%,transparent 65%);background-size:300% 100%;-webkit-mask:url(/assets/vx.png) center/contain no-repeat;mask:url(/assets/vx.png) center/contain no-repeat;animation:vxSweep 1.4s ease-in-out infinite}
+.vx-loader span{position:absolute;margin-top:130px;font:500 11px/1 'Instrument Sans',Arial,sans-serif;letter-spacing:.4em;color:var(--vx-gold-lo)}
+@keyframes vxIn{to{opacity:1}}
+@keyframes vxSweep{from{background-position:150% 0}to{background-position:-150% 0}}
+
+/* botones flotantes */
+.vx-fab{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:110;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:0;cursor:pointer;text-decoration:none;transition:transform .3s ease,box-shadow .3s ease,opacity .3s,visibility .3s;box-shadow:0 10px 24px -10px rgba(94,60,40,.55)}
+.vx-fab:hover{transform:translateY(-3px);box-shadow:0 16px 30px -12px rgba(196,0,107,.55)}
+.vx-fab:focus-visible{outline:2px solid var(--vx-gold);outline-offset:3px}
+.vx-fab svg{width:24px;height:24px}
+.vx-wa{inset-inline-end:18px;background:var(--vx-rosa);color:#fff;box-shadow:inset 0 0 0 3px var(--vx-rosa),inset 0 0 0 4px rgba(230,207,148,.6),0 10px 24px -10px rgba(196,0,107,.6)}
+.vx-wa:hover{background:var(--vx-rosa-deep)}
+.vx-top{inset-inline-end:18px;background:var(--vx-paper);color:var(--vx-ink);border:1px solid var(--vx-gold);opacity:0;visibility:hidden}
+.vx-top.on{opacity:1;visibility:visible}
+.vx-has-wa .vx-top{bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+.vx-fab .vx-tip{position:absolute;inset-inline-end:62px;white-space:nowrap;background:var(--vx-ink);color:#fff;font:500 13px/1 'Instrument Sans',Arial,sans-serif;padding:8px 12px;border-radius:2px;opacity:0;pointer-events:none;transition:opacity .2s}
+.vx-fab:hover .vx-tip,.vx-fab:focus-visible .vx-tip{opacity:1}
+
+/* aviso de cookies */
+.vx-cookie{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);z-index:150;width:min(560px,calc(100% - 24px));background:var(--vx-paper);color:var(--vx-ink);border:1px solid var(--vx-line);box-shadow:0 24px 50px -24px rgba(60,40,30,.45);padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;font:400 14px/1.5 'Instrument Sans','Jost','Heebo',Arial,sans-serif;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.vx-cookie.on{transform:translate(-50%,0)}
+.vx-cookie p{margin:0;flex:1 1 260px}
+.vx-cookie a{color:var(--vx-rosa)}
+.vx-cookie .b{display:flex;gap:8px;flex-wrap:wrap}
+.vx-btn{min-height:44px;padding:10px 18px;border-radius:1px;border:1px solid var(--vx-gold);background:transparent;color:var(--vx-ink);font:600 12px/1 'Instrument Sans','Heebo',Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+[dir=rtl] .vx-btn{letter-spacing:.02em;font-size:14px}
+.vx-btn:hover{background:var(--vx-ivory)}
+.vx-btn.pri{background:var(--vx-rosa);border-color:var(--vx-rosa);color:#fff}
+.vx-btn.pri:hover{background:var(--vx-rosa-deep)}
+.vx-btn:focus-visible{outline:2px solid var(--vx-gold);outline-offset:2px}
+
+/* ventana de confirmación */
+.vx-modal{position:fixed;inset:0;z-index:250;display:grid;place-items:center;padding:16px;background:rgba(47,49,41,.35);backdrop-filter:blur(4px);opacity:0;transition:opacity .25s}
+.vx-modal.on{opacity:1}
+.vx-modal .box{width:min(420px,100%);background:var(--vx-paper);color:var(--vx-ink);padding:28px 26px 22px;position:relative;text-align:center;font:400 15px/1.55 'Instrument Sans','Heebo',Arial,sans-serif;box-shadow:0 40px 80px -40px rgba(40,30,20,.6)}
+.vx-modal .box::before{content:"";position:absolute;inset:6px;border:1px solid var(--vx-line);pointer-events:none}
+.vx-modal h2{font:italic 400 28px/1.15 'Instrument Serif',Georgia,serif;margin:0 0 8px}
+[dir=rtl] .vx-modal h2{font:400 26px/1.2 'Frank Ruhl Libre',serif}
+.vx-modal p{margin:0 0 20px;color:var(--vx-sage)}
+.vx-modal .b{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* avisos de éxito / error */
+.vx-toast{position:fixed;left:50%;top:calc(18px + env(safe-area-inset-top,0px));transform:translate(-50%,-160%);z-index:260;padding:12px 18px;background:var(--vx-ink);color:#fff;font:500 14px/1.3 'Instrument Sans','Heebo',Arial,sans-serif;border-radius:2px;display:flex;gap:10px;align-items:center;transition:transform .45s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 24px)}
+.vx-toast.on{transform:translate(-50%,0)}
+.vx-toast.ok::before{content:"✓";color:#E6CF94}
+.vx-toast.err{background:#A1231B}
+.vx-toast.err::before{content:"!";font-weight:700}
+
+/* trampa para bots en formularios (invisible para personas) */
+.vx-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+
+@media (prefers-reduced-motion:reduce){.vx-loader,.vx-loader div::after,.vx-cookie,.vx-toast,.vx-fab{animation:none!important;transition:none!important}}
+
+/* impresión: solo el contenido, en tinta oscura sobre blanco */
+@media print{
+  .vx-skip,.vx-progress,.vx-loader,.vx-fab,.vx-cookie,.vx-modal,.vx-toast,.vx-noprint,nav,header.top,.top,.dock,.frame,.deco,.bg,video,canvas,#dust{display:none!important}
+  *{animation:none!important;transition:none!important;box-shadow:none!important;text-shadow:none!important}
+  html,body{background:#fff!important;color:#111!important}
+  .reveal{opacity:1!important;transform:none!important}
+  .foil{background:none!important;color:#8E6F33!important;-webkit-text-fill-color:#8E6F33!important}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;color:#555;word-break:break-all}
+  .vx-legal a[href^="/"]::after{content:" (vitaexperience.studio" attr(href) ")";font-size:.85em;color:#555}
+  section,article,.feat,details{break-inside:avoid}
+  details{display:block}details>*{display:block!important}
+  @page{margin:18mm 16mm}
+}

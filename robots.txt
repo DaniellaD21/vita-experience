@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /detalles
+Disallow: /blindfate/
+Disallow: /invitacion
+
+Sitemap: https://vitaexperience.studio/sitemap.xml
