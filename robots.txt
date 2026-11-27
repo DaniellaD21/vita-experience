@@ -1,0 +1,22 @@
+# Vita Experience · todos los buscadores y asistentes de IA son bienvenidos
+User-agent: *
+Allow: /
+Disallow: /detalles.html
+Disallow: /blindfate/
+
+# Asistentes de IA (permitidos de forma explícita)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /detalles.html
+Disallow: /blindfate/
+
+Sitemap: https://vitaexperience.studio/sitemap.xml

@@ -1,0 +1,22 @@
+# Vita Experience
+
+> Luxury digital wedding invitations in Hebrew, Spanish and English. One invitation: every guest reads it in their own language and RSVPs in one tap. Made for families spread between Mexico, Israel and the rest of the world. Also known as Vita Experience Studio.
+
+- Languages: Hebrew (proper right-to-left), Spanish, English; other languages on request.
+- Includes: bespoke design, RSVP with plus-ones and menu choice, countdown, directions (Google Maps, Waze, Moovit), live couple's dashboard.
+- Optional: WhatsApp delivery and automatic reminders, Save the Date, QR table seating, extra events (civil ceremony, Shabbat Chatan, Henna, Kiddush, brunch).
+- How to order: answer two quick steps on the website and receive a personalised proposal by WhatsApp.
+
+## Pages
+
+- [Home (Spanish)](https://vitaexperience.studio/): live demo and proposal request
+- [Home (English)](https://vitaexperience.studio/en/)
+- [Home (Hebrew)](https://vitaexperience.studio/he/)
+- [Catalogue](https://vitaexperience.studio/catalogo/): invitation designs
+- [FAQ (Spanish and English)](https://vitaexperience.studio/preguntas/)
+- [Sample invitation, Spanish](https://vitaexperience.studio/invitacion.html)
+- [Sample invitation, English](https://vitaexperience.studio/invitacion-en.html)
+
+## Contact
+
+- WhatsApp: https://wa.me/525664674617
